@@ -4,3 +4,19 @@
   --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
+
+:root {
+  --site-header-height: 6.25rem;
+}
+
+.site-header {
+  height: var(--site-header-height);
+}
+
+.site-page {
+  padding-top: var(--site-header-height);
+}
+
+.home-hero {
+  min-height: calc(100dvh - var(--site-header-height));
+}

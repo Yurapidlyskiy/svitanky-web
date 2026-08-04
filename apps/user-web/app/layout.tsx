@@ -1,3 +1,4 @@
+import { SiteHeader } from '@/app/components/site-header/SiteHeader';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
@@ -27,7 +28,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased flex min-h-screen flex-col bg-background text-foreground`}
         suppressHydrationWarning
       >
-        {children}
+        <SiteHeader />
+
+        <main className="site-page flex-1 flex flex-col">{children}</main>
       </body>
     </html>
   );
