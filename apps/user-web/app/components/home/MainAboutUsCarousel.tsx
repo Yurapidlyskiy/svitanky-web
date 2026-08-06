@@ -11,15 +11,29 @@ const SLIDES = [
   { alt: 'Спільнота Світанків України 5', src: '/assets/poster-3.jpeg' },
 ];
 
-const DRAG_THRESHOLD = 24;
-const MAX_DRAG_OFFSET = 40;
+const POSITION_TIERS = [
+  { translateX: 0, scale: 1, opacity: 1, grayscale: 0 },
+  { translateX: 65, scale: 0.85, opacity: 1, grayscale: 100 },
+  { translateX: 110, scale: 0.7, opacity: 0, grayscale: 100 },
+  { translateX: 150, scale: 0.5, opacity: 0, grayscale: 100 },
+];
+const MAX_ABS_DIFF = POSITION_TIERS.length - 1;
+
+const DRAG_TRIGGER_RATIO = 0.18;
+const DEFAULT_SLIDE_UNIT = 260;
 
 export function AboutImageSlider() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const dragStartX = useRef<number | null>(null);
   const dragOffsetRef = useRef(0);
+
+  const getSlideUnit = useCallback(() => {
+    const width = containerRef.current?.clientWidth;
+    return width ? width * 0.55 : DEFAULT_SLIDE_UNIT;
+  }, []);
 
   const moveSlide = useCallback((direction: 1 | -1) => {
     setActiveSlide((current) => (current + direction + SLIDES.length) % SLIDES.length);
@@ -33,9 +47,10 @@ export function AboutImageSlider() {
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     if (dragStartX.current === null) return;
+    const maxOffset = getSlideUnit() * (MAX_ABS_DIFF - 0.5);
     const nextDragOffset = Math.max(
-      -MAX_DRAG_OFFSET,
-      Math.min(MAX_DRAG_OFFSET, event.clientX - dragStartX.current)
+      -maxOffset,
+      Math.min(maxOffset, event.clientX - dragStartX.current)
     );
     dragOffsetRef.current = nextDragOffset;
     setDragOffset(nextDragOffset);
@@ -44,8 +59,10 @@ export function AboutImageSlider() {
   const handlePointerEnd = () => {
     if (dragStartX.current === null) return;
 
-    if (dragOffsetRef.current <= -DRAG_THRESHOLD) moveSlide(1);
-    if (dragOffsetRef.current >= DRAG_THRESHOLD) moveSlide(-1);
+    const dragProgress = dragOffsetRef.current / getSlideUnit();
+
+    if (dragProgress <= -DRAG_TRIGGER_RATIO) moveSlide(1);
+    if (dragProgress >= DRAG_TRIGGER_RATIO) moveSlide(-1);
 
     dragStartX.current = null;
     dragOffsetRef.current = 0;
@@ -61,41 +78,29 @@ export function AboutImageSlider() {
       if (diff > half) diff -= SLIDES.length;
       if (diff < -half) diff += SLIDES.length;
 
-      const absDiff = Math.abs(diff);
+      const effectiveDiff = diff + dragOffset / getSlideUnit();
+      const absDiff = Math.min(Math.abs(effectiveDiff), MAX_ABS_DIFF);
+      const direction = effectiveDiff >= 0 ? 1 : -1;
 
-      let translateX = 0;
-      let scale = 1;
-      let zIndex = 50 - absDiff;
-      let opacity = 1;
-      let grayscale = 0;
-      const activeCardDragOffset = absDiff === 0 ? dragOffset : 0;
+      const lowerIndex = Math.floor(absDiff);
+      const upperIndex = Math.min(lowerIndex + 1, POSITION_TIERS.length - 1);
+      const progress = absDiff - lowerIndex;
+      const lower = POSITION_TIERS[lowerIndex]!;
+      const upper = POSITION_TIERS[upperIndex]!;
 
-      if (absDiff === 0) {
-        translateX = 0;
-        scale = 1;
-      } else if (absDiff === 1) {
-        translateX = diff > 0 ? 65 : -65;
-        scale = 0.85;
-        grayscale = 100;
-      } else if (absDiff === 2) {
-        translateX = diff > 0 ? 110 : -110;
-        scale = 0.7;
-        opacity = 0;
-        grayscale = 100;
-      } else {
-        translateX = diff > 0 ? 150 : -150;
-        scale = 0.5;
-        opacity = 0;
-        zIndex = 10;
-      }
+      const translateX =
+        direction * (lower.translateX + (upper.translateX - lower.translateX) * progress);
+      const scale = lower.scale + (upper.scale - lower.scale) * progress;
+      const opacity = lower.opacity + (upper.opacity - lower.opacity) * progress;
+      const grayscale = lower.grayscale + (upper.grayscale - lower.grayscale) * progress;
+      const zIndex = Math.round(30 - absDiff * 10);
 
       return {
         wrapper: {
-          transform: `translateX(calc(-50% + ${translateX}% + ${activeCardDragOffset}px)) scale(${scale})`,
+          transform: `translateX(calc(-50% + ${translateX}%)) scale(${scale})`,
           zIndex,
           opacity,
-          transition:
-            isDragging && absDiff === 0 ? 'none' : 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)',
+          transition: isDragging ? 'none' : 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)',
         },
         inner: {
           filter: `grayscale(${grayscale}%)`,
@@ -106,14 +111,13 @@ export function AboutImageSlider() {
         },
       };
     },
-    [activeSlide, dragOffset, isDragging]
+    [activeSlide, dragOffset, isDragging, getSlideUnit]
   );
 
   return (
     <section
       aria-label="Фотогалерея Світанків України"
       aria-roledescription="carousel"
-      // ЗМІНЕНО: Прибрали pb-12 (величезний відступ знизу) та залишили невеликий pb-2
       className="relative w-full pt-2 pb-2"
     >
       <div
@@ -124,6 +128,7 @@ export function AboutImageSlider() {
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
+        ref={containerRef}
         style={{ touchAction: 'pan-y' }}
       >
         <div className="absolute inset-0 h-full w-full">
@@ -162,9 +167,7 @@ export function AboutImageSlider() {
 
       <div
         aria-label="Перемикач слайдів"
-        // ЗМІНЕНО: Прибрали `absolute inset-x-0 bottom-0 mt-6`
-        // Замість цього просто використовуємо `mt-4` (або `mt-2`, якщо хочете ще ближче)
-        className="mt-4 flex justify-center gap-4"
+        className="mt-0 sm:-mt-2 md:-mt-4 flex justify-center gap-4 relative z-10"
         role="tablist"
       >
         {SLIDES.map((_, index) => (
@@ -173,9 +176,13 @@ export function AboutImageSlider() {
             aria-controls={`slide-${index}`}
             aria-label={`Перейти до фото ${index + 1}`}
             aria-selected={index === activeSlide}
-            className={`h-3 rounded-full border-2 border-slate-900 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-900 ${
-              index === activeSlide ? 'w-8 bg-slate-900' : 'w-3 bg-transparent hover:bg-slate-300'
+
+            className={`h-3 rounded-full border-2 border-[#004574] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#004574] ${
+              index === activeSlide
+                ? 'w-8 bg-[#004574]'
+                : 'w-3 bg-transparent hover:bg-[#004574]/20'
             }`}
+
             onClick={() => setActiveSlide(index)}
             role="tab"
             type="button"

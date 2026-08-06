@@ -1,6 +1,6 @@
 import { SiteHeader } from '@/app/components/site-header/SiteHeader';
 import type { Metadata } from 'next';
-import { Balsamiq_Sans } from 'next/font/google';
+import { Balsamiq_Sans, Nunito } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
@@ -17,6 +17,11 @@ const balsamiqSans = Balsamiq_Sans({
   variable: '--font-balsamiq',
   weight: ['400', '700'],
 });
+const nunito = Nunito({
+  subsets: ['cyrillic', 'latin'],
+  variable: '--font-nunito',
+  weight: ['800', '900'],
+});
 
 export const metadata: Metadata = {
   title: 'Дім Світанків',
@@ -31,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${balsamiqSans.variable} font-sans antialiased flex min-h-screen flex-col bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${balsamiqSans.variable} ${nunito.variable} font-sans antialiased flex min-h-screen flex-col bg-background text-foreground`}
         suppressHydrationWarning
       >
         <SiteHeader />
