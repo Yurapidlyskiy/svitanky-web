@@ -1,5 +1,6 @@
 import { SiteHeader } from '@/app/components/site-header/SiteHeader';
 import type { Metadata } from 'next';
+import { Balsamiq_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
@@ -10,6 +11,11 @@ const geistSans = localFont({
 const geistMono = localFont({
   src: './fonts/GeistMonoVF.woff',
   variable: '--font-geist-mono',
+});
+const balsamiqSans = Balsamiq_Sans({
+  subsets: ['cyrillic', 'latin'],
+  variable: '--font-balsamiq',
+  weight: ['400', '700'],
 });
 
 export const metadata: Metadata = {
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased flex min-h-screen flex-col bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${balsamiqSans.variable} font-sans antialiased flex min-h-screen flex-col bg-background text-foreground`}
         suppressHydrationWarning
       >
         <SiteHeader />

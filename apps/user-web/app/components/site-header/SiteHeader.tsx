@@ -7,7 +7,7 @@ import { PrimaryNavigation } from './PrimaryNavigation';
 
 export function SiteHeader() {
   return (
-    <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-background/95 backdrop-blur-sm">
+    <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-[#FFFDF8]/95 backdrop-blur-sm">
       <div className="flex h-full items-center justify-between gap-4 px-5 sm:px-8 lg:px-12 xl:px-[100px]">
         <Link
           aria-label="Світанки України — на головну"

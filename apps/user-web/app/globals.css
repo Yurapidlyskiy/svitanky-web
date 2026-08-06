@@ -3,6 +3,7 @@
 @theme inline {
   --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-balsamiq), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -19,4 +20,21 @@
 
 .home-hero {
   min-height: calc(100dvh - var(--site-header-height));
+}
+
+@keyframes map-marker-pulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+.map-marker-pulse {
+  animation: map-marker-pulse 2s ease-out infinite;
 }
