@@ -1,16 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export function HeaderContentText() {
+export function HeroSection() {
   return (
-    <section className="home-hero relative flex items-center overflow-hidden bg-[#FFFDF8]">
+    <section className="home-hero relative flex flex-col items-center justify-center overflow-hidden bg-[#FFFDF8]">
       <Image
         alt="img"
         className="object-cover object-[70%_38%]"
         fill
         priority
         sizes="100vw"
-        src="/assets/header_background.png"
+        src="/assets/images/home/hero/header_background.png"
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-linear-to-t from-[#FFFDF8] to-transparent" />
 

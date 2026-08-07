@@ -1,8 +1,8 @@
-import { AboutImageSlider } from './MainAboutUsCarousel';
+import { AboutImageSlider } from './AboutImageSlider';
 
-export function HomeAboutSection() {
+export function AboutSection() {
   return (
-    <section className="overflow-x-clip bg-[#FFFDF8] px-5 pb-20 sm:px-8 lg:px-12 lg:pb-28 xl:px-[12vw]">
+    <section className="flex flex-col overflow-x-clip bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]">
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-24 xl:-translate-x-16 xl:gap-28">
         <div className="max-w-xl">
           <h2 className="font-heading text-4xl font-black uppercase text-sky-800 sm:text-5xl">

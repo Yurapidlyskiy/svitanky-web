@@ -4,11 +4,11 @@ import Image from 'next/image';
 import { useCallback, useRef, useState } from 'react';
 
 const SLIDES = [
-  { alt: 'Учасники Світанків України 1', src: '/assets/poster-1.jpeg' },
-  { alt: 'Подія Світанків України 2', src: '/assets/poster-2.jpeg' },
-  { alt: 'Спільнота Світанків України 3', src: '/assets/poster-3.jpeg' },
-  { alt: 'Учасники Світанків України 4', src: '/assets/poster-1.jpeg' },
-  { alt: 'Спільнота Світанків України 5', src: '/assets/poster-3.jpeg' },
+  { alt: 'Учасники Світанків України 1', src: '/assets/images/shared/poster-1.jpeg' },
+  { alt: 'Подія Світанків України 2', src: '/assets/images/shared/poster-2.jpeg' },
+  { alt: 'Спільнота Світанків України 3', src: '/assets/images/shared/poster-3.jpeg' },
+  { alt: 'Учасники Світанків України 4', src: '/assets/images/shared/poster-1.jpeg' },
+  { alt: 'Спільнота Світанків України 5', src: '/assets/images/shared/poster-3.jpeg' },
 ];
 
 const POSITION_TIERS = [
@@ -118,7 +118,7 @@ export function AboutImageSlider() {
     <section
       aria-label="Фотогалерея Світанків України"
       aria-roledescription="carousel"
-      className="relative w-full pt-2 pb-2"
+      className="relative flex w-full flex-col pt-2 pb-2"
     >
       <div
         className={`relative mx-auto h-[300px] w-full touch-pan-y select-none sm:h-[400px] md:h-[450px] ${

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-export function HomeLocationSection() {
+export function LocationSection() {
   return (
-    <section className="bg-[#FFFDF8] pb-20 pt-6 lg:pb-28">
+    <section className="flex flex-col bg-[#FFFDF8]">
       <p className="mx-auto mb-10 text-center text-sm font-bold uppercase tracking-[0.18em] text-amber-500">
         Звідси починається наша справа
       </p>
@@ -13,7 +13,7 @@ export function HomeLocationSection() {
             className="h-auto w-full"
             height={1664}
             sizes="(min-width: 1024px) 60vw, 100vw"
-            src="/assets/map.png"
+            src="/assets/images/home/location/map.png"
             width={2588}
           />
           <div aria-label="Верхньодніпровськ на карті" className="absolute left-[61%] top-[51%]" role="img">
