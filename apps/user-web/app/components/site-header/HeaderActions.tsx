@@ -3,11 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-const languages = [
-  { code: 'UA', label: 'Українська' },
-  { code: 'EN', label: 'English' },
-  { code: 'IT', label: 'Italiano' },
-];
+import { siteLanguages as languages } from './siteNavigation';
 
 export function HeaderActions() {
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
