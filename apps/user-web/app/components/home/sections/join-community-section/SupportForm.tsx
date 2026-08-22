@@ -15,7 +15,7 @@ const labelClassName = 'text-sm font-bold text-[#004574]';
 const inputClassName =
   'w-full rounded-lg border border-[#C5DBF0] bg-white px-4 py-3 text-base text-slate-800 transition-colors placeholder:text-slate-400 focus:border-[#004574] focus:outline-none';
 const amountClassName =
-  'cursor-pointer rounded-xl border-2 px-5 py-2.5 text-base font-bold transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[#004574]';
+  'flex w-full cursor-pointer items-center justify-center rounded-xl border-2 px-5 py-2.5 text-center text-base font-bold transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[#004574]';
 
 export function SupportForm() {
   const [state, formAction, isPending] = useActionState(submitSupportForm, INITIAL_STATE);
@@ -30,7 +30,14 @@ export function SupportForm() {
 
       <fieldset>
         <legend className="sr-only">Оберіть суму підтримки</legend>
-        <div className="flex flex-wrap gap-3">
+        <div
+          className="grid grid-cols-2 gap-3"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setSelectedAmount(null);
+            }
+          }}
+        >
           {PRESET_AMOUNTS.map((amount) => (
             <label
               className={`${amountClassName} ${

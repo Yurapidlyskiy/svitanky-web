@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export function LocationSection() {
   return (
-    <section className="flex flex-col bg-[#FFFDF8]">
+    <section className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]">
       <p className="mx-auto mb-10 text-center text-sm font-bold uppercase tracking-[0.18em] text-amber-500">
         Звідси починається наша справа
       </p>
