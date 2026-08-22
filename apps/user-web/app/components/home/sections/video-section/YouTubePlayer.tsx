@@ -32,6 +32,7 @@ export function YouTubePlayer({ title, videoId }: YouTubePlayerProps) {
       onClick={() => setIsPlaying(true)}
       type="button"
     >
+      //
       <div className="absolute inset-0 overflow-hidden rounded-3xl bg-gray-200">
         <Image
           alt={title}
@@ -41,7 +42,6 @@ export function YouTubePlayer({ title, videoId }: YouTubePlayerProps) {
           src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
         />
       </div>
-
       <span className="absolute -bottom-5 -right-5 flex size-[72px] sm:-bottom-7 sm:-right-7 sm:size-[90px] items-center justify-center">
         <span
           className="absolute inset-0 hidden rounded-full border-2 border-[#004574] bg-transparent group-hover:block group-hover:animate-ping"
