@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 type ScrollToTopButtonProps = {
   revealFromId?: string;
@@ -8,6 +9,9 @@ type ScrollToTopButtonProps = {
 
 export function ScrollToTopButton({ revealFromId = 'values' }: ScrollToTopButtonProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => setIsMounted(true), []);
 
   useEffect(() => {
     const target = document.getElementById(revealFromId);
@@ -43,11 +47,13 @@ export function ScrollToTopButton({ revealFromId = 'values' }: ScrollToTopButton
     window.scrollTo({ behavior: prefersReducedMotion ? 'auto' : 'smooth', left: 0, top: 0 });
   }
 
-  return (
+  if (!isMounted) return null;
+
+  return createPortal(
     <button
       aria-hidden={!isVisible}
       aria-label="Нагору"
-      className={`fixed bottom-6 right-5 z-30 flex size-14 cursor-pointer items-center justify-center rounded-full border-2 border-amber-400 bg-[#FFFDF8] text-amber-400 shadow-md transition-[opacity,transform,background-color,color] duration-300 ease-out hover:bg-amber-400 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 sm:bottom-8 sm:right-8 ${
+      className={`fixed bottom-6 right-5 z-40 flex size-14 cursor-pointer items-center justify-center rounded-full border-2 border-amber-400 bg-[#FFFDF8] text-amber-400 shadow-md transition-[opacity,transform,background-color,color] duration-300 ease-out hover:bg-amber-400 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 sm:bottom-8 sm:right-8 ${
         isVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
       }`}
       onClick={scrollToTop}
@@ -66,6 +72,7 @@ export function ScrollToTopButton({ revealFromId = 'values' }: ScrollToTopButton
       >
         <path d="m6 15 6-6 6 6" />
       </svg>
-    </button>
+    </button>,
+    document.body
   );
 }
