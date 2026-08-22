@@ -1,3 +1,5 @@
+import { ScrollToTopButton } from '@/app/components/shared/ScrollToTopButton';
+
 import { ValueCard } from './ValueCard';
 
 const VALUES = [
@@ -29,7 +31,11 @@ const VALUES = [
 
 export function ValuesSection() {
   return (
-    <section aria-label="Наші цінності" className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]">
+    <section
+      aria-label="Наші цінності"
+      className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]"
+      id="values"
+    >
       <h2 className="text-center font-heading text-4xl font-black uppercase text-sky-800 sm:text-5xl">
         Наші цінності
       </h2>
@@ -38,6 +44,7 @@ export function ValuesSection() {
           <ValueCard description={value.description} icon={value.icon} key={value.title} title={value.title} />
         ))}
       </div>
+      <ScrollToTopButton />
     </section>
   );
 }

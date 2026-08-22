@@ -1,3 +1,4 @@
+import { SiteFooter } from '@/app/components/site-footer/SiteFooter';
 import { SiteHeader } from '@/app/components/site-header/SiteHeader';
 import type { Metadata } from 'next';
 import { Balsamiq_Sans, Nunito } from 'next/font/google';
@@ -42,6 +43,8 @@ export default function RootLayout({
         <SiteHeader />
 
         <main className="site-page flex-1 flex flex-col">{children}</main>
+
+        <SiteFooter />
       </body>
     </html>
   );

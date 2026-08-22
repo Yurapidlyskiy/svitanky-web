@@ -28,6 +28,7 @@ export function CommunityLifeSection() {
     <section
       aria-label="Ми створюємо не просто прихисток, а дім"
       className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]"
+      id="community-life"
     >
       <h2 className="font-heading text-2xl font-black uppercase text-sky-800 sm:text-3xl">
         Ми створюємо не просто прихисток, а дім

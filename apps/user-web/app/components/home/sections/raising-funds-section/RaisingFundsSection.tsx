@@ -38,6 +38,7 @@ export function RaisingFundsSection() {
     <section
       aria-label="На що ми збираємо кошти"
       className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]"
+      id="raising-funds"
     >
       <h2 className="text-center font-heading text-4xl font-black uppercase text-sky-800 sm:text-5xl">
         На що ми збираємо кошти?
