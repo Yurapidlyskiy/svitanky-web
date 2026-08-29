@@ -13,7 +13,7 @@ import { VideoSection } from './sections/video';
 
 export function HomePage() {
   return (
-    <div className="flex flex-col gap-14 bg-[#FFFDF8] [&>*]:relative [&>*]:z-0 lg:gap-16">
+    <div className="flex flex-col gap-14 bg-canvas [&>*]:relative [&>*]:z-0 lg:gap-16">
       <HeroSection />
       <ValuesHighlightsSection />
       <AboutSection />

@@ -11,11 +11,11 @@ const PERSONAL_DATA_LAW_URL = 'https://zakon.rada.gov.ua/laws/show/2297-17';
 
 const INITIAL_STATE: SupportFormState = { status: 'idle' };
 
-const labelClassName = 'text-sm font-bold text-[#004574]';
+const labelClassName = 'text-sm font-bold text-brand-navy';
 const inputClassName =
-  'w-full rounded-lg border border-[#C5DBF0] bg-white px-4 py-3 text-base text-slate-800 transition-colors placeholder:text-slate-400 focus:border-[#004574] focus:outline-none';
+  'w-full rounded-lg border border-brand-sky-pale bg-white px-4 py-3 text-base text-slate-800 transition-colors placeholder:text-slate-400 focus:border-brand-navy focus:outline-none';
 const amountClassName =
-  'flex w-full cursor-pointer items-center justify-center rounded-xl border-2 px-5 py-2.5 text-center text-base font-bold transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[#004574]';
+  'flex w-full cursor-pointer items-center justify-center rounded-xl border-2 px-5 py-2.5 text-center text-base font-bold transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand-navy';
 
 export function SupportForm() {
   const [state, formAction, isPending] = useActionState(submitSupportForm, INITIAL_STATE);
@@ -26,7 +26,7 @@ export function SupportForm() {
       action={formAction}
       className="flex flex-col gap-6 rounded-[32px] bg-white p-6 shadow-sm sm:p-9"
     >
-      <h3 className="text-2xl font-black text-[#004574] sm:text-3xl">Твоя підтримка Важлива</h3>
+      <h3 className="text-2xl font-black text-brand-navy sm:text-3xl">Твоя підтримка Важлива</h3>
 
       <fieldset>
         <legend className="sr-only">Оберіть суму підтримки</legend>
@@ -43,7 +43,7 @@ export function SupportForm() {
               className={`${amountClassName} ${
                 selectedAmount === amount
                   ? 'border-amber-400 bg-amber-400 text-white'
-                  : 'border-amber-400 bg-white text-[#004574] hover:bg-amber-50'
+                  : 'border-amber-400 bg-white text-brand-navy hover:bg-amber-50'
               }`}
               key={amount}
             >
@@ -62,8 +62,8 @@ export function SupportForm() {
           <label
             className={`${amountClassName} ${
               selectedAmount === CUSTOM_AMOUNT
-                ? 'border-[#A9CDEF] bg-[#A9CDEF] text-[#004574]'
-                : 'border-[#C5DBF0] bg-white text-slate-400 hover:bg-sky-50'
+                ? 'border-brand-sky bg-brand-sky text-brand-navy'
+                : 'border-brand-sky-pale bg-white text-slate-400 hover:bg-sky-50'
             }`}
           >
             <input
@@ -159,7 +159,7 @@ export function SupportForm() {
       <label className="group flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-slate-700">
         <div className="relative mt-0.5 flex size-5 shrink-0 items-center justify-center">
           <input className="peer sr-only" name="consent" required type="checkbox" />
-          <div className="absolute inset-0 rounded border border-[#C5DBF0] bg-white peer-checked:border-amber-400 peer-checked:bg-amber-400 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#004574]"></div>
+          <div className="absolute inset-0 rounded border border-brand-sky-pale bg-white peer-checked:border-amber-400 peer-checked:bg-amber-400 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-navy"></div>
           <svg
             className="relative z-10 hidden size-3.5 text-white peer-checked:block"
             fill="none"
@@ -173,7 +173,7 @@ export function SupportForm() {
         <span>
           Погоджуюсь на обробку персональних даних, відповідно до{' '}
           <a
-            className="font-bold text-[#004574] underline decoration-[#A9CDEF] underline-offset-2 hover:decoration-[#004574]"
+            className="font-bold text-brand-navy underline decoration-brand-sky underline-offset-2 hover:decoration-brand-navy"
             href={PERSONAL_DATA_LAW_URL}
             onClick={(e) => e.stopPropagation()}
             rel="noopener noreferrer"
@@ -201,7 +201,7 @@ export function SupportForm() {
           Регулярно
         </button>
         <button
-          className="rounded-xl bg-[#A9CDEF] px-6 py-4 text-base font-bold text-[#004574] transition-[background-color,transform] duration-200 ease-out hover:bg-[#96BFE8] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#004574] disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl bg-brand-sky px-6 py-4 text-base font-bold text-brand-navy transition-[background-color,transform] duration-200 ease-out hover:bg-[#96BFE8] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isPending}
           name="frequency"
           type="submit"

@@ -47,7 +47,7 @@ export function MobileNavigationMenu() {
     <div
       aria-label="Меню"
       aria-modal="true"
-      className="fixed inset-0 z-[60] flex flex-col bg-[#FFFDF8] animate-in fade-in-0 duration-200 lg:hidden"
+      className="fixed inset-0 z-[60] flex flex-col bg-canvas animate-in fade-in-0 duration-200 lg:hidden"
       role="dialog"
     >
       <div className="site-header flex shrink-0 items-center justify-between border-b border-slate-200 px-5 sm:px-8">
@@ -67,7 +67,7 @@ export function MobileNavigationMenu() {
         </Link>
         <button
           aria-label="Закрити меню"
-          className="-mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full text-[#004574] transition-colors duration-200 ease-out hover:bg-sky-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700"
+          className="-mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full text-brand-navy transition-colors duration-200 ease-out hover:bg-sky-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700"
           onClick={closeMenu}
           ref={closeButtonRef}
           type="button"
@@ -92,7 +92,7 @@ export function MobileNavigationMenu() {
           {primaryNavigation.map((item) => (
             <li key={item.href}>
               <Link
-                className={`${menuItemClassName} text-[#004574] hover:text-amber-500`}
+                className={`${menuItemClassName} text-brand-navy hover:text-amber-500`}
                 href={item.href}
                 onClick={closeMenu}
               >
@@ -108,7 +108,7 @@ export function MobileNavigationMenu() {
           {headerActions.map((item) => (
             <li key={item.label}>
               <Link
-                className={`${menuItemClassName} text-[#004574] hover:text-amber-500`}
+                className={`${menuItemClassName} text-brand-navy hover:text-amber-500`}
                 href={item.href}
                 onClick={closeMenu}
               >
@@ -129,7 +129,7 @@ export function MobileNavigationMenu() {
                 className={`${menuItemClassName} cursor-pointer ${
                   option.code === language
                     ? 'text-amber-500'
-                    : 'text-[#004574] hover:text-amber-500'
+                    : 'text-brand-navy hover:text-amber-500'
                 }`}
                 onClick={() => setLanguage(option.code)}
                 type="button"
@@ -148,7 +148,7 @@ export function MobileNavigationMenu() {
       <button
         aria-expanded={isOpen}
         aria-label="Відкрити меню"
-        className="-mr-2 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-[#004574] transition-colors duration-200 ease-out hover:bg-sky-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 lg:hidden"
+        className="-mr-2 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-brand-navy transition-colors duration-200 ease-out hover:bg-sky-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 lg:hidden"
         onClick={() => setIsOpen(true)}
         ref={openButtonRef}
         type="button"

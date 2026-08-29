@@ -1,5 +1,7 @@
 'use client';
 
+import { Section } from '@/shared/ui';
+
 import Image from 'next/image';
 import { useCallback, useRef, useState } from 'react';
 
@@ -58,10 +60,11 @@ export function GallerySection() {
   const dragPercent = (dragOffset / width) * 100;
 
   return (
-    <section
+    <Section
       aria-label="Галерея подій Світанків України"
       aria-roledescription="carousel"
-      className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[100px]"
+      className="flex flex-col"
+      width="wide"
     >
       <div
         className={`relative w-full touch-pan-y select-none overflow-hidden rounded-[32px] shadow-sm ${
@@ -112,7 +115,7 @@ export function GallerySection() {
             key={index}
             aria-label={`Перейти до фото ${index + 1}`}
             aria-selected={index === activeSlide}
-            className={`rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#004574] ${
+            className={`rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-navy ${
               index === activeSlide ? 'h-3.5 w-3.5 bg-amber-400' : 'h-2.5 w-2.5 bg-sky-200 hover:bg-sky-300'
             }`}
             onClick={() => setActiveSlide(index)}
@@ -121,6 +124,6 @@ export function GallerySection() {
           />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -43,14 +43,14 @@ export function YouTubePlayer({ title, videoId }: YouTubePlayerProps) {
       </div>
       <span className="absolute -bottom-5 -right-5 flex size-[72px] sm:-bottom-7 sm:-right-7 sm:size-[90px] items-center justify-center">
         <span
-          className="absolute inset-0 hidden rounded-full border-2 border-[#004574] bg-transparent group-hover:block group-hover:animate-ping"
+          className="absolute inset-0 hidden rounded-full border-2 border-brand-navy bg-transparent group-hover:block group-hover:animate-ping"
           style={{
             animationDuration: '2s',
             animationTimingFunction: 'cubic-bezier(0, 0.2, 0.8, 1)',
           }}
         />
         <span
-          className="absolute inset-0 hidden rounded-full border-2 border-[#004574] bg-transparent group-hover:block group-hover:animate-ping"
+          className="absolute inset-0 hidden rounded-full border-2 border-brand-navy bg-transparent group-hover:block group-hover:animate-ping"
           style={{
             animationDuration: '2s',
             animationDelay: '1s',
@@ -58,13 +58,12 @@ export function YouTubePlayer({ title, videoId }: YouTubePlayerProps) {
           }}
         />
 
-        <span className="relative flex h-full w-full items-center justify-center rounded-full bg-[#004574] shadow-lg transition-transform duration-200 ease-out group-hover:scale-105 group-active:scale-90">
+        <span className="relative flex h-full w-full items-center justify-center rounded-full bg-brand-navy shadow-lg transition-transform duration-200 ease-out group-hover:scale-105 group-active:scale-90">
           <span className="flex size-16 sm:size-[82px] items-center justify-center rounded-full bg-white">
             <span className="flex size-[52px] sm:size-[68px] items-center justify-center rounded-full bg-amber-400">
               <svg
                 aria-hidden="true"
-                className="ml-1 size-5 sm:size-7"
-                fill="#004574"
+                className="ml-1 size-5 sm:size-7 fill-brand-navy"
                 viewBox="0 0 24 24"
               >
                 <path d="M8 5v14l11-7Z" />

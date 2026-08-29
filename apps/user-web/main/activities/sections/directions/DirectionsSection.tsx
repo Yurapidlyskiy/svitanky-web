@@ -1,3 +1,5 @@
+import { Section, SectionHeading } from '@/shared/ui';
+
 import { DirectionCard, type ActivityImageFocalPoint } from './DirectionCard';
 import type { DirectionIconName } from './DirectionIcon';
 
@@ -54,16 +56,19 @@ const DIRECTIONS: ActivityDirection[] = [
 
 export function DirectionsSection() {
   return (
-    <section
+    <Section
       aria-labelledby="activity-directions-title"
-      className="bg-[#FFFDF8] px-5 pb-20 pt-4 sm:px-8 lg:px-12 xl:px-[100px]"
+      className="pb-20 pt-4"
+      width="wide"
     >
-      <h2
-        className="text-center font-heading text-3xl font-black uppercase text-[#1B4D7A] sm:text-4xl lg:text-5xl"
+      <SectionHeading
+        className="lg:text-5xl"
         id="activity-directions-title"
+        size="md"
+        tone="navy-muted"
       >
         Три напрями - одна місія
-      </h2>
+      </SectionHeading>
 
       <div className="mx-auto mt-12 flex max-w-6xl flex-col gap-8 sm:mt-14 lg:gap-10">
         {DIRECTIONS.map((direction, index) => (
@@ -75,6 +80,6 @@ export function DirectionsSection() {
           />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

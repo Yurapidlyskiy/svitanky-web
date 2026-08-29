@@ -1,3 +1,5 @@
+import { Section } from '@/shared/ui';
+
 import type { NewsFilter, NewsItem } from './types';
 
 import { NewsFilterTabs } from './NewsFilterTabs';
@@ -13,9 +15,10 @@ type NewsFeedSectionProps = {
 
 export function NewsFeedSection({ activeFilter, items, page, totalPages }: NewsFeedSectionProps) {
   return (
-    <section
+    <Section
       aria-label="Публікації спільноти"
-      className="flex flex-col gap-10 bg-[#FFFDF8] px-5 pb-20 pt-4 sm:px-8 lg:px-12 xl:px-[100px]"
+      className="flex flex-col gap-10 pb-20 pt-4"
+      width="wide"
     >
       <NewsFilterTabs activeFilter={activeFilter} />
 
@@ -24,6 +27,6 @@ export function NewsFeedSection({ activeFilter, items, page, totalPages }: NewsF
       </div>
 
       <NewsPagination activeFilter={activeFilter} page={page} totalPages={totalPages} />
-    </section>
+    </Section>
   );
 }

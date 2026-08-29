@@ -17,7 +17,7 @@ export function HeroActions({ className = '' }: HeroActionsProps) {
         Підтримати &gt;
       </Link>
       <Link
-        className={`${baseButtonClassName} bg-[#E7EEFC] text-sky-950 hover:bg-[#D9E4F8] hover:shadow-sky-300/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200`}
+        className={`${baseButtonClassName} bg-brand-sky-mist text-sky-950 hover:bg-[#D9E4F8] hover:shadow-sky-300/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-200`}
         href="/about"
       >
         Дізнатися більше &gt;

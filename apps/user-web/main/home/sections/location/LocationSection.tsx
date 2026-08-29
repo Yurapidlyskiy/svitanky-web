@@ -1,8 +1,10 @@
+import { Section, SectionHeading } from '@/shared/ui';
+
 import Image from 'next/image';
 
 export function LocationSection() {
   return (
-    <section className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]">
+    <Section className="flex flex-col">
       <p className="mx-auto mb-10 text-center text-sm font-bold uppercase tracking-[0.18em] text-amber-500">
         Звідси починається наша справа
       </p>
@@ -22,7 +24,9 @@ export function LocationSection() {
           </div>
         </div>
         <div className="max-w-md">
-          <h2 className="font-heading text-3xl font-black uppercase text-sky-800 sm:text-4xl">Верхньодніпровськ</h2>
+          <SectionHeading align="left" size="md">
+            Верхньодніпровськ
+          </SectionHeading>
           <div className="mt-7 space-y-5 text-base font-medium leading-relaxed text-slate-800 sm:text-lg">
             <p>
               Саме тут народилася спільнота «Світанки України» — місце, де діти та молодь знаходять підтримку,
@@ -35,6 +39,6 @@ export function LocationSection() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

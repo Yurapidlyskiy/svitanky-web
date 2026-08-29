@@ -177,10 +177,10 @@ export function AboutImageSlider() {
             aria-label={`Перейти до фото ${index + 1}`}
             aria-selected={index === activeSlide}
 
-            className={`h-3 rounded-full border-2 border-[#004574] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#004574] ${
+            className={`h-3 rounded-full border-2 border-brand-navy transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-navy ${
               index === activeSlide
-                ? 'w-8 bg-[#004574]'
-                : 'w-3 bg-transparent hover:bg-[#004574]/20'
+                ? 'w-8 bg-brand-navy'
+                : 'w-3 bg-transparent hover:bg-brand-navy/20'
             }`}
 
             onClick={() => setActiveSlide(index)}

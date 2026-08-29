@@ -1,3 +1,5 @@
+import { Section, SectionHeading } from '@/shared/ui';
+
 import { CommunityLifeRow } from './CommunityLifeRow';
 
 const ROWS = [
@@ -25,19 +27,19 @@ const ROWS = [
 
 export function CommunityLifeSection() {
   return (
-    <section
+    <Section
       aria-label="Ми створюємо не просто прихисток, а дім"
-      className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]"
+      className="flex flex-col"
       id="community-life"
     >
-      <h2 className="font-heading text-2xl font-black uppercase text-sky-800 sm:text-3xl">
+      <SectionHeading align="left" size="sm">
         Ми створюємо не просто прихисток, а дім
-      </h2>
+      </SectionHeading>
       <div className="mx-auto mt-8 flex max-w-5xl flex-col gap-6">
         {ROWS.map((row, index) => (
           <CommunityLifeRow image={row.image} key={row.text} reverse={index % 2 === 1} text={row.text} />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

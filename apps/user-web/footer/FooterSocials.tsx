@@ -30,13 +30,13 @@ function InstagramIcon() {
 export function FooterSocials() {
   return (
     <div>
-      <h2 className="text-base font-black uppercase tracking-wide text-[#F6C86E]">Ми в соц. мережах</h2>
+      <h2 className="text-base font-black uppercase tracking-wide text-brand-amber">Ми в соц. мережах</h2>
       <ul className="mt-6 flex items-center gap-5">
         {socialLinks.map((social) => (
           <li key={social.network}>
             <a
               aria-label={social.label}
-              className="block text-white transition-[color,transform] duration-200 ease-out hover:scale-110 hover:text-[#F6C86E] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F6C86E]"
+              className="block text-white transition-[color,transform] duration-200 ease-out hover:scale-110 hover:text-brand-amber focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-amber"
               href={social.href}
               rel="noopener noreferrer"
               target="_blank"

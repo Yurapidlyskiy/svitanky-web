@@ -15,7 +15,7 @@ export function TeamMemberCard({ name, photo, role }: TeamMemberCardProps) {
         ) : null}
       </div>
       <div>
-        <p className="text-base font-black leading-snug text-[#004574] sm:text-lg">{name}</p>
+        <p className="text-base font-black leading-snug text-brand-navy sm:text-lg">{name}</p>
         <p className="mt-1 text-sm leading-snug text-slate-600">{role}</p>
       </div>
     </article>

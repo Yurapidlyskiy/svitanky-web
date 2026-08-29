@@ -23,7 +23,7 @@ export function NewsFilterTabs({ activeFilter }: NewsFilterTabsProps) {
                 className={`inline-flex items-center rounded-full px-4 py-2.5 text-sm font-bold whitespace-nowrap transition-colors duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 sm:px-5 ${
                   isActive
                     ? 'bg-amber-400 text-white'
-                    : 'text-[#004574] hover:bg-amber-50 hover:text-[#003559]'
+                    : 'text-brand-navy hover:bg-amber-50 hover:text-[#003559]'
                 }`}
                 href={buildNewsHref(filter)}
               >

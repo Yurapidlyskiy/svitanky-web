@@ -29,7 +29,7 @@ export function NewsCard({ item, priority = false }: NewsCardProps) {
         <time className="text-sm text-slate-500" dateTime={item.publishedAt}>
           {formatNewsDate(item.publishedAt)}
         </time>
-        <h3 className="text-lg font-black leading-snug text-[#004574]">{item.title}</h3>
+        <h3 className="text-lg font-black leading-snug text-brand-navy">{item.title}</h3>
         <p className="text-sm leading-relaxed text-slate-600">{item.excerpt}</p>
         <Link
           aria-label={`Читати: ${item.title}`}

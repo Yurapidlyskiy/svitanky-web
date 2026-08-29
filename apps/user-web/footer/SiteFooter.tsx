@@ -13,7 +13,7 @@ export function SiteFooter() {
         <div className="flex justify-center">
           <Link
             aria-label="Світанки України — на головну"
-            className="rounded-sm transition-opacity duration-200 ease-out hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F6C86E]"
+            className="rounded-sm transition-opacity duration-200 ease-out hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-amber"
             href="/"
           >
             <Image
@@ -34,7 +34,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* <div className="bg-[#F5C767] px-5 py-2 text-center text-sm font-bold text-[#004574]">
+      {/* <div className="bg-[#F5C767] px-5 py-2 text-center text-sm font-bold text-brand-navy">
         Авторське право © {new Date().getFullYear()} – «СВІТАНКИ УКРАЇНИ»
       </div> */}
     </footer>

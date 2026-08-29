@@ -23,7 +23,7 @@ export function NewsPagination({ activeFilter, page, totalPages }: NewsPaginatio
       <div className="flex w-max max-w-full items-center gap-1 overflow-x-auto rounded-full bg-white px-3 py-2 shadow-sm sm:gap-3 sm:px-5">
         {hasPrevious ? (
           <Link
-            className={`${ARROW_CLASSNAME} text-[#004574] hover:bg-amber-50`}
+            className={`${ARROW_CLASSNAME} text-brand-navy hover:bg-amber-50`}
             href={buildNewsHref(activeFilter, page - 1)}
             rel="prev"
           >
@@ -47,7 +47,7 @@ export function NewsPagination({ activeFilter, page, totalPages }: NewsPaginatio
                   aria-current={isActive ? 'page' : undefined}
                   aria-label={`Сторінка ${pageNumber}`}
                   className={`inline-flex size-9 items-center justify-center rounded-full text-sm font-bold transition-colors duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 ${
-                    isActive ? 'bg-amber-100 text-amber-600' : 'text-[#004574] hover:bg-amber-50'
+                    isActive ? 'bg-amber-100 text-amber-600' : 'text-brand-navy hover:bg-amber-50'
                   }`}
                   href={buildNewsHref(activeFilter, pageNumber)}
                 >
@@ -60,7 +60,7 @@ export function NewsPagination({ activeFilter, page, totalPages }: NewsPaginatio
 
         {hasNext ? (
           <Link
-            className={`${ARROW_CLASSNAME} text-[#004574] hover:bg-amber-50`}
+            className={`${ARROW_CLASSNAME} text-brand-navy hover:bg-amber-50`}
             href={buildNewsHref(activeFilter, page + 1)}
             rel="next"
           >

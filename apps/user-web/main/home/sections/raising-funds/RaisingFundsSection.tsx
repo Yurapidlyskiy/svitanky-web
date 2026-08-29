@@ -1,3 +1,5 @@
+import { Section, SectionHeading } from '@/shared/ui';
+
 import { RaisingFundsCard } from './RaisingFundsCard';
 
 const ANSWER = 'Відчуття спільноти та нормального життя.';
@@ -35,17 +37,10 @@ const RAISING_FUNDS = [
 
 export function RaisingFundsSection() {
   return (
-    <section
-      aria-label="На що ми збираємо кошти"
-      className="flex flex-col bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]"
-      id="raising-funds"
-    >
-      <h2 className="text-center font-heading text-4xl font-black uppercase text-sky-800 sm:text-5xl">
+    <Section aria-label="На що ми збираємо кошти" className="flex flex-col" id="raising-funds">
+      <SectionHeading lede="Кожен ваш донат — це конкретна допомога, яка змінює життя">
         На що ми збираємо кошти?
-      </h2>
-      <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-slate-700">
-        Кожен ваш донат — це конкретна допомога, яка змінює життя
-      </p>
+      </SectionHeading>
       <div className="mx-auto mt-14 grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-3">
         {RAISING_FUNDS.map((item) => (
           <RaisingFundsCard
@@ -58,6 +53,6 @@ export function RaisingFundsSection() {
           />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -21,7 +21,7 @@ type DirectionCardProps = {
 
 const ACCENT_STYLES: Record<ActivityDirectionAccent, string> = {
   amber: 'bg-amber-400 text-white',
-  navy: 'bg-[#1B4D7A] text-white',
+  navy: 'bg-brand-navy-muted text-white',
   green: 'bg-[#5AA469] text-white',
 };
 
@@ -69,11 +69,11 @@ export function DirectionCard({
         </span>
 
         <div className="relative z-10 flex flex-col gap-2">
-          <h3 className="text-xl font-black text-[#004574]">{title}</h3>
+          <h3 className="text-xl font-black text-brand-navy">{title}</h3>
           <p className="max-w-md text-sm leading-relaxed text-slate-600">{description}</p>
           <Link
             aria-label={`Детальніше: ${title}`}
-            className="mt-1 inline-flex w-fit items-center gap-1 text-sm font-bold text-[#1B4D7A] transition-colors duration-200 ease-out hover:text-amber-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300"
+            className="mt-1 inline-flex w-fit items-center gap-1 text-sm font-bold text-brand-navy-muted transition-colors duration-200 ease-out hover:text-amber-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300"
             href={href}
           >
             Детальніше &gt;

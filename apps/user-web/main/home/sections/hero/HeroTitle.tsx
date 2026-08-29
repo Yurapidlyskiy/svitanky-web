@@ -4,12 +4,12 @@ type HeroTitleProps = {
 
 export function HeroTitle({ className = '' }: HeroTitleProps) {
   return (
-    <h1 className={`hero-title text-[#004574] ${className}`}>
+    <h1 className={`hero-title text-brand-navy ${className}`}>
       <span className="relative block md:pl-[0.7em]">
         <svg
           aria-hidden="true"
 
-          className="pointer-events-none absolute -left-[0.15em] md:-left-[0.35em] top-1/2 h-[1.25em] w-[1.2em] -translate-y-[70%] text-[#F9AF22]"
+          className="pointer-events-none absolute -left-[0.15em] md:-left-[0.35em] top-1/2 h-[1.25em] w-[1.2em] -translate-y-[70%] text-brand-amber-strong"
           fill="none"
           viewBox="0 0 170 220"
         >
@@ -27,7 +27,7 @@ export function HeroTitle({ className = '' }: HeroTitleProps) {
           ти
           <svg
             aria-hidden="true"
-            className="absolute inset-x-0 -bottom-[0.12em] -z-10 h-[0.19em] w-full text-[#F9AF22]"
+            className="absolute inset-x-0 -bottom-[0.12em] -z-10 h-[0.19em] w-full text-brand-amber-strong"
             fill="none"
             preserveAspectRatio="none"
             viewBox="0 0 100 12"

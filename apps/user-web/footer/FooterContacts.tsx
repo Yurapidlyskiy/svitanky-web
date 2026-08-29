@@ -5,7 +5,7 @@ const iconClassName = 'mt-0.5 size-6 shrink-0 text-white';
 export function FooterContacts() {
   return (
     <div>
-      <h2 className="text-base font-black uppercase tracking-wide text-[#F6C86E]">Контактні дані</h2>
+      <h2 className="text-base font-black uppercase tracking-wide text-brand-amber">Контактні дані</h2>
       <ul className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-white">
         <li className="flex items-start gap-3">
           <svg aria-hidden="true" className={iconClassName} fill="currentColor" viewBox="0 0 24 24">
