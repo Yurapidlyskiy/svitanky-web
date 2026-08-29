@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { DirectionIcon, type DirectionIconName } from './DirectionIcon';
+import { StatIcon, type StatIconName } from '@/shared/ui';
 
 type ActivityDirectionAccent = 'amber' | 'navy' | 'green';
 export type ActivityImageFocalPoint = 'center' | 'upper';
@@ -10,7 +10,7 @@ type DirectionCardProps = {
   accent?: ActivityDirectionAccent;
   description: string;
   href: string;
-  icon: DirectionIconName;
+  icon: StatIconName;
   image: { src: string; alt: string };
   imageFocalPoint?: ActivityImageFocalPoint;
   imageSide?: 'left' | 'right';
@@ -22,7 +22,7 @@ type DirectionCardProps = {
 const ACCENT_STYLES: Record<ActivityDirectionAccent, string> = {
   amber: 'bg-amber-400 text-white',
   navy: 'bg-brand-navy-muted text-white',
-  green: 'bg-[#5AA469] text-white',
+  green: 'bg-brand-green text-white',
 };
 
 export function DirectionCard({
@@ -65,7 +65,7 @@ export function DirectionCard({
         <span
           className={`relative z-10 flex size-14 shrink-0 items-center justify-center rounded-2xl sm:size-16 ${ACCENT_STYLES[accent]}`}
         >
-          <DirectionIcon name={icon} />
+          <StatIcon name={icon} />
         </span>
 
         <div className="relative z-10 flex flex-col gap-2">

@@ -1,14 +1,23 @@
 export const COMMUNITY_LIFE_ROWS = [
   {
-    image: { alt: 'Виховники та підлітки на території табору', src: '/assets/images/shared/poster-1.jpeg' },
+    image: {
+      alt: 'Виховники та підлітки на території табору',
+      src: '/assets/images/shared/poster-1.jpeg',
+    },
     text: 'Діти зростають у спільноті з виховниками, як у великій родині',
   },
   {
-    image: { alt: 'Діти на літньому таборі серед природи', src: '/assets/images/shared/poster-2.jpeg' },
+    image: {
+      alt: 'Діти на літньому таборі серед природи',
+      src: '/assets/images/shared/poster-2.jpeg',
+    },
     text: 'Проходять літні табори, формаційні зустрічі та тематичні школи',
   },
   {
-    image: { alt: 'Спільна молитва разом зі священником', src: '/assets/images/shared/poster-3.jpeg' },
+    image: {
+      alt: 'Спільна молитва разом зі священником',
+      src: '/assets/images/shared/poster-3.jpg',
+    },
     text: 'Щоденне життя сповнене сенсу: молитва, спільні трапези, обов’язки, ігри та щирі розмови',
   },
   {
@@ -16,7 +25,10 @@ export const COMMUNITY_LIFE_ROWS = [
     text: 'Є постійні кімнати для проживання, де панує затишок і безпека',
   },
   {
-    image: { alt: 'Діти обіймаються під час активності', src: '/assets/images/shared/poster-2.jpeg' },
+    image: {
+      alt: 'Діти обіймаються під час активності',
+      src: '/assets/images/shared/poster-2.jpeg',
+    },
     text: 'Формується нова генерація лідерів, які стануть світлом для України',
   },
 ];

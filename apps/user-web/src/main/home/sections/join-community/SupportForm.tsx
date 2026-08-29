@@ -2,9 +2,8 @@
 
 import { useActionState, useState } from 'react';
 
-import { submitSupportForm, type SupportFormState } from './actions';
-
-import { PERSONAL_DATA_LAW_URL, PRESET_AMOUNTS } from './content';
+import { PERSONAL_DATA_LAW_URL, PRESET_AMOUNTS } from '@/shared/config/support';
+import { submitSupportForm, type SupportFormState } from '@/shared/lib/supportForm';
 
 const CUSTOM_AMOUNT = 'custom';
 
