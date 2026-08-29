@@ -1,0 +1,1 @@
+export { ProjectsResultsSection } from './ProjectsResultsSection';

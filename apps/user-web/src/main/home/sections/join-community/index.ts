@@ -1,0 +1,1 @@
+export { JoinCommunitySection } from './JoinCommunitySection';
