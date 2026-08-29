@@ -1,5 +1,6 @@
-import { SiteFooter } from '@/app/components/site-footer/SiteFooter';
-import { SiteHeader } from '@/app/components/site-header/SiteHeader';
+import { SiteFooter } from '@/footer';
+import { SiteHeader } from '@/header';
+import { ScrollToTopButton } from '@/shared/ui';
 import type { Metadata } from 'next';
 import { Balsamiq_Sans, Nunito } from 'next/font/google';
 import localFont from 'next/font/local';
@@ -45,6 +46,8 @@ export default function RootLayout({
         <main className="site-page flex-1 flex flex-col">{children}</main>
 
         <SiteFooter />
+
+        <ScrollToTopButton />
       </body>
     </html>
   );

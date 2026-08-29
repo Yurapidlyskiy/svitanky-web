@@ -1,0 +1,1 @@
+export { ValuesHighlightsSection } from './ValuesHighlightsSection';

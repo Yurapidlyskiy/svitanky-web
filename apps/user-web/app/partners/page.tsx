@@ -1,10 +1,5 @@
-import { PageIntro } from '@/app/components/content/PageIntro';
+import { PartnersPage } from '@/main/partners';
 
-export default function PartnersPage() {
-  return (
-    <PageIntro
-      description="Тут буде інформація для організацій, благодійників і людей, які хочуть долучитися до спільної справи."
-      title="Партнерам"
-    />
-  );
+export default function Route() {
+  return <PartnersPage />;
 }

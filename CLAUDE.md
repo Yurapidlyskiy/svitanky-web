@@ -23,6 +23,7 @@
 ## Engineering Workflow
 Detailed rules live in `.claude/rules/`:
 - `architecture.md` — Container/Presentational pattern, feature folder structure.
+- `user-web-architecture.md` — **authoritative for `apps/user-web`**: Layout-Sliced Architecture (`app/` routes → `header/` · `main/<page>/sections/<section>/` · `footer/` → `shared/`), section folder anatomy, placement decision tree, naming, barrels, size limits, target tree. Read it before adding any file to `apps/user-web`. Does **not** apply to `admin-web`.
 - `frontend.md` — Server Actions, custom hooks, typing/import conventions.
 - `security.md` — auth boundaries, data validation, secrets handling.
 - `testing.md` — what to unit vs. integration test.

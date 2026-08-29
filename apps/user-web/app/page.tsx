@@ -1,5 +1,5 @@
-import { HomeSections } from '@/app/components/home/HomeSections';
+import { HomePage } from '@/main/home';
 
-export default function HomePage() {
-  return <HomeSections />;
+export default function Route() {
+  return <HomePage />;
 }
