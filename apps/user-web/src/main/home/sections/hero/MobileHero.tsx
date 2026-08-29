@@ -8,14 +8,16 @@ export function MobileHero() {
   return (
     <section className="relative isolate -mb-14 lg:hidden">
       <div className="sticky top-[var(--site-header-height)] z-0 h-[50dvh] w-full">
-        <Image
-          alt=""
-          className="object-cover object-[74%_center]"
-          fill
-          priority
-          sizes="100vw"
-          src="/assets/images/home/hero/header_background.png"
-        />
+        <div className="relative h-full w-full">
+          <Image
+            alt=""
+            className="object-cover object-[74%_center]"
+            fill
+            priority
+            sizes="100vw"
+            src="/assets/images/home/hero/header_background.png"
+          />
+        </div>
       </div>
 
       <div className="relative z-10 -mt-8 flex min-h-[51dvh] flex-col items-center gap-6 rounded-t-[32px] bg-canvas px-6 pb-10 pt-10 text-center">
