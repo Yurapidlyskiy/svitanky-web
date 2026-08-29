@@ -1,5 +1,7 @@
 import { Section } from '@/shared/ui';
 
+import type { ReactNode } from 'react';
+
 import type { NewsFilter, NewsItem } from './types';
 
 import { NewsFilterTabs } from './NewsFilterTabs';
@@ -8,12 +10,23 @@ import { NewsPagination } from './NewsPagination';
 
 type NewsFeedSectionProps = {
   activeFilter: NewsFilter;
+  /** Extra content rendered between the tabs and the grid — e.g. the camps highlight UI. */
+  highlight?: ReactNode;
   items: NewsItem[];
   page: number;
+  /** Hide the article grid and pagination — e.g. the projects highlight replaces it entirely. */
+  showGrid?: boolean;
   totalPages: number;
 };
 
-export function NewsFeedSection({ activeFilter, items, page, totalPages }: NewsFeedSectionProps) {
+export function NewsFeedSection({
+  activeFilter,
+  highlight,
+  items,
+  page,
+  showGrid = true,
+  totalPages,
+}: NewsFeedSectionProps) {
   return (
     <Section
       aria-label="Публікації спільноти"
@@ -22,11 +35,17 @@ export function NewsFeedSection({ activeFilter, items, page, totalPages }: NewsF
     >
       <NewsFilterTabs activeFilter={activeFilter} />
 
-      <div className="mx-auto w-full max-w-7xl">
-        <NewsGrid items={items} />
-      </div>
+      {highlight}
 
-      <NewsPagination activeFilter={activeFilter} page={page} totalPages={totalPages} />
+      {showGrid ? (
+        <>
+          <div className="mx-auto w-full max-w-7xl">
+            <NewsGrid items={items} />
+          </div>
+
+          <NewsPagination activeFilter={activeFilter} page={page} totalPages={totalPages} />
+        </>
+      ) : null}
     </Section>
   );
 }

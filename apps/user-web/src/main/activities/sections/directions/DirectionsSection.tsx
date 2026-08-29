@@ -6,11 +6,7 @@ import { DIRECTIONS } from './content';
 
 export function DirectionsSection() {
   return (
-    <Section
-      aria-labelledby="activity-directions-title"
-      className="pb-20 pt-4"
-      width="wide"
-    >
+    <Section aria-labelledby="activity-directions-title" className="pb-20 pt-4" width="wide">
       <SectionHeading
         className="lg:text-5xl"
         id="activity-directions-title"

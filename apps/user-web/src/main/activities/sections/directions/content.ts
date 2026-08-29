@@ -5,7 +5,7 @@ export const DIRECTIONS: ActivityDirection[] = [
     accent: 'amber',
     description: 'Регулярні зустрічі для спілкування, дружби та духовного зростання',
     href: '/activities#weekends',
-    icon: 'users',
+    icon: 'people',
     image: {
       alt: 'Учасники «Світанкових вікендів» на спільній зустрічі',
       src: '/assets/images/activities/weekends-activity.JPG',
@@ -33,7 +33,7 @@ export const DIRECTIONS: ActivityDirection[] = [
     icon: 'home-heart',
     image: {
       alt: 'Діти та молодь у Домі Світанків',
-      src: '/assets/images/shared/poster-3.jpeg',
+      src: '/assets/images/shared/poster-3.jpg',
     },
     order: '03',
     title: 'Дім Світанків',

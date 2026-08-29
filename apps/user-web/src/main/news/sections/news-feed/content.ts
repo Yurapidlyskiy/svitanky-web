@@ -3,7 +3,7 @@ import type { NewsCategory, NewsItem } from './types';
 const POSTERS = [
   '/assets/images/shared/poster-1.jpeg',
   '/assets/images/shared/poster-2.jpeg',
-  '/assets/images/shared/poster-3.jpeg',
+  '/assets/images/shared/poster-3.jpg',
 ];
 
 type CategorySeed = {
@@ -16,6 +16,18 @@ type CategorySeed = {
  * Seven entries per category so every tab has more than one page.
  */
 const CATEGORY_SEEDS: Record<NewsCategory, CategorySeed> = {
+  news: {
+    excerpt: 'Останні події та зміни в житті спільноти «Світанки України»',
+    titles: [
+      'Оновлення на сайті: нова сторінка проєктів',
+      'Ми відкрили збір на зимовий табір',
+      'Нова партнерка приєдналася до спільноти',
+      'Підсумки півріччя: що вдалося зробити',
+      'Оголошуємо новий склад команди',
+      'Оновили правила реєстрації на табори',
+      'Наша спільнота отримала відзнаку від партнерів',
+    ],
+  },
   announcements: {
     excerpt: 'Через спільні роздуми, молитву та навчання допомагаємо дітям',
     titles: [
@@ -62,18 +74,6 @@ const CATEGORY_SEEDS: Record<NewsCategory, CategorySeed> = {
       'Програма наставництва «Поруч»',
       'Проєкт підтримки багатодітних родин',
       'Спортивний проєкт для молоді громади',
-    ],
-  },
-  events: {
-    excerpt: 'Спільні зустрічі, богослужіння та свята нашої громади',
-    titles: [
-      'Свято подяки разом із родинами',
-      'Різдвяний ранок для дітей громади',
-      'Благодійний концерт на підтримку табору',
-      'День родини у парку',
-      'Молодіжна зустріч «Світло»',
-      'Великодня зустріч спільноти',
-      'Вечір вдячності для волонтерів',
     ],
   },
 };

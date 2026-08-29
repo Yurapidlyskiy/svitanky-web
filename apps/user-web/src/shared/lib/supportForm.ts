@@ -6,7 +6,8 @@ export type SupportFormState = {
 };
 
 /**
- * Server Action behind the "Стати другом Світанків" form.
+ * Server Action behind every donation form on the site (the home page's "Стати другом
+ * Світанків" form and the /support page's form both submit here).
  *
  * TODO: the payment backend is not wired up yet — this currently only does the
  * baseline server-side validation and always reports "not connected".
@@ -15,7 +16,8 @@ export async function submitSupportForm(
   _previousState: SupportFormState,
   formData: FormData
 ): Promise<SupportFormState> {
-  const rawAmount = formData.get('amount') === 'custom' ? formData.get('customAmount') : formData.get('amount');
+  const rawAmount =
+    formData.get('amount') === 'custom' ? formData.get('customAmount') : formData.get('amount');
   const frequency = formData.get('frequency');
   const hasConsent = formData.get('consent') === 'on';
 
