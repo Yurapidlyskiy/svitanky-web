@@ -7,13 +7,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import { GalleryArrowButton } from './GalleryArrowButton';
 
-const SLIDES = [
-  { alt: 'Момент зі Світанків України 1', src: '/assets/images/shared/poster-1.jpeg' },
-  { alt: 'Момент зі Світанків України 2', src: '/assets/images/shared/poster-2.jpeg' },
-  { alt: 'Момент зі Світанків України 3', src: '/assets/images/shared/poster-3.jpeg' },
-  { alt: 'Момент зі Світанків України 4', src: '/assets/images/shared/poster-1.jpeg' },
-  { alt: 'Момент зі Світанків України 5', src: '/assets/images/shared/poster-3.jpeg' },
-];
+import { GALLERY_SLIDES } from './content';
 
 const DRAG_TRIGGER_RATIO = 0.15;
 
@@ -26,7 +20,7 @@ export function GallerySection() {
   const dragOffsetRef = useRef(0);
 
   const moveSlide = useCallback((direction: 1 | -1) => {
-    setActiveSlide((current) => (current + direction + SLIDES.length) % SLIDES.length);
+    setActiveSlide((current) => (current + direction + GALLERY_SLIDES.length) % GALLERY_SLIDES.length);
   }, []);
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -84,10 +78,10 @@ export function GallerySection() {
             transition: isDragging ? 'none' : 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)',
           }}
         >
-          {SLIDES.map((slide, index) => (
+          {GALLERY_SLIDES.map((slide, index) => (
             <div
               aria-hidden={index !== activeSlide}
-              aria-label={`Слайд ${index + 1} з ${SLIDES.length}`}
+              aria-label={`Слайд ${index + 1} з ${GALLERY_SLIDES.length}`}
               aria-roledescription="slide"
               className="relative h-full w-full shrink-0"
               key={index}
@@ -110,7 +104,7 @@ export function GallerySection() {
       </div>
 
       <div aria-label="Перемикач слайдів" className="mt-6 flex justify-center gap-3" role="tablist">
-        {SLIDES.map((_, index) => (
+        {GALLERY_SLIDES.map((_, index) => (
           <button
             key={index}
             aria-label={`Перейти до фото ${index + 1}`}

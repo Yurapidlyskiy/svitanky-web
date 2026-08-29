@@ -4,10 +4,9 @@ import { useActionState, useState } from 'react';
 
 import { submitSupportForm, type SupportFormState } from './actions';
 
-const PRESET_AMOUNTS = [150, 350, 550, 1500];
-const CUSTOM_AMOUNT = 'custom';
+import { PERSONAL_DATA_LAW_URL, PRESET_AMOUNTS } from './content';
 
-const PERSONAL_DATA_LAW_URL = 'https://zakon.rada.gov.ua/laws/show/2297-17';
+const CUSTOM_AMOUNT = 'custom';
 
 const INITIAL_STATE: SupportFormState = { status: 'idle' };
 

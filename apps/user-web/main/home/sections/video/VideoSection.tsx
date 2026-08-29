@@ -2,8 +2,7 @@ import { Section } from '@/shared/ui';
 
 import { YouTubePlayer } from './YouTubePlayer';
 
-const VIDEO_ID = '2FYXWVmaa4M';
-const VIDEO_TITLE = 'Світанки України';
+import { VIDEO_ID, VIDEO_TITLE } from './content';
 
 export function VideoSection() {
   return (
