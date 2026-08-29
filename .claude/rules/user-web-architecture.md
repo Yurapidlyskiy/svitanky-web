@@ -44,22 +44,30 @@ other sections. `shared/` never imports from any of them.
 
 ```
 apps/user-web/
-├── app/                # ROUTES ONLY — the route manifest, nothing else
-├── header/             # everything rendered inside <header>
-├── main/               # everything rendered inside <main>, by page
-├── footer/             # everything rendered inside <footer>
-├── shared/             # reused by 2+ of the above — a folder appears when needed
-│   ├── ui/             #   reusable components (Section, SectionHeading, PageIntro)
-│   ├── config/         #   site-wide constants (contacts, socials)
-│   ├── styles/         #   globals.css — palette tokens and base CSS
-│   ├── fonts/          #   self-hosted font files
-│   ├── hooks/          #   reusable hooks            (not created yet)
-│   ├── lib/            #   pure helpers              (not created yet)
-│   └── types/          #   types crossing slices     (not created yet)
-└── public/assets/      # mirrors main/: images/home/, images/news/, …
+├── public/             # static assets, mirrors main/: images/home/, images/news/, …
+├── src/
+│   ├── app/            # ROUTES ONLY — the route manifest, nothing else
+│   ├── header/         # everything rendered inside <header>
+│   ├── main/           # everything rendered inside <main>, by page
+│   ├── footer/         # everything rendered inside <footer>
+│   └── shared/         # reused by 2+ of the above — a folder appears when needed
+│       ├── ui/         #   reusable components (Section, SectionHeading, PageIntro)
+│       ├── config/     #   site-wide constants (contacts, socials)
+│       ├── styles/     #   globals.css — palette tokens and base CSS
+│       ├── fonts/      #   self-hosted font files
+│       ├── hooks/      #   reusable hooks            (not created yet)
+│       ├── lib/        #   pure helpers              (not created yet)
+│       └── types/      #   types crossing slices     (not created yet)
+└── …                   # package.json, tsconfig.json, next.config.js, eslint.config.js
 ```
 
-`@/` maps to the app root, so imports read as the structure does:
+All source lives under `src/`, so the app root holds only `public/`, `src/` and
+config files. Next.js resolves `src/app` natively (`findDir` checks `./app`
+first, then `./src/app`); since there is no root `app/`, `src/app` is the
+router.
+
+`@/` maps to `src/` (`"@/*": ["./src/*"]` in `tsconfig.json`), so imports read as
+the structure does:
 
 ```ts
 import { SiteHeader } from '@/header';
@@ -87,8 +95,9 @@ merely _used_ by a route — including `globals.css` and the font files — belo
 in a slice, so that `app/` lists URLs and nothing else.
 
 **Never create a folder named `pages/`.** Next.js 16 still scans `./pages` and
-`./src/pages` (`findPagesDir`) and will enable the Pages Router from it. The job
-a `pages/` folder would do is already done by `main/`.
+`./src/pages` (`findPagesDir`) and will enable the Pages Router from it — and we
+use `src/`, so `src/pages/` is exactly the path it looks at. The job a `pages/`
+folder would do is already done by `main/`.
 
 ```
 app/
@@ -422,7 +431,7 @@ Adding `/camps`:
 - A folder named `components/` anywhere.
 - Anything in `app/` other than Next.js special files — no stylesheets, no
   assets, no helpers.
-- A folder named `pages/` anywhere in the app root or `src/`.
+- A folder named `pages/` in the app root or in `src/`.
 - A section importing from another section, or reaching past a barrel into
   another folder's internals.
 - `header/` or `footer/` importing from `main/`, or `shared/` importing from
@@ -459,7 +468,7 @@ point promote to full FSD by adding `entities/` and `features/` layers between
 ## Appendix A — Target tree
 
 ```
-apps/user-web/
+apps/user-web/src/
 │
 ├── app/
 │   ├── layout.tsx                    <SiteHeader/> · {children} · <SiteFooter/> · <ScrollToTopButton/>
