@@ -4,14 +4,14 @@ import { ScrollToTopButton } from '@/shared/ui';
 import type { Metadata } from 'next';
 import { Balsamiq_Sans, Nunito } from 'next/font/google';
 import localFont from 'next/font/local';
-import './globals.css';
+import '@/shared/styles/globals.css';
 
 const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
+  src: '../shared/fonts/GeistVF.woff',
   variable: '--font-geist-sans',
 });
 const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
+  src: '../shared/fonts/GeistMonoVF.woff',
   variable: '--font-geist-mono',
 });
 const balsamiqSans = Balsamiq_Sans({

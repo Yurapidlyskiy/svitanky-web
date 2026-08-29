@@ -44,13 +44,15 @@ other sections. `shared/` never imports from any of them.
 
 ```
 apps/user-web/
-├── app/                # ROUTES ONLY — thin Next.js files, nothing else
+├── app/                # ROUTES ONLY — the route manifest, nothing else
 ├── header/             # everything rendered inside <header>
 ├── main/               # everything rendered inside <main>, by page
 ├── footer/             # everything rendered inside <footer>
 ├── shared/             # reused by 2+ of the above — a folder appears when needed
 │   ├── ui/             #   reusable components (Section, SectionHeading, PageIntro)
 │   ├── config/         #   site-wide constants (contacts, socials)
+│   ├── styles/         #   globals.css — palette tokens and base CSS
+│   ├── fonts/          #   self-hosted font files
 │   ├── hooks/          #   reusable hooks            (not created yet)
 │   ├── lib/            #   pure helpers              (not created yet)
 │   └── types/          #   types crossing slices     (not created yet)
@@ -77,10 +79,21 @@ is what caused the current scatter.
 to a page component and, where needed, unwraps `searchParams`. That is its whole
 job.
 
+**The folder nesting here is not ours to choose.** In the App Router the folder
+path _is_ the URL: `app/news/page.tsx` is the declaration of `/news`, not a file
+that happens to sit in a folder. Route files cannot be relocated, and `app/`
+should be read as the site map rather than as source code. Everything that is
+merely _used_ by a route — including `globals.css` and the font files — belongs
+in a slice, so that `app/` lists URLs and nothing else.
+
+**Never create a folder named `pages/`.** Next.js 16 still scans `./pages` and
+`./src/pages` (`findPagesDir`) and will enable the Pages Router from it. The job
+a `pages/` folder would do is already done by `main/`.
+
 ```
 app/
 ├── layout.tsx              # <html>, fonts, metadata, header/footer shell
-├── globals.css
+├── favicon.ico             # Next.js resolves this by convention — it must live here
 ├── page.tsx                # "/"            → <HomePage />
 ├── news/page.tsx           # "/news"        → <NewsPage />
 ├── activities/page.tsx     # "/activities"  → <ActivitiesPage />
@@ -407,7 +420,9 @@ Adding `/camps`:
 ## 16. Forbidden
 
 - A folder named `components/` anywhere.
-- Anything in `app/` other than Next.js special files.
+- Anything in `app/` other than Next.js special files — no stylesheets, no
+  assets, no helpers.
+- A folder named `pages/` anywhere in the app root or `src/`.
 - A section importing from another section, or reaching past a barrel into
   another folder's internals.
 - `header/` or `footer/` importing from `main/`, or `shared/` importing from
@@ -448,7 +463,7 @@ apps/user-web/
 │
 ├── app/
 │   ├── layout.tsx                    <SiteHeader/> · {children} · <SiteFooter/> · <ScrollToTopButton/>
-│   ├── globals.css
+│   ├── favicon.ico
 │   ├── page.tsx                      → <HomePage/>
 │   ├── news/page.tsx                 → <NewsPage searchParams/>
 │   ├── activities/page.tsx           → <ActivitiesPage/>
@@ -511,7 +526,9 @@ apps/user-web/
 │
 └── shared/
     ├── ui/       Section · SectionHeading · PageIntro · ScrollToTopButton 'use client' · index.ts
-    └── config/   contacts.ts
+    ├── config/   contacts.ts
+    ├── styles/   globals.css
+    └── fonts/    GeistVF.woff · GeistMonoVF.woff
 
 `shared/hooks/`, `shared/lib/` and `shared/types/` do not exist yet — create one
 when a second slice actually needs it, per §7.
