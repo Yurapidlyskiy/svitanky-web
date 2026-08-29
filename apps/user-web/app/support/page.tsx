@@ -1,10 +1,5 @@
-import { PageIntro } from '@/app/components/content/PageIntro';
+import { SupportPage } from '@/main/support';
 
-export default function SupportPage() {
-  return (
-    <PageIntro
-      description="Тут буде безпечний спосіб підтримати «Світанки України», коли буде обрано платіжного провайдера."
-      title="Підтримати"
-    />
-  );
+export default function Route() {
+  return <SupportPage />;
 }

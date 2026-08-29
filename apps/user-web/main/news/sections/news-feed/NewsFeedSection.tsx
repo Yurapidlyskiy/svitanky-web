@@ -1,0 +1,29 @@
+import type { NewsFilter, NewsItem } from './types';
+
+import { NewsFilterTabs } from './NewsFilterTabs';
+import { NewsGrid } from './NewsGrid';
+import { NewsPagination } from './NewsPagination';
+
+type NewsFeedSectionProps = {
+  activeFilter: NewsFilter;
+  items: NewsItem[];
+  page: number;
+  totalPages: number;
+};
+
+export function NewsFeedSection({ activeFilter, items, page, totalPages }: NewsFeedSectionProps) {
+  return (
+    <section
+      aria-label="Публікації спільноти"
+      className="flex flex-col gap-10 bg-[#FFFDF8] px-5 pb-20 pt-4 sm:px-8 lg:px-12 xl:px-[100px]"
+    >
+      <NewsFilterTabs activeFilter={activeFilter} />
+
+      <div className="mx-auto w-full max-w-7xl">
+        <NewsGrid items={items} />
+      </div>
+
+      <NewsPagination activeFilter={activeFilter} page={page} totalPages={totalPages} />
+    </section>
+  );
+}

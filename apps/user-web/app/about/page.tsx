@@ -1,10 +1,5 @@
-import { PageIntro } from '@/app/components/content/PageIntro';
+import { AboutPage } from '@/main/about';
 
-export default function AboutPage() {
-  return (
-    <PageIntro
-      description="Тут з’явиться історія, місія, візія та цінності спільноти «Світанки України»."
-      title="Про нас"
-    />
-  );
+export default function Route() {
+  return <AboutPage />;
 }
