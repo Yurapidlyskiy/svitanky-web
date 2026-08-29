@@ -4,6 +4,18 @@
   --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-balsamiq), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand palette. Add a token here before a colour gets its second usage —
+     components must never carry a raw hex. */
+  --color-canvas: #fffdf8;
+  --color-sand: #fdf1d6;
+  --color-brand-navy: #004574;
+  --color-brand-navy-muted: #1b4d7a;
+  --color-brand-amber: #f6c86e;
+  --color-brand-amber-strong: #f9af22;
+  --color-brand-sky: #a9cdef;
+  --color-brand-sky-pale: #c5dbf0;
+  --color-brand-sky-mist: #e7eefc;
 }
 
 :root {

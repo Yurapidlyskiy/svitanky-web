@@ -15,11 +15,11 @@ type ActivityCardProps = {
 const ACCENT_STYLES: Record<ActivityCardAccent, { content: string; button: string }> = {
   amber: {
     content: 'bg-[#FCEFD2]',
-    button: 'bg-amber-400 text-[#004574] hover:bg-amber-300',
+    button: 'bg-amber-400 text-brand-navy hover:bg-amber-300',
   },
   navy: {
-    content: 'bg-[#E7EEFC]',
-    button: 'bg-[#1B4D7A] text-white hover:bg-[#163d61]',
+    content: 'bg-brand-sky-mist',
+    button: 'bg-brand-navy-muted text-white hover:bg-[#163d61]',
   },
 };
 
@@ -38,11 +38,11 @@ export function ActivityCard({ accent = 'navy', description, href, image, subtit
         />
       </div>
       <div className={`flex flex-1 flex-col gap-2 p-6 ${content}`}>
-        <h3 className="text-2xl font-black text-[#004574]">{title}</h3>
+        <h3 className="text-2xl font-black text-brand-navy">{title}</h3>
         <p className="text-base font-bold text-sky-700">{subtitle}</p>
         <p className="text-sm text-slate-600">{description}</p>
         <Link
-          className={`mt-4 inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-[background-color,transform] duration-200 ease-out hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#004574] ${button}`}
+          className={`mt-4 inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-[background-color,transform] duration-200 ease-out hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy ${button}`}
           href={href}
         >
           Детальніше

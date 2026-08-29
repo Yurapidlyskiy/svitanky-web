@@ -1,16 +1,13 @@
+import { Section, SectionHeading } from '@/shared/ui';
+
 import { AboutImageSlider } from './AboutImageSlider';
 
 export function AboutSection() {
   return (
-    <section
-      className="flex flex-col overflow-x-clip bg-[#FFFDF8] px-5 sm:px-8 lg:px-12 xl:px-[12vw]"
-      id="about"
-    >
+    <Section className="flex flex-col overflow-x-clip" id="about">
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-24 xl:-translate-x-16 xl:gap-28">
         <div className="max-w-xl">
-          <h2 className="font-heading text-4xl font-black uppercase text-sky-800 sm:text-5xl">
-            Про нас
-          </h2>
+          <SectionHeading align="left">Про нас</SectionHeading>
           <div className="mt-7 space-y-7 text-base font-medium leading-relaxed text-slate-800 sm:text-lg">
             <p>
               «Світанки України» — це християнська спільнота, яка об&apos;єднує дітей та молодь зі
@@ -27,6 +24,6 @@ export function AboutSection() {
         </div>
         <AboutImageSlider />
       </div>
-    </section>
+    </Section>
   );
 }

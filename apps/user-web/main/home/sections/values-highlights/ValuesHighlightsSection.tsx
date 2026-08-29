@@ -1,3 +1,5 @@
+import { Section } from '@/shared/ui';
+
 import { IconTextItem } from './IconTextItem';
 
 const values = [
@@ -25,9 +27,9 @@ const values = [
 
 export function ValuesHighlightsSection() {
   return (
-    <section
+    <Section
       aria-label="Цінності Світанків"
-      className="relative flex flex-col bg-[#FFFDF8] px-5 before:pointer-events-none before:absolute before:inset-x-0 before:-top-px before:z-10 before:h-0.5 before:bg-[#FFFDF8] sm:px-8 lg:px-12 lg:before:hidden xl:px-[12vw]"
+      className="relative flex flex-col before:pointer-events-none before:absolute before:inset-x-0 before:-top-px before:z-10 before:h-0.5 before:bg-canvas lg:before:hidden"
     >
       <div className="mx-auto grid max-w-6xl grid-cols-1 justify-items-center gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         {values.map((value) => (
@@ -36,6 +38,6 @@ export function ValuesHighlightsSection() {
           </IconTextItem>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

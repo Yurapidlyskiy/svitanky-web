@@ -1,3 +1,5 @@
+import { Section, SectionHeading } from '@/shared/ui';
+
 import { TeamMemberCard } from './TeamMemberCard';
 
 // TODO: replace `photo: undefined` with the real headshot ({ src, alt }) as
@@ -32,14 +34,8 @@ const TEAM = [
 
 export function TeamSection() {
   return (
-    <section
-      aria-label="Наша команда"
-      className="bg-[#FFFDF8] px-5 pb-16 sm:px-8 lg:px-12 lg:pb-20 xl:px-[12vw]"
-      id="team"
-    >
-      <h2 className="text-center font-heading text-4xl font-black uppercase text-sky-800 sm:text-5xl">
-        Наша команда
-      </h2>
+    <Section aria-label="Наша команда" className="pb-16 lg:pb-20" id="team">
+      <SectionHeading>Наша команда</SectionHeading>
       <div className="mx-auto mt-12 grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
         {TEAM.map((member) => (
           <TeamMemberCard
@@ -50,6 +46,6 @@ export function TeamSection() {
           />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
