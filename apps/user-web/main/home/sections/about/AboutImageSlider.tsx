@@ -3,13 +3,7 @@
 import Image from 'next/image';
 import { useCallback, useRef, useState } from 'react';
 
-const SLIDES = [
-  { alt: 'Учасники Світанків України 1', src: '/assets/images/shared/poster-1.jpeg' },
-  { alt: 'Подія Світанків України 2', src: '/assets/images/shared/poster-2.jpeg' },
-  { alt: 'Спільнота Світанків України 3', src: '/assets/images/shared/poster-3.jpeg' },
-  { alt: 'Учасники Світанків України 4', src: '/assets/images/shared/poster-1.jpeg' },
-  { alt: 'Спільнота Світанків України 5', src: '/assets/images/shared/poster-3.jpeg' },
-];
+import { ABOUT_SLIDES } from './content';
 
 const POSITION_TIERS = [
   { translateX: 0, scale: 1, opacity: 1, grayscale: 0 },
@@ -36,7 +30,7 @@ export function AboutImageSlider() {
   }, []);
 
   const moveSlide = useCallback((direction: 1 | -1) => {
-    setActiveSlide((current) => (current + direction + SLIDES.length) % SLIDES.length);
+    setActiveSlide((current) => (current + direction + ABOUT_SLIDES.length) % ABOUT_SLIDES.length);
   }, []);
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -73,10 +67,10 @@ export function AboutImageSlider() {
   const getSlideStyles = useCallback(
     (index: number) => {
       let diff = index - activeSlide;
-      const half = Math.floor(SLIDES.length / 2);
+      const half = Math.floor(ABOUT_SLIDES.length / 2);
 
-      if (diff > half) diff -= SLIDES.length;
-      if (diff < -half) diff += SLIDES.length;
+      if (diff > half) diff -= ABOUT_SLIDES.length;
+      if (diff < -half) diff += ABOUT_SLIDES.length;
 
       const effectiveDiff = diff + dragOffset / getSlideUnit();
       const absDiff = Math.min(Math.abs(effectiveDiff), MAX_ABS_DIFF);
@@ -132,14 +126,14 @@ export function AboutImageSlider() {
         style={{ touchAction: 'pan-y' }}
       >
         <div className="absolute inset-0 h-full w-full">
-          {SLIDES.map((slide, index) => {
+          {ABOUT_SLIDES.map((slide, index) => {
             const styles = getSlideStyles(index);
 
             return (
               <div
                 key={index}
                 aria-hidden={index !== activeSlide}
-                aria-label={`Слайд ${index + 1} з ${SLIDES.length}`}
+                aria-label={`Слайд ${index + 1} з ${ABOUT_SLIDES.length}`}
                 aria-roledescription="slide"
                 className="absolute left-1/2 top-1/2 aspect-[4/5] w-[180px] -translate-y-1/2 cursor-pointer overflow-hidden rounded-[32px] sm:w-[240px] md:w-[300px]"
                 onClick={() => setActiveSlide(index)}
@@ -170,7 +164,7 @@ export function AboutImageSlider() {
         className="mt-0 sm:-mt-2 md:-mt-4 flex justify-center gap-4 relative z-10"
         role="tablist"
       >
-        {SLIDES.map((_, index) => (
+        {ABOUT_SLIDES.map((_, index) => (
           <button
             key={index}
             aria-controls={`slide-${index}`}
