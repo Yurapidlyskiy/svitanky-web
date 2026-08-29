@@ -18,12 +18,12 @@ apply to `apps/admin-web` — see §17.
 [Feature-Sliced Design](https://feature-sliced.design), where the top-level
 slices come from the page layout instead of the domain.
 
-| Layer | FSD equivalent | Here |
-|---|---|---|
-| Routing | `app` | `app/` — Next.js routes, thin |
-| Site chrome | `widgets` | `header/`, `footer/` |
-| Page content | `pages` | `main/<page>/sections/<section>/` |
-| Cross-cutting | `shared` | `shared/{ui,hooks,lib,config,types}` |
+| Layer         | FSD equivalent | Here                                 |
+| ------------- | -------------- | ------------------------------------ |
+| Routing       | `app`          | `app/` — Next.js routes, thin        |
+| Site chrome   | `widgets`      | `header/`, `footer/`                 |
+| Page content  | `pages`        | `main/<page>/sections/<section>/`    |
+| Cross-cutting | `shared`       | `shared/{ui,hooks,lib,config,types}` |
 
 Inside a section the pattern is **Component Colocation**: a section owns its
 components, its copy, its types, its hooks and its Server Action. Nothing that
@@ -48,12 +48,12 @@ apps/user-web/
 ├── header/             # everything rendered inside <header>
 ├── main/               # everything rendered inside <main>, by page
 ├── footer/             # everything rendered inside <footer>
-├── shared/             # reused by 2+ of the above
-│   ├── ui/             #   reusable components (Section, PageIntro, …)
-│   ├── hooks/          #   reusable hooks
-│   ├── lib/            #   pure helpers
-│   ├── config/         #   site-wide constants (contacts, socials, routes)
-│   └── types/          #   types crossing slice boundaries
+├── shared/             # reused by 2+ of the above — a folder appears when needed
+│   ├── ui/             #   reusable components (Section, SectionHeading, PageIntro)
+│   ├── config/         #   site-wide constants (contacts, socials)
+│   ├── hooks/          #   reusable hooks            (not created yet)
+│   ├── lib/            #   pure helpers              (not created yet)
+│   └── types/          #   types crossing slices     (not created yet)
 └── public/assets/      # mirrors main/: images/home/, images/news/, …
 ```
 
@@ -171,8 +171,7 @@ export function HomePage() {
     <div className="flex flex-col gap-14 lg:gap-16">
       <HeroSection />
       <ValuesHighlightsSection />
-      <AboutSection />
-      …
+      <AboutSection />…
     </div>
   );
 }
@@ -217,9 +216,15 @@ Rules:
   imported across sections.
 - **Flat inside.** No subfolders in a section. A section that wants subfolders
   is two sections.
-- **`content.ts` holds every string and list the section renders.** No hardcoded
-  copy inside a component. This is what turns "move to a CMS" into a one-file
-  change per section, and it is why the file is named the same everywhere.
+- **`content.ts` holds the data the section renders** — every list, and any
+  string used more than once. That is the part destined for a CMS or database,
+  so isolating it turns that migration into a one-file change per section, and
+  it is why the file is named the same in every section.
+  A section's own title, rendered once in JSX, may stay in the markup: moving a
+  single-use string out costs a file hop and buys nothing.
+  What stays in the component is **behaviour and looks** — animation tiers, drag
+  thresholds, form sentinels, class-name constants. `content.ts` is what the
+  section says, not how it works.
 - **A section-local hook stays in the section.** Moving it to `shared/hooks/`
   would recreate the exact search problem this structure exists to remove.
   Promote it only when a second section uses it.
@@ -293,18 +298,18 @@ interactive part into a child instead.
 
 ## 10. Naming
 
-| Thing | Convention | Example |
-|---|---|---|
-| Slice folder | lowercase | `header/`, `main/`, `shared/` |
-| Page folder | `kebab-case`, matches the URL segment | `main/activities/` |
-| Page component | `<Page>Page.tsx` | `NewsPage.tsx` |
-| Section folder | `kebab-case`, no `-section` suffix | `sections/raising-funds/` |
-| Section root | `<Folder>Section.tsx` in PascalCase | `RaisingFundsSection.tsx` |
-| Component file | `PascalCase.tsx`, one component per file | `NewsCard.tsx` |
-| Section data | always `content.ts`, exports `SCREAMING_SNAKE` | `content.ts` → `VALUES` |
-| Section types | always `types.ts` | |
-| Hook file | `useThing.ts` | `useNewsFilters.ts` |
-| Section anchor | `id` = the section folder name | `id="raising-funds"` |
+| Thing          | Convention                                     | Example                       |
+| -------------- | ---------------------------------------------- | ----------------------------- |
+| Slice folder   | lowercase                                      | `header/`, `main/`, `shared/` |
+| Page folder    | `kebab-case`, matches the URL segment          | `main/activities/`            |
+| Page component | `<Page>Page.tsx`                               | `NewsPage.tsx`                |
+| Section folder | `kebab-case`, no `-section` suffix             | `sections/raising-funds/`     |
+| Section root   | `<Folder>Section.tsx` in PascalCase            | `RaisingFundsSection.tsx`     |
+| Component file | `PascalCase.tsx`, one component per file       | `NewsCard.tsx`                |
+| Section data   | always `content.ts`, exports `SCREAMING_SNAKE` | `content.ts` → `VALUES`       |
+| Section types  | always `types.ts`                              |                               |
+| Hook file      | `useThing.ts`                                  | `useNewsFilters.ts`           |
+| Section anchor | `id` = the section folder name                 | `id="raising-funds"`          |
 
 The folder and the file inside must not repeat the same word:
 `hero/HeroSection.tsx` ✅, `hero-section/HeroSection.tsx` ❌.
@@ -332,9 +337,12 @@ Exports are **named**, never default — except `page.tsx`, `layout.tsx`,
 ## 12. Styling
 
 - Tailwind utilities inline. No CSS modules.
-- **Never hardcode a hex colour in a component.** The page ground is
-  `bg-canvas`, the brand navy is `text-brand-navy`. Add the token to
-  `app/globals.css` under `@theme inline` before the second usage.
+- **A colour used more than once must be a token, never a hex.** The page ground
+  is `bg-canvas`, the brand navy is `text-brand-navy`; the palette lives in
+  `app/globals.css` under `@theme inline`. Add the token the moment a colour
+  gets its second usage — the first usage may stay an arbitrary value.
+  A handful of one-off decorative shades are still inline for exactly that
+  reason; promote one the moment you reach for it again.
 - Repeated layout belongs in `<Section>` / `<SectionHeading>`, not in a copied
   class string.
 - `globals.css` is only for what Tailwind cannot express: font variables,
@@ -407,7 +415,8 @@ Adding `/camps`:
 - Copy or data hardcoded in the component that renders it, instead of `content.ts`.
 - A single-use component or hook placed in `shared/`.
 - Subfolders inside a section folder.
-- A raw hex colour, or a copy-pasted section-shell class string, in a component.
+- A hex colour used twice without a token, or a copy-pasted section-shell class
+  string, in a component.
 - A folder whose name repeats the name of the file inside it.
 - Default exports outside Next.js special files.
 
@@ -502,36 +511,22 @@ apps/user-web/
 │
 └── shared/
     ├── ui/       Section · SectionHeading · PageIntro · ScrollToTopButton 'use client' · index.ts
-    ├── hooks/
-    ├── lib/
-    ├── config/   site.ts · contacts.ts · routes.ts
-    └── types/
+    └── config/   contacts.ts
+
+`shared/hooks/`, `shared/lib/` and `shared/types/` do not exist yet — create one
+when a second slice actually needs it, per §7.
 ```
 
-## Appendix B — Migration map (current → target)
+## Appendix B — Known deviations
 
-| Current | Target |
-|---|---|
-| `app/page.tsx` (body) | `main/home/HomePage.tsx`; route file shrinks to 5 lines |
-| `app/components/home/HomeSections.tsx` | merged into `main/home/HomePage.tsx` |
-| `app/components/home/sections/<x>-section/*` | `main/home/sections/<x>/*` |
-| inline `VALUES` / `ACTIVITIES` / `RAISING_FUNDS` / `DIRECTIONS` consts | `content.ts` in the owning section |
-| `app/components/home/sections/join-community-section/actions.ts` | `main/home/sections/join-community/actions.ts` |
-| `app/components/site-header/*` | `header/*` |
-| `app/components/site-header/siteNavigation.ts` | `header/navigation.ts` (+ shared parts to `shared/config/`) |
-| `app/components/site-footer/*` | `footer/*` |
-| `app/components/site-footer/footerNavigation.ts` | `footer/navigation.ts` + `shared/config/contacts.ts` |
-| `app/components/shared/ScrollToTopButton.tsx` | `shared/ui/ScrollToTopButton.tsx`, rendered by `app/layout.tsx` |
-| `app/components/content/PageIntro.tsx` | `shared/ui/PageIntro.tsx` |
-| `app/news/page.tsx` (body) | `main/news/NewsPage.tsx` |
-| `app/news/components/*` | `main/news/sections/news-feed/*` |
-| `app/news/data/newsItems.ts` | `main/news/sections/news-feed/content.ts` |
-| `app/news/lib/newsQuery.ts` | `main/news/sections/news-feed/newsQuery.ts` |
-| `app/news/types/news.ts` | `main/news/sections/news-feed/types.ts` |
-| `app/activities/components/*` | `main/activities/sections/directions/*` |
-| `app/about|partners|support/page.tsx` (body) | `main/<page>/<Page>Page.tsx` |
-| — (new) | `shared/ui/Section.tsx`, `shared/ui/SectionHeading.tsx` |
-| `bg-[#FFFDF8]` × 18, `#1B4D7A` | `@theme inline` tokens in `app/globals.css` |
+The migration to this structure is complete (commits `refactor(user-web): …`).
+What still does not meet the rules above, and is fair game to fix:
 
-`@/*` → `./*` in `tsconfig.json` already resolves every path above; no config
-change is needed.
+| Deviation              | Where                                               | Rule                                                                    |
+| ---------------------- | --------------------------------------------------- | ----------------------------------------------------------------------- |
+| 214 lines              | `main/home/sections/join-community/SupportForm.tsx` | §14, 150-line limit — split the amount picker and the consent block out |
+| 188 lines              | `main/home/sections/about/AboutImageSlider.tsx`     | §14 — the drag maths wants to be a `useImageSlider` hook in the section |
+| 174 lines              | `header/MobileNavigationMenu.tsx`                   | §14 — the language switcher is a component of its own                   |
+| 12 one-off hexes       | gradients and decorative fills across `main/`       | §12 — each has a single usage; tokenise on the second                   |
+| No `Section` wrapper   | `main/home/sections/hero/*`                         | Deliberate: the hero is full-bleed and has no page gutter               |
+| `id="values"` coupling | `shared/ui/ScrollToTopButton.tsx`                   | The button reveals itself from an anchor on the home page only          |
