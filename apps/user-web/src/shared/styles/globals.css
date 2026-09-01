@@ -71,3 +71,71 @@ section[id] {
 .map-marker-pulse {
   animation: map-marker-pulse 2s ease-out infinite;
 }
+
+/* Scroll-reveal: used by <Reveal> (shared/ui) to fade + slide content in once. */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes sun-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sun-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.sun-rays {
+  animation: sun-spin 60s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.sun-core-pulse {
+  animation: sun-pulse 5s ease-in-out infinite;
+}
+
+/* Journey timeline: the connecting line grows from the left once revealed. */
+.journey-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.journey-line.is-visible {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .journey-line {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+
+  .sun-rays,
+  .sun-core-pulse {
+    animation: none;
+  }
+}

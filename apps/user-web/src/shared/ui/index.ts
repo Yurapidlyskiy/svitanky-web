@@ -1,6 +1,7 @@
 export type { IconFeatureCardTone } from './IconFeatureCard';
 export { IconFeatureCard } from './IconFeatureCard';
 export { PageIntro } from './PageIntro';
+export { Reveal } from './Reveal';
 export { ScrollToTopButton } from './ScrollToTopButton';
 export { Section } from './Section';
 export { SectionHeading } from './SectionHeading';

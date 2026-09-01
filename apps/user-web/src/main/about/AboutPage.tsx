@@ -1,10 +1,15 @@
-import { PageIntro } from '@/shared/ui';
+import { AboutHeroSection } from './sections/hero';
+import { JourneySection } from './sections/journey';
+import { StorySection } from './sections/story';
+import { TeamSection } from './sections/team';
 
 export function AboutPage() {
   return (
-    <PageIntro
-      description="Тут з’явиться історія, місія, візія та цінності спільноти «Світанки України»."
-      title="Про нас"
-    />
+    <>
+      <AboutHeroSection />
+      <JourneySection />
+      <StorySection />
+      <TeamSection />
+    </>
   );
 }
