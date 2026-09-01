@@ -1,0 +1,1 @@
+export { BecomePartnerSection } from './BecomePartnerSection';

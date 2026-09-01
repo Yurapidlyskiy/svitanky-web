@@ -21,11 +21,9 @@ type IconFeatureCardProps = {
   icon: StatIconName;
   title?: string;
   tone: IconFeatureCardTone;
-  /** Pastel card background tinted to match the icon. Omit for a plain white card. */
   tinted?: boolean;
 };
 
-/** An icon-square + copy card — used for both the projects and support-page impact grids. */
 export function IconFeatureCard({
   description,
   icon,
@@ -35,7 +33,7 @@ export function IconFeatureCard({
 }: IconFeatureCardProps) {
   return (
     <div
-      className={`flex flex-col items-center gap-6 rounded-2xl p-8 text-center ${
+      className={`flex h-full flex-col items-center gap-6 rounded-2xl p-8 text-center ${
         tinted ? CARD_TONE_CLASS[tone] : 'bg-white shadow-sm'
       }`}
     >

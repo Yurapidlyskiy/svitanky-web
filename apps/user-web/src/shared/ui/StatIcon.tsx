@@ -1,6 +1,19 @@
-export type StatIconName = 'heart' | 'home' | 'home-heart' | 'people' | 'person' | 'sun' | 'tent';
+export type StatIconName =
+  | 'briefcase'
+  | 'heart'
+  | 'home'
+  | 'home-heart'
+  | 'people'
+  | 'person'
+  | 'sun'
+  | 'tent';
 
 const ICON_PATHS: Record<StatIconName, string[]> = {
+  briefcase: [
+    'M4 7h16v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7Z',
+    'M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+    'M3 12h18',
+  ],
   heart: [
     'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z',
   ],
