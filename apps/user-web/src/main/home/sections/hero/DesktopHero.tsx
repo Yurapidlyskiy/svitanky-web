@@ -8,14 +8,16 @@ import { HeroWave } from './HeroWave';
 export function DesktopHero() {
   return (
     <section className="home-hero relative hidden flex-col items-center justify-center overflow-hidden bg-canvas lg:flex">
-      <Image
-        alt=""
-        className="z-0 object-cover object-[75%_50%]"
-        fill
-        priority
-        sizes="100vw"
-        src="/assets/images/home/hero/header-bg.png"
-      />
+      <div className="absolute inset-x-0 -top-[20%] bottom-0 z-0">
+        <Image
+          alt=""
+          className="object-cover object-[75%_50%]"
+          fill
+          priority
+          sizes="100vw"
+          src="/assets/images/home/hero/header-bg.png"
+        />
+      </div>
 
       <HeroWave />
 
