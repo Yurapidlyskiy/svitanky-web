@@ -548,11 +548,10 @@ when a second slice actually needs it, per §7.
 The migration to this structure is complete (commits `refactor(user-web): …`).
 What still does not meet the rules above, and is fair game to fix:
 
-| Deviation              | Where                                               | Rule                                                                    |
-| ---------------------- | --------------------------------------------------- | ----------------------------------------------------------------------- |
-| 214 lines              | `main/home/sections/join-community/SupportForm.tsx` | §14, 150-line limit — split the amount picker and the consent block out |
-| 188 lines              | `main/home/sections/about/AboutImageSlider.tsx`     | §14 — the drag maths wants to be a `useImageSlider` hook in the section |
-| 174 lines              | `header/MobileNavigationMenu.tsx`                   | §14 — the language switcher is a component of its own                   |
-| 12 one-off hexes       | gradients and decorative fills across `main/`       | §12 — each has a single usage; tokenise on the second                   |
-| No `Section` wrapper   | `main/home/sections/hero/*`                         | Deliberate: the hero is full-bleed and has no page gutter               |
-| `id="values"` coupling | `shared/ui/ScrollToTopButton.tsx`                   | The button reveals itself from an anchor on the home page only          |
+| Deviation            | Where                                               | Rule                                                                    |
+| -------------------- | --------------------------------------------------- | ----------------------------------------------------------------------- |
+| 214 lines            | `main/home/sections/join-community/SupportForm.tsx` | §14, 150-line limit — split the amount picker and the consent block out |
+| 188 lines            | `main/home/sections/about/AboutImageSlider.tsx`     | §14 — the drag maths wants to be a `useImageSlider` hook in the section |
+| 174 lines            | `header/MobileNavigationMenu.tsx`                   | §14 — the language switcher is a component of its own                   |
+| 12 one-off hexes     | gradients and decorative fills across `main/`       | §12 — each has a single usage; tokenise on the second                   |
+| No `Section` wrapper | `main/home/sections/hero/*`                         | Deliberate: the hero is full-bleed and has no page gutter               |
