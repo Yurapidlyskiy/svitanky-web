@@ -15,11 +15,11 @@ export function HeaderActions() {
   }
 
   return (
-    <div className="hidden items-center gap-3 lg:flex">
+    <div className="hidden items-center gap-2 lg:flex xl:gap-3">
       <div className="group relative shrink-0">
         <Link
           aria-label="Друзі Світанків"
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-400 text-white shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:scale-105 hover:bg-amber-500 hover:shadow-md hover:shadow-amber-400/30 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-amber-400 xl:h-12 xl:w-12 text-white shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:scale-105 hover:bg-amber-500 hover:shadow-md hover:shadow-amber-400/30 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
           href="/support"
         >
           <svg
@@ -43,7 +43,7 @@ export function HeaderActions() {
         </span>
       </div>
       <Link
-        className="flex h-12 items-center rounded-full bg-amber-400 px-8 text-sm font-bold text-white shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:scale-105 hover:bg-amber-500 hover:shadow-md hover:shadow-amber-400/30 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+        className="flex h-11 items-center whitespace-nowrap rounded-full bg-amber-400 px-6 text-sm font-bold text-white xl:h-12 xl:px-8 shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:scale-105 hover:bg-amber-500 hover:shadow-md hover:shadow-amber-400/30 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
         href="/support"
       >
         Підтримати
@@ -52,7 +52,7 @@ export function HeaderActions() {
         <button
           aria-expanded={isLanguageMenuOpen}
           aria-haspopup="menu"
-          className="flex h-12 w-20 shrink-0 items-center justify-center gap-1.5 rounded-full border-2 border-sky-800 text-sm font-bold text-sky-800 transition-all duration-200 ease-out hover:scale-105 hover:bg-sky-50 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700"
+          className="flex h-11 w-[68px] shrink-0 items-center justify-center gap-1.5 rounded-full border-2 border-sky-800 xl:h-12 xl:w-20 text-sm font-bold text-sky-800 transition-all duration-200 ease-out hover:scale-105 hover:bg-sky-50 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700"
           onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)}
           type="button"
         >
