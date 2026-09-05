@@ -16,7 +16,7 @@ export function HeroSubtitle({ className = '' }: HeroSubtitleProps) {
       >
         <path
           d="M35.2 57.8C30.2 51.7 10.5 37.4 8.3 21.6C6.9 11.5 12.1 5.7 20.2 5.3C27.8 4.9 32.5 10.5 35.1 17.3C38.3 9.9 44.2 4.1 52.1 5.5C60.4 7 64.5 13.3 62.8 23.4C60.3 38.3 41 53.6 35.2 57.8Z"
-          stroke="#FFC107"
+          stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="10"
