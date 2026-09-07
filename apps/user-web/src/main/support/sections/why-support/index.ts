@@ -1,1 +1,0 @@
-export { WhySupportSection } from './WhySupportSection';

@@ -31,4 +31,16 @@ export const FUNDING_ITEMS: FundingItem[] = [
     },
     title: 'Дім Світанків',
   },
+  {
+    accent: 'navy',
+    description: 'Матеріали, які потрібні дітям для навчання',
+    icon: 'book',
+    title: 'Освітні програми',
+  },
+  {
+    accent: 'green',
+    description: 'Допомога в організації зустрічей спільноти',
+    icon: 'chat',
+    title: 'Спільнота',
+  },
 ];

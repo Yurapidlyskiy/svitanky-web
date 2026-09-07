@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import { HeroActions } from './HeroActions';
-import { HeroNotes } from './HeroNotes';
 import { HeroTitle } from './HeroTitle';
 
 import { HERO_EYEBROW } from './content';
@@ -25,7 +24,7 @@ export function HeroSection() {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-canvas" />
       </div>
 
-      <HeroNotes />
+      {/* <HeroNotes /> */}
 
       <div className="relative w-full px-5 py-16 sm:px-8 lg:-top-12 lg:px-12 xl:px-[100px]">
         <div className="flex max-w-xl flex-col gap-6 sm:gap-8 lg:max-w-3xl">

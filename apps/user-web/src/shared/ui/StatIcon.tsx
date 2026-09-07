@@ -1,5 +1,7 @@
 export type StatIconName =
+  | 'book'
   | 'briefcase'
+  | 'chat'
   | 'heart'
   | 'home'
   | 'home-heart'
@@ -9,10 +11,18 @@ export type StatIconName =
   | 'tent';
 
 const ICON_PATHS: Record<StatIconName, string[]> = {
+  book: [
+    'M12 6.6v13',
+    'M12 6.6C10.5 5.1 8.5 4.5 4 4.5v13c4.5 0 6.5.6 8 2.1 1.5-1.5 3.5-2.1 8-2.1v-13c-4.5 0-6.5.6-8 2.1Z',
+  ],
   briefcase: [
     'M4 7h16v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7Z',
     'M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
     'M3 12h18',
+  ],
+  chat: [
+    'M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5h-9l-4.5 3.5V16.5H4A1.5 1.5 0 0 1 2.5 15V7A1.5 1.5 0 0 1 4 5.5Z',
+    'M8 10.5h8M8 13.5h5',
   ],
   heart: [
     'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z',

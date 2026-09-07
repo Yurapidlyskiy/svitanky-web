@@ -17,15 +17,26 @@ type FundingCardProps = {
 export function FundingCard({ item }: FundingCardProps) {
   return (
     <article className="flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm">
-      <div className="relative aspect-[16/10] w-full">
-        <Image
-          alt={item.image.alt}
-          className="object-cover"
-          fill
-          sizes="(min-width: 1024px) 33vw, 100vw"
-          src={item.image.src}
-        />
-      </div>
+      {item.image ? (
+        <div className="relative aspect-[16/10] w-full">
+          <Image
+            alt={item.image.alt}
+            className="object-cover"
+            fill
+            sizes="(min-width: 1024px) 33vw, 100vw"
+            src={item.image.src}
+          />
+        </div>
+      ) : (
+        <div
+          aria-hidden="true"
+          className="flex aspect-[16/10] w-full items-center justify-center bg-gradient-to-br from-brand-sky-mist to-sand text-brand-navy/25"
+        >
+          <span className="scale-[2.6]">
+            <StatIcon name={item.icon} />
+          </span>
+        </div>
+      )}
 
       <div className="flex items-start gap-4 p-6">
         <span

@@ -6,6 +6,6 @@ export type FundingItem = {
   accent: FundingAccent;
   description: string;
   icon: StatIconName;
-  image: { alt: string; src: string };
+  image?: { alt: string; src: string };
   title: string;
 };
