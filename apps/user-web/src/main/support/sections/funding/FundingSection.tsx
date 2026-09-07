@@ -6,7 +6,7 @@ import { FUNDING_ITEMS } from './content';
 
 export function FundingSection() {
   return (
-    <Section aria-label="На що підуть твої кошти" className="pb-16 lg:pb-20">
+    <Section aria-label="На що підуть твої кошти" className="pb-16 lg:pb-20" id="funding">
       <SectionHeading size="md" tone="navy">
         На що підуть твої кошти
       </SectionHeading>
