@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { HERO_ACTIONS } from './content';
 
 const baseClassName =
-  'inline-flex w-full items-center justify-center gap-3 rounded-full px-7 py-3.5 text-center font-bold shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:scale-105 hover:shadow-md active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 sm:w-auto';
+  'inline-flex w-full items-center justify-center gap-3 rounded-full px-7 py-3.5 text-center font-bold shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:scale-105 hover:shadow-md active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 lg:w-auto';
 
 const TONE_CLASS = {
   primary:

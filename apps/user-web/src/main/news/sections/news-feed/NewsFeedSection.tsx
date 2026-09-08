@@ -30,7 +30,7 @@ export function NewsFeedSection({
   return (
     <Section
       aria-label="Публікації спільноти"
-      className="flex flex-col gap-10 pb-20 pt-4"
+      className="flex flex-col gap-10 pt-10 pb-20 sm:pt-14 lg:pt-20"
       width="wide"
     >
       <NewsFilterTabs activeFilter={activeFilter} />

@@ -39,7 +39,7 @@ export function HeaderActions() {
           aria-hidden="true"
           className="pointer-events-none absolute right-0 top-full z-10 mt-2 origin-top-right translate-y-1 whitespace-nowrap rounded-full bg-sky-900 px-3.5 py-1.5 text-xs font-bold text-white opacity-0 shadow-lg transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none"
         >
-          Стати другом
+          Стати променем
         </span>
       </div>
       <Link

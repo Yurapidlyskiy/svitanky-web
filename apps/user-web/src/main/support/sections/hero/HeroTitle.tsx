@@ -13,7 +13,7 @@ export function HeroTitle({ className = '' }: HeroTitleProps) {
         промінь
         <svg
           aria-hidden="true"
-          className="pointer-events-none absolute -right-3 top-1/2 hidden h-[1.1em] w-[0.9em] -translate-y-1/2 translate-x-full text-brand-amber-strong sm:block"
+          className="pointer-events-none absolute -right-3 top-1/2 hidden h-[1.1em] w-[0.9em] -translate-y-1/2 translate-x-full text-brand-amber-strong lg:block"
           fill="none"
           viewBox="0 0 120 160"
         >

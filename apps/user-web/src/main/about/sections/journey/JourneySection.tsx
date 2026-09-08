@@ -12,8 +12,9 @@ export function JourneySection() {
         Як усе починалося
       </SectionHeading>
 
-      <div className="relative mx-auto mt-16 flex max-w-5xl flex-col gap-12 lg:mt-24 lg:flex-row lg:gap-6">
-        <JourneyLine />
+      <div className="relative mx-auto mt-14 flex max-w-5xl flex-col gap-10 lg:mt-24 lg:flex-row lg:gap-6">
+        <JourneyLine orientation="vertical" />
+        <JourneyLine orientation="horizontal" />
 
         {JOURNEY_MILESTONES.map((milestone, index) => (
           <JourneyNode delayMs={index * 150} key={milestone.year} {...milestone} />

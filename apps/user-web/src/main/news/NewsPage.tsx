@@ -1,11 +1,10 @@
-import { PageIntro } from '@/shared/ui';
-
 import { CampFaqSection } from './sections/camp-faq';
 import { CampProgramSection } from './sections/camp-program';
 import { CampsHighlightSection } from './sections/camps-highlight';
 import { NEWS_ITEMS } from './sections/news-feed/content';
 import { parseNewsFilter, selectNewsPage } from './sections/news-feed/newsQuery';
 import { NewsFeedSection } from './sections/news-feed';
+import { NewsHeroSection } from './sections/hero';
 import { ProjectsHighlightSection } from './sections/projects-highlight';
 import { ProjectsResultsSection } from './sections/projects-results';
 
@@ -37,10 +36,7 @@ export function NewsPage({ searchParams }: NewsPageProps) {
 
   return (
     <>
-      <PageIntro
-        description="Тут з’являться новини, історії та найближчі події спільноти."
-        title="Новини"
-      />
+      <NewsHeroSection />
 
       <NewsFeedSection
         activeFilter={activeFilter}

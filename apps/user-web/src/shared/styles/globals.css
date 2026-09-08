@@ -129,9 +129,20 @@ section[id] {
   transform: scaleX(1);
 }
 
+.journey-line-vertical {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.journey-line-vertical.is-visible {
+  transform: scaleY(1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
-  .journey-line {
+  .journey-line,
+  .journey-line-vertical {
     transition: none;
     transform: none;
     opacity: 1;

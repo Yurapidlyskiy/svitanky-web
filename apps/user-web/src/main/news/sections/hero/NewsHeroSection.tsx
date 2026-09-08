@@ -1,9 +1,9 @@
 import { DesktopHero } from './DesktopHero';
 import { MobileHero } from './MobileHero';
 
-export function AboutHeroSection() {
+export function NewsHeroSection() {
   return (
-    <div id="about-hero">
+    <div id="news-hero">
       <MobileHero />
       <DesktopHero />
     </div>
