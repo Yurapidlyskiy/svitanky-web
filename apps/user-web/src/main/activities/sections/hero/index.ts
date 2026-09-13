@@ -1,0 +1,1 @@
+export { ActivitiesHeroSection } from './ActivitiesHeroSection';
