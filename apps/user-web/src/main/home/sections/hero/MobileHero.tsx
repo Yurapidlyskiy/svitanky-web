@@ -8,7 +8,7 @@ export function MobileHero() {
   return (
     <section className="relative isolate -mb-14 flex min-h-[calc(100svh-var(--site-header-height))] flex-col lg:hidden">
       <div className="sticky top-[var(--site-header-height)] z-0 min-h-[28svh] w-full flex-1">
-        <div className="relative h-full w-full">
+        <div className="absolute inset-0">
           <Image
             alt=""
             className="object-cover object-[74%_center]"
