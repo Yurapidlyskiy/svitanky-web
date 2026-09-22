@@ -20,10 +20,9 @@ const TEAM = [
   },
   { name: 'Анастасія Пантелей', photo: undefined, role: 'SMM, дизайнер' },
   { name: 'Ангеліна Гридковець', photo: undefined, role: 'Помічник SMM' },
-  { name: 'Софія Вовк', photo: undefined, role: 'Партнерства' },
   { name: 'Остап Лалюк', photo: undefined, role: 'Виховник' },
   { name: 'Данило Магро', photo: undefined, role: 'Виховник' },
   { name: 'Алєся', photo: undefined, role: 'Виховник' },
   { name: 'Софія Ганьба', photo: undefined, role: 'Виховник' },
-  { name: 'Андріана Горечко', photo: undefined, role: 'Виховник' },
+  { name: 'Андріана Горечко', photo: undefined, role: 'Виховник, SММ' },
 ];

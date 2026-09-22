@@ -11,7 +11,7 @@ import { HERO_STATS } from './content';
 export function MobileHero() {
   return (
     <section aria-label="Про нас" className="relative isolate bg-canvas lg:hidden">
-      <div className="sticky top-[var(--site-header-height)] z-0 h-[50dvh] w-full">
+      <div className="sticky top-[var(--site-header-height)] z-0 h-[50svh] w-full">
         <div className="relative h-full w-full bg-sand">
           <Image
             alt=""
@@ -24,7 +24,7 @@ export function MobileHero() {
         </div>
       </div>
 
-      <div className="relative z-10 -mt-8 flex min-h-[51dvh] flex-col items-center gap-6 rounded-t-[32px] bg-canvas px-6 pb-10 pt-10 text-center">
+      <div className="relative z-10 -mt-8 flex min-h-[51svh] flex-col items-center gap-6 rounded-t-[32px] bg-canvas px-6 pb-10 pt-10 text-center">
         <HeroTitle className="text-[clamp(2rem,8.5vw,2.75rem)]" />
 
         <HeroLede className="text-base leading-relaxed text-slate-700" />
