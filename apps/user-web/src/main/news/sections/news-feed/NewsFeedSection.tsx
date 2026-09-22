@@ -7,6 +7,7 @@ import type { NewsFilter, NewsItem } from './types';
 import { NewsFilterTabs } from './NewsFilterTabs';
 import { NewsGrid } from './NewsGrid';
 import { NewsPagination } from './NewsPagination';
+import { NEWS_FEED_ID } from './newsQuery';
 
 type NewsFeedSectionProps = {
   activeFilter: NewsFilter;
@@ -31,6 +32,7 @@ export function NewsFeedSection({
     <Section
       aria-label="Публікації спільноти"
       className="flex flex-col gap-10 pt-10 pb-20 sm:pt-14 lg:pt-20"
+      id={NEWS_FEED_ID}
       width="wide"
     >
       <NewsFilterTabs activeFilter={activeFilter} />

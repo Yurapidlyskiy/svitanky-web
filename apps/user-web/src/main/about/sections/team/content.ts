@@ -16,4 +16,5 @@ export const TEAM_MEMBERS: TeamMember[] = [
   { name: 'Алєся', role: 'Виховник' },
   { name: 'Софія Ганьба', role: 'Виховник' },
   { name: 'Андріана Горечко', role: 'Виховник, SММ' },
+  { name: 'Максим', role: 'Генерал' },
 ];

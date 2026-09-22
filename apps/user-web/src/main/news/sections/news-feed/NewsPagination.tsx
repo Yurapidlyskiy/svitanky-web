@@ -1,4 +1,4 @@
-import { buildNewsHref } from './newsQuery';
+import { buildNewsHref, NEWS_FEED_ID } from './newsQuery';
 import type { NewsFilter } from './types';
 import Link from 'next/link';
 
@@ -24,7 +24,7 @@ export function NewsPagination({ activeFilter, page, totalPages }: NewsPaginatio
         {hasPrevious ? (
           <Link
             className={`${ARROW_CLASSNAME} text-brand-navy hover:bg-amber-50`}
-            href={buildNewsHref(activeFilter, page - 1)}
+            href={`${buildNewsHref(activeFilter, page - 1)}#${NEWS_FEED_ID}`}
             rel="prev"
           >
             <span aria-hidden="true">◀</span>
@@ -49,7 +49,7 @@ export function NewsPagination({ activeFilter, page, totalPages }: NewsPaginatio
                   className={`inline-flex size-9 items-center justify-center rounded-full text-sm font-bold transition-colors duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 ${
                     isActive ? 'bg-amber-100 text-amber-600' : 'text-brand-navy hover:bg-amber-50'
                   }`}
-                  href={buildNewsHref(activeFilter, pageNumber)}
+                  href={`${buildNewsHref(activeFilter, pageNumber)}#${NEWS_FEED_ID}`}
                 >
                   {pageNumber}
                 </Link>
@@ -61,7 +61,7 @@ export function NewsPagination({ activeFilter, page, totalPages }: NewsPaginatio
         {hasNext ? (
           <Link
             className={`${ARROW_CLASSNAME} text-brand-navy hover:bg-amber-50`}
-            href={buildNewsHref(activeFilter, page + 1)}
+            href={`${buildNewsHref(activeFilter, page + 1)}#${NEWS_FEED_ID}`}
             rel="next"
           >
             Наступна

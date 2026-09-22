@@ -26,6 +26,7 @@ export function NewsFilterTabs({ activeFilter }: NewsFilterTabsProps) {
                     : 'text-brand-navy hover:bg-amber-50 hover:text-[#003559]'
                 }`}
                 href={buildNewsHref(filter)}
+                scroll={false}
               >
                 {NEWS_FILTER_LABELS[filter]}
               </Link>

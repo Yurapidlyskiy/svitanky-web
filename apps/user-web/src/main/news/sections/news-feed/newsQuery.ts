@@ -48,6 +48,8 @@ export function selectNewsPage(
   };
 }
 
+export const NEWS_FEED_ID = 'news-feed';
+
 export function buildNewsHref(filter: NewsFilter, page = 1): string {
   const params = new URLSearchParams();
 
