@@ -6,9 +6,9 @@ import { HeroTitle } from './HeroTitle';
 
 export function MobileHero() {
   return (
-    <section aria-label="Новини" className="relative isolate bg-canvas lg:hidden">
-      <div className="sticky top-[var(--site-header-height)] z-0 h-[50svh] w-full">
-        <div className="relative h-full w-full bg-sand">
+    <section aria-label="Новини" className="relative isolate bg-canvas flex min-h-[calc(100svh-var(--site-header-height))] flex-col lg:hidden">
+      <div className="sticky top-[var(--site-header-height)] z-0 min-h-[28svh] w-full flex-1">
+        <div className="absolute inset-0 bg-sand">
           <Image
             alt=""
             className="object-cover object-[73%_center]"
@@ -20,7 +20,7 @@ export function MobileHero() {
         </div>
       </div>
 
-      <div className="relative z-10 -mt-8 flex min-h-[51svh] flex-col items-center gap-6 rounded-t-[32px] bg-canvas px-6 pb-10 pt-10 text-center">
+      <div className="relative z-10 -mt-8 flex flex-col items-center gap-4 rounded-t-[32px] bg-canvas px-6 pb-8 pt-8 text-center">
         <HeroTitle className="text-[clamp(2.5rem,12vw,3.75rem)] leading-[1.05]" />
 
         <HeroLede className="max-w-md text-base leading-relaxed text-slate-700" />
