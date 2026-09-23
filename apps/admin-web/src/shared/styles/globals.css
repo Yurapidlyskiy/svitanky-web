@@ -1,0 +1,32 @@
+@import '@project/common-ui/globals.css';
+
+@theme inline {
+  --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand palette. Components use these tokens — never a raw hex. */
+  --color-canvas: var(--brand-canvas);
+  --color-brand-amber: var(--brand-amber);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-sky: var(--brand-sky);
+  --color-brand-slate: var(--brand-slate);
+}
+
+:root {
+  --brand-canvas: #fffdf8;
+  --brand-amber: #ffc148;
+  --brand-navy: #1b5d8d;
+  --brand-sky: #a9d6f5;
+  --brand-slate: #586974;
+
+  /* Map the shadcn semantic tokens onto the brand, so common-ui primitives
+     (Button, Input) pick the palette up without per-call class overrides. */
+  --background: var(--brand-canvas);
+  --foreground: var(--brand-navy);
+  --primary: var(--brand-navy);
+  --primary-foreground: var(--brand-canvas);
+  --muted-foreground: var(--brand-slate);
+  --border: color-mix(in oklab, var(--brand-sky) 70%, white);
+  --input: color-mix(in oklab, var(--brand-slate) 35%, white);
+  --ring: var(--brand-navy);
+}

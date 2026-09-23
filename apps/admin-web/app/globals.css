@@ -1,6 +1,0 @@
-@import '@project/common-ui/globals.css';
-
-@theme inline {
-  --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-}
