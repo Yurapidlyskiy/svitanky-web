@@ -41,3 +41,6 @@ yarn-error.log*
 .vscode
 .idea
 .cursor
+# Claude Code — local AI-assistant config, not part of the product
+.claude/
+CLAUDE.md
