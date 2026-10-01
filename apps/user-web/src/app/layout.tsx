@@ -1,10 +1,10 @@
 import { SiteFooter } from '@/footer';
 import { SiteHeader } from '@/header';
+import '@/shared/styles/globals.css';
 import { ScrollToTopButton } from '@/shared/ui';
 import type { Metadata } from 'next';
 import { Balsamiq_Sans, Nunito } from 'next/font/google';
 import localFont from 'next/font/local';
-import '@/shared/styles/globals.css';
 
 const geistSans = localFont({
   src: '../shared/fonts/GeistVF.woff',
@@ -26,8 +26,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: 'Дім Світанків',
-  description: 'Благодійна платформа фонду «Дім Світанків»',
+  title: 'Світанки України',
+  description: 'Офіційний сайт благодійного фонду «Світанки України»',
 };
 
 export default function RootLayout({
