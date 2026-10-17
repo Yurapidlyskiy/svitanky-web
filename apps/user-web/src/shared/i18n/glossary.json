@@ -1,0 +1,53 @@
+{
+  "$comment": "Fixed translations the translate script must use. Edit freely: changing a term here does not re-translate existing strings — run `npm run i18n:translate -- --force` for that. Entries marked TO CONFIRM are provisional.",
+  "terms": [
+    {
+      "uk": "Світанки України",
+      "en": "Svitanky Ukraine",
+      "it": "Svitanky Ucraina",
+      "note": "The foundation's name. TO CONFIRM against the name in the foundation's official documents."
+    },
+    {
+      "uk": "Світанки",
+      "en": "Svitanky",
+      "it": "Svitanky",
+      "note": "Short name of the community — a proper noun, never translated as 'dawns'."
+    },
+    {
+      "uk": "Промінь",
+      "en": "Ray",
+      "it": "Raggio",
+      "note": "A monthly supporter (the 'Become a Ray' programme). Capitalised when it means the supporter. TO CONFIRM."
+    },
+    {
+      "uk": "Друг Світанків",
+      "en": "Friend of Svitanky",
+      "it": "Amico di Svitanky",
+      "note": "Supporter community name. TO CONFIRM."
+    },
+    {
+      "uk": "Дім Світанків",
+      "en": "Svitanky Home",
+      "it": "Casa Svitanky",
+      "note": "The foundation's house in Verkhnodniprovsk. TO CONFIRM."
+    },
+    {
+      "uk": "Світанкові вікенди",
+      "en": "Svitanky Weekends",
+      "it": "Weekend Svitanky",
+      "note": "A programme name. TO CONFIRM."
+    },
+    {
+      "uk": "Верхньодніпровськ",
+      "en": "Verkhnodniprovsk",
+      "it": "Verkhnodniprovsk",
+      "note": "City name, official Ukrainian romanisation."
+    },
+    {
+      "uk": "грн",
+      "en": "UAH",
+      "it": "UAH",
+      "note": "Currency. Amounts stay in hryvnias."
+    }
+  ]
+}

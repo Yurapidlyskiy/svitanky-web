@@ -1,8 +1,19 @@
 'use server';
 
+import { COOPERATION_TYPES } from './content';
+
+/** Keys under `partners.becomePartner.errors` — the form translates them. */
+export type PartnerRequestError =
+  | 'invalidCooperationType'
+  | 'invalidEmail'
+  | 'invalidMessage'
+  | 'invalidName'
+  | 'invalidOrganization'
+  | 'notConnected';
+
 export type PartnerRequestState = {
   status: 'idle' | 'error' | 'success';
-  message?: string;
+  error?: PartnerRequestError;
 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,27 +40,24 @@ export async function submitPartnerRequest(
   // Never trust the client: everything below is re-checked here even though the
   // inputs are also marked `required` in the markup.
   if (typeof name !== 'string' || name.trim().length < 2) {
-    return { message: "Вкажіть, будь ласка, ваше ім'я.", status: 'error' };
+    return { error: 'invalidName', status: 'error' };
   }
 
   if (typeof email !== 'string' || !EMAIL_PATTERN.test(email)) {
-    return { message: 'Вкажіть коректний email.', status: 'error' };
+    return { error: 'invalidEmail', status: 'error' };
   }
 
   if (typeof organization !== 'string' || organization.trim().length < 2) {
-    return { message: 'Вкажіть назву організації чи компанії.', status: 'error' };
+    return { error: 'invalidOrganization', status: 'error' };
   }
 
-  if (typeof cooperationType !== 'string' || cooperationType.trim().length === 0) {
-    return { message: 'Оберіть тип співпраці.', status: 'error' };
+  if (!COOPERATION_TYPES.some((type) => type === cooperationType)) {
+    return { error: 'invalidCooperationType', status: 'error' };
   }
 
   if (typeof message !== 'string' || message.trim().length < 10) {
-    return { message: 'Опишіть, будь ласка, коротко вашу пропозицію.', status: 'error' };
+    return { error: 'invalidMessage', status: 'error' };
   }
 
-  return {
-    message: 'Форму ще не підключено до бази даних. Ми скоро це виправимо.',
-    status: 'error',
-  };
+  return { error: 'notConnected', status: 'error' };
 }

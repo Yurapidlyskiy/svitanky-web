@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { HeroLede } from './HeroLede';
@@ -5,9 +6,11 @@ import { HeroNote } from './HeroNote';
 import { HeroTitle } from './HeroTitle';
 
 export function DesktopHero() {
+  const t = useTranslations('news.hero');
+
   return (
     <section
-      aria-label="Новини"
+      aria-label={t('label')}
       className="relative isolate hidden overflow-hidden bg-sand lg:block lg:min-h-[700px]"
     >
       <div className="absolute inset-0 -z-10">

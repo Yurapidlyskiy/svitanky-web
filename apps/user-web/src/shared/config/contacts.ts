@@ -1,5 +1,5 @@
 export const contactDetails = {
-  address: 'Верхньодніпровськ, Дніпропетровська область',
+  // The postal address is copy, so it lives in the messages (`footer.address`).
   email: 'svitankyukrainy@gmail.com',
   phone: '+380 63 033 17 56',
   phoneHref: 'tel:+380630331756',

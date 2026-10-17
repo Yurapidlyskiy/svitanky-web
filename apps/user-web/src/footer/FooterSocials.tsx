@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import { socialLinks } from '@/shared/config/contacts';
 
 function FacebookIcon() {
@@ -28,9 +30,13 @@ function InstagramIcon() {
 }
 
 export function FooterSocials() {
+  const t = useTranslations('footer');
+
   return (
     <div>
-      <h2 className="text-base font-black uppercase tracking-wide text-brand-amber">Ми в соц. мережах</h2>
+      <h2 className="text-base font-black uppercase tracking-wide text-brand-amber">
+        {t('socialsTitle')}
+      </h2>
       <ul className="mt-6 flex items-center gap-5">
         {socialLinks.map((social) => (
           <li key={social.network}>

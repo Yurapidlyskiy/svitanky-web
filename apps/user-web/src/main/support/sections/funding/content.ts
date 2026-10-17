@@ -1,46 +1,18 @@
-import type { FundingItem } from './types';
-
-export const FUNDING_ITEMS: FundingItem[] = [
+// Titles, descriptions and alt texts live in the messages under `support.funding.items.<id>`.
+export const FUNDING_ITEMS = [
   {
     accent: 'amber',
-    description: 'Регулярні зустрічі для спілкування, дружби та духовного зростання',
     icon: 'people',
-    image: {
-      alt: 'Учасники «Світанкових вікендів» на спільній зустрічі',
-      src: '/assets/images/activities/weekends-activity.JPG',
-    },
-    title: 'Світанкові вікенди',
+    id: 'weekends',
+    image: '/assets/images/activities/weekends-activity.JPG',
   },
   {
     accent: 'navy',
-    description: 'Літні та зимові табори, що дарують незабутні враження та розвиток',
     icon: 'tent',
-    image: {
-      alt: 'Учасники табору вирушають у подорож',
-      src: '/assets/images/activities/camps-activity.JPG',
-    },
-    title: 'Табори',
+    id: 'camps',
+    image: '/assets/images/activities/camps-activity.JPG',
   },
-  {
-    accent: 'green',
-    description: 'Простір для постійних зустрічей, навчання та підтримки дітей протягом року',
-    icon: 'home-heart',
-    image: {
-      alt: 'Діти та молодь у Домі Світанків',
-      src: '/assets/images/shared/poster-3.jpg',
-    },
-    title: 'Дім Світанків',
-  },
-  {
-    accent: 'navy',
-    description: 'Матеріали, які потрібні дітям для навчання',
-    icon: 'book',
-    title: 'Освітні програми',
-  },
-  {
-    accent: 'green',
-    description: 'Допомога в організації зустрічей спільноти',
-    icon: 'chat',
-    title: 'Спільнота',
-  },
-];
+  { accent: 'green', icon: 'home-heart', id: 'home', image: '/assets/images/shared/poster-3.jpg' },
+  { accent: 'navy', icon: 'book', id: 'education' },
+  { accent: 'green', icon: 'chat', id: 'community' },
+] as const;

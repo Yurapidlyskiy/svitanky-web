@@ -1,4 +1,6 @@
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+
+import { Link } from '@/shared/i18n/navigation';
 
 import { HERO_ACTIONS } from './content';
 
@@ -17,6 +19,8 @@ type HeroActionsProps = {
 };
 
 export function HeroActions({ className = '' }: HeroActionsProps) {
+  const t = useTranslations('support.hero.actions');
+
   return (
     <div className={className}>
       {HERO_ACTIONS.map((action) => {
@@ -28,7 +32,7 @@ export function HeroActions({ className = '' }: HeroActionsProps) {
             href={action.href}
             key={action.href}
           >
-            <span>{action.label}</span>
+            <span>{t(action.id)}</span>
             <span aria-hidden="true">&rarr;</span>
           </ActionLink>
         );

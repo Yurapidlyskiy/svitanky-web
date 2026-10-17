@@ -18,16 +18,13 @@ describe('submitSupportForm', () => {
   it('requires consent to personal data processing', async () => {
     const result = await submitSupportForm(IDLE, form({ amount: '350', frequency: 'monthly' }));
 
-    expect(result).toEqual({
-      message: 'Потрібна згода на обробку персональних даних.',
-      status: 'error',
-    });
+    expect(result).toEqual({ error: 'consentRequired', status: 'error' });
   });
 
   it.each(['0', '-100', 'abc', '', 'Infinity'])('rejects amount %j', async (amount) => {
     const result = await submitSupportForm(IDLE, form({ ...VALID, amount }));
 
-    expect(result.message).toBe('Вкажіть коректну суму підтримки.');
+    expect(result.error).toBe('invalidAmount');
   });
 
   it('reads the custom amount when "custom" is selected', async () => {
@@ -40,14 +37,14 @@ describe('submitSupportForm', () => {
       form({ ...VALID, amount: 'custom', customAmount: '777' })
     );
 
-    expect(invalid.message).toBe('Вкажіть коректну суму підтримки.');
-    expect(valid.message).not.toBe('Вкажіть коректну суму підтримки.');
+    expect(invalid.error).toBe('invalidAmount');
+    expect(valid.error).not.toBe('invalidAmount');
   });
 
   it.each(['', 'weekly', 'MONTHLY'])('rejects frequency %j', async (frequency) => {
     const result = await submitSupportForm(IDLE, form({ ...VALID, frequency }));
 
-    expect(result.message).toBe('Оберіть тип платежу.');
+    expect(result.error).toBe('invalidFrequency');
   });
 
   // Documents the current stub: valid input is accepted but payments are not wired up.
@@ -57,10 +54,7 @@ describe('submitSupportForm', () => {
     async (frequency) => {
       const result = await submitSupportForm(IDLE, form({ ...VALID, frequency }));
 
-      expect(result).toEqual({
-        message: 'Оплату ще не підключено. Ми скоро це виправимо.',
-        status: 'error',
-      });
+      expect(result).toEqual({ error: 'paymentsNotConnected', status: 'error' });
     }
   );
 });

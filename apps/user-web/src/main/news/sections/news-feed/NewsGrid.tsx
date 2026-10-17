@@ -1,16 +1,19 @@
-import type { NewsItem } from './types';
+import { useTranslations } from 'next-intl';
 
 import { NewsCard } from './NewsCard';
+import type { NewsItem } from './types';
 
 type NewsGridProps = {
   items: NewsItem[];
 };
 
 export function NewsGrid({ items }: NewsGridProps) {
+  const t = useTranslations('news.feed');
+
   if (items.length === 0) {
     return (
       <p className="rounded-3xl bg-white p-10 text-center text-base text-slate-600 shadow-sm">
-        У цій категорії поки немає публікацій. Незабаром тут з’являться новини спільноти.
+        {t('empty')}
       </p>
     );
   }

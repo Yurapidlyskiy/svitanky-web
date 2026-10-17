@@ -1,13 +1,13 @@
-import { Section } from '@/shared/ui';
-
+import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 
-import type { NewsFilter, NewsItem } from './types';
+import { Section } from '@/shared/ui';
 
 import { NewsFilterTabs } from './NewsFilterTabs';
 import { NewsGrid } from './NewsGrid';
 import { NewsPagination } from './NewsPagination';
 import { NEWS_FEED_ID } from './newsQuery';
+import type { NewsFilter, NewsItem } from './types';
 
 type NewsFeedSectionProps = {
   activeFilter: NewsFilter;
@@ -28,9 +28,11 @@ export function NewsFeedSection({
   showGrid = true,
   totalPages,
 }: NewsFeedSectionProps) {
+  const t = useTranslations('news.feed');
+
   return (
     <Section
-      aria-label="Публікації спільноти"
+      aria-label={t('label')}
       className="flex flex-col gap-10 pt-10 pb-20 sm:pt-14 lg:pt-20"
       id={NEWS_FEED_ID}
       width="wide"

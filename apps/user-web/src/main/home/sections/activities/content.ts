@@ -1,29 +1,23 @@
+import { ROUTES } from '@/shared/config/routes';
+
+// Texts live in the messages under `home.activities.items.<id>`.
 export const ACTIVITIES = [
   {
-    accent: 'navy' as const,
-    description: 'Lorem ipsum dolor sit amet, consec…',
-    href: '/activities',
-    image: {
-      alt: 'Учасники літнього табору «Світанків України»',
-      src: '/assets/images/shared/poster-1.jpeg',
-    },
-    subtitle: 'Літні табори «Світанків України»',
-    title: 'Табори',
+    accent: 'navy',
+    href: ROUTES.activities,
+    id: 'camps',
+    image: '/assets/images/shared/poster-1.jpeg',
   },
   {
-    accent: 'amber' as const,
-    description: 'Lorem ipsum dolor sit amet, consec…',
-    href: '/activities',
-    image: { alt: 'Учасники «Світанкових вікендів»', src: '/assets/images/shared/poster-2.jpeg' },
-    subtitle: 'Що таке «Світанкові вікенди»?',
-    title: 'Світанкові вікенди',
+    accent: 'amber',
+    href: ROUTES.activities,
+    id: 'weekends',
+    image: '/assets/images/shared/poster-2.jpeg',
   },
   {
-    accent: 'navy' as const,
-    description: 'Lorem ipsum dolor sit amet, consec…',
-    href: '/activities',
-    image: { alt: 'Подвір’я Дому Світанків', src: '/assets/images/shared/poster-3.jpg' },
-    subtitle: 'Облаштування дому Світанків',
-    title: 'Дім Світанків',
+    accent: 'navy',
+    href: ROUTES.activities,
+    id: 'home',
+    image: '/assets/images/shared/poster-3.jpg',
   },
-];
+] as const;

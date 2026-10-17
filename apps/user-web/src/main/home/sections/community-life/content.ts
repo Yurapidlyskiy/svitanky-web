@@ -1,34 +1,8 @@
+// Texts and alt texts live in the messages under `home.communityLife.rows.<id>`.
 export const COMMUNITY_LIFE_ROWS = [
-  {
-    image: {
-      alt: 'Виховники та підлітки на території табору',
-      src: '/assets/images/shared/poster-1.jpeg',
-    },
-    text: 'Діти зростають у спільноті з виховниками, як у великій родині',
-  },
-  {
-    image: {
-      alt: 'Діти на літньому таборі серед природи',
-      src: '/assets/images/shared/poster-2.jpeg',
-    },
-    text: 'Проходять літні табори, формаційні зустрічі та тематичні школи',
-  },
-  {
-    image: {
-      alt: 'Спільна молитва разом зі священником',
-      src: '/assets/images/shared/poster-3.jpg',
-    },
-    text: 'Щоденне життя сповнене сенсу: молитва, спільні трапези, обов’язки, ігри та щирі розмови',
-  },
-  {
-    image: { alt: 'Підлітки біля будинку Світанків', src: '/assets/images/shared/poster-1.jpeg' },
-    text: 'Є постійні кімнати для проживання, де панує затишок і безпека',
-  },
-  {
-    image: {
-      alt: 'Діти обіймаються під час активності',
-      src: '/assets/images/shared/poster-2.jpeg',
-    },
-    text: 'Формується нова генерація лідерів, які стануть світлом для України',
-  },
-];
+  { id: 'family', image: '/assets/images/shared/poster-1.jpeg' },
+  { id: 'camps', image: '/assets/images/shared/poster-2.jpeg' },
+  { id: 'dailyLife', image: '/assets/images/shared/poster-3.jpg' },
+  { id: 'rooms', image: '/assets/images/shared/poster-1.jpeg' },
+  { id: 'leaders', image: '/assets/images/shared/poster-2.jpeg' },
+] as const;

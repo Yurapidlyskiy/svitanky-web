@@ -1,14 +1,8 @@
-import type { Stat } from '@/shared/ui';
+import type { StatIconName } from '@/shared/ui';
 
-export const HERO_EYEBROW = 'Світанки України';
-
-export const HERO_TITLE = 'Історія, що почалася з одного світанку';
-
-export const HERO_LEDE =
-  'Прифронтове село, страх і тиша — а потім дитячий сміх, що перемагає темряву. Так з’явилися «Світанки України». Ось як маленька іскра 2018 року виросла у спільноту й дім, що й сьогодні дарує дітям світло.';
-
-export const HERO_STATS: Stat[] = [
-  { icon: 'sun', primary: '2018', secondary: 'рік заснування', tone: 'amber' },
-  { icon: 'home', primary: '1', secondary: 'Дім Світанків', tone: 'navy' },
-  { icon: 'people', primary: '13+', secondary: 'людей у команді', tone: 'amber' },
-];
+// Stat captions live in the messages under `about.hero.stats.<id>`.
+export const HERO_STATS = [
+  { icon: 'sun', id: 'founded', primary: '2018', tone: 'amber' },
+  { icon: 'home', id: 'home', primary: '1', tone: 'navy' },
+  { icon: 'people', id: 'team', primary: '13+', tone: 'amber' },
+] as const satisfies { icon: StatIconName; id: string; primary: string; tone: 'amber' | 'navy' }[];

@@ -1,10 +1,8 @@
-export const HERO_EYEBROW = 'Підтримати Світанки';
+import { ROUTES } from '@/shared/config/routes';
 
-export const HERO_SUBTITLE =
-  'Маленька регулярна підтримка допомагає нам планувати великі зміни для дітей та молоді.';
-
+// Labels live in the messages under `support.hero.actions.<id>`.
 export const HERO_ACTIONS = [
-  { href: '#become-ray', label: 'Стати Променем', tone: 'primary' },
-  { href: '#funding', label: 'Спрямувати промінь', tone: 'secondary' },
-  { href: '/partners', label: 'Для бізнесу', tone: 'secondary' },
+  { href: '#become-ray', id: 'becomeRay', tone: 'primary' },
+  { href: '#funding', id: 'directRay', tone: 'secondary' },
+  { href: ROUTES.partners, id: 'business', tone: 'secondary' },
 ] as const;

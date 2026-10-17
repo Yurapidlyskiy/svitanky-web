@@ -1,15 +1,17 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+
+import { Link, usePathname } from '@/shared/i18n/navigation';
 
 import { primaryNavigation } from './navigation';
 
 export function PrimaryNavigation() {
+  const t = useTranslations('header.nav');
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Основна навігація">
+    <nav aria-label={t('label')}>
       <ul className="flex items-center gap-1 xl:gap-2">
         {primaryNavigation.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -25,7 +27,7 @@ export function PrimaryNavigation() {
                 }`}
                 href={item.href}
               >
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             </li>
           );

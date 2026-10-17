@@ -1,16 +1,19 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { StatsBar } from '@/shared/ui';
 
 import { HeroLede } from './HeroLede';
 import { HeroTitle } from './HeroTitle';
-
-import { HERO_STATS } from './content';
+import { useHeroStats } from './useHeroStats';
 
 export function DesktopHero() {
+  const t = useTranslations('about.hero');
+  const stats = useHeroStats();
+
   return (
     <section
-      aria-label="Про нас"
+      aria-label={t('label')}
       className="relative isolate hidden overflow-hidden bg-sand lg:block lg:min-h-[620px]"
     >
       <div className="absolute inset-0 -z-10">
@@ -34,7 +37,7 @@ export function DesktopHero() {
         <HeroLede className="mt-6 max-w-xl text-lg leading-8 text-slate-700" />
 
         <div className="mt-10 max-w-2xl">
-          <StatsBar stats={HERO_STATS} />
+          <StatsBar stats={stats} />
         </div>
       </div>
     </section>

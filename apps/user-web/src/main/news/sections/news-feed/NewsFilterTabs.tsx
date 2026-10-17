@@ -1,15 +1,20 @@
+import { useTranslations } from 'next-intl';
+
+import { Link } from '@/shared/i18n/navigation';
+
 import { buildNewsHref } from './newsQuery';
-import { NEWS_FILTER_LABELS, NEWS_FILTERS, type NewsFilter } from './types';
-import Link from 'next/link';
+import { NEWS_FILTERS, type NewsFilter } from './types';
 
 type NewsFilterTabsProps = {
   activeFilter: NewsFilter;
 };
 
 export function NewsFilterTabs({ activeFilter }: NewsFilterTabsProps) {
+  const t = useTranslations('news.feed');
+
   return (
     <nav
-      aria-label="Категорії новин"
+      aria-label={t('tabsLabel')}
       className="-mx-5 -my-2 overflow-x-auto px-5 py-2 sm:mx-0 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       <ul className="mx-auto flex w-max items-center gap-1 rounded-full bg-white p-2 shadow-sm sm:gap-2">
@@ -28,7 +33,7 @@ export function NewsFilterTabs({ activeFilter }: NewsFilterTabsProps) {
                 href={buildNewsHref(filter)}
                 scroll={false}
               >
-                {NEWS_FILTER_LABELS[filter]}
+                {t(`filters.${filter}`)}
               </Link>
             </li>
           );

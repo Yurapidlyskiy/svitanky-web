@@ -1,15 +1,4 @@
-export const LOCATION_EYEBROW = 'Звідси починається наша справа';
+import { ROUTES } from '@/shared/config/routes';
 
-export const LOCATION_PLACE = {
-  city: 'Верхньодніпровськ',
-} as const;
-
-export const LOCATION_PARAGRAPHS = [
-  'Саме тут народилася спільнота «Світанки України» — місце, де діти та молодь знаходять підтримку, дружбу й простір для зростання.',
-  'Із Верхньодніпровська починається наша щоденна справа: бути поруч, дарувати світло й допомагати знаходити надію навіть у складні часи.',
-] as const;
-
-export const LOCATION_CTA = {
-  href: '/about',
-  label: 'Дізнатися нашу історію',
-} as const;
+// Copy lives in the messages under `home.location`.
+export const LOCATION_CTA_HREF = ROUTES.about;

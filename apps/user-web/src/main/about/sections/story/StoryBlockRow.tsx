@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import { Reveal } from '@/shared/ui';
 
-import type { StoryBlock } from './content';
+import type { StoryBlock } from './types';
 
 type StoryBlockRowProps = StoryBlock & {
   reverse?: boolean;

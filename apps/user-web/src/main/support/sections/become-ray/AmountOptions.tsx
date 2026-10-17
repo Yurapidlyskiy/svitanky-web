@@ -1,6 +1,7 @@
+import { useTranslations } from 'next-intl';
+
 import { PRESET_AMOUNTS } from '@/shared/config/support';
 
-import { AMOUNT_UNIT, CUSTOM_AMOUNT_LINES } from './content';
 import type { RayAmount, RayFrequency } from './types';
 
 const optionClassName =
@@ -16,9 +17,14 @@ type AmountOptionsProps = {
 };
 
 export function AmountOptions({ frequency, onChange, value }: AmountOptionsProps) {
+  const t = useTranslations('support.becomeRay');
+  const customClassName = `text-sm font-bold leading-tight sm:text-base ${
+    value === 'custom' ? 'text-brand-amber-strong' : 'text-brand-navy'
+  }`;
+
   return (
     <fieldset>
-      <legend className="sr-only">Сума підтримки</legend>
+      <legend className="sr-only">{t('amountLegend')}</legend>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         {PRESET_AMOUNTS.map((amount) => {
@@ -45,7 +51,7 @@ export function AmountOptions({ frequency, onChange, value }: AmountOptionsProps
               >
                 {amount}
               </span>
-              <span className="text-xs text-slate-500">{AMOUNT_UNIT[frequency]}</span>
+              <span className="text-xs text-slate-500">{t(`units.${frequency}`)}</span>
             </label>
           );
         })}
@@ -64,16 +70,9 @@ export function AmountOptions({ frequency, onChange, value }: AmountOptionsProps
             value="custom"
           />
 
-          {CUSTOM_AMOUNT_LINES.map((line) => (
-            <span
-              className={`text-sm font-bold leading-tight sm:text-base ${
-                value === 'custom' ? 'text-brand-amber-strong' : 'text-brand-navy'
-              }`}
-              key={line}
-            >
-              {line}
-            </span>
-          ))}
+          {t.rich('customAmount', {
+            line: (chunks) => <span className={customClassName}>{chunks}</span>,
+          })}
         </label>
       </div>
     </fieldset>

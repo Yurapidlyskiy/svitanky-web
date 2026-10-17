@@ -14,6 +14,9 @@ type CategorySeed = {
 /**
  * Temporary content until the admin panel can create and remove news items.
  * Seven entries per category so every tab has more than one page.
+ *
+ * Deliberately NOT in the messages: this is a stand-in for database rows, and real news
+ * will be written (and translated) in the admin panel, not in `uk.json`.
  */
 const CATEGORY_SEEDS: Record<NewsCategory, CategorySeed> = {
   news: {

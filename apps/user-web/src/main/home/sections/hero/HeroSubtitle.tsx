@@ -1,12 +1,15 @@
+import { useTranslations } from 'next-intl';
+
 type HeroSubtitleProps = {
   className?: string;
 };
 
 export function HeroSubtitle({ className = '' }: HeroSubtitleProps) {
+  const t = useTranslations('home.hero');
+
   return (
     <p className={className}>
-      Разом ми даруємо дітям зі Сходу світло,
-      <br className="hidden lg:inline" /> віру та майбутнє{' '}
+      {t.rich('subtitle', { br: () => <br className="hidden lg:inline" /> })}{' '}
       <svg
         aria-hidden="true"
         className="relative top-2 ml-1 inline-block h-8 w-9 -rotate-6 sm:top-3 sm:h-9 sm:w-10"

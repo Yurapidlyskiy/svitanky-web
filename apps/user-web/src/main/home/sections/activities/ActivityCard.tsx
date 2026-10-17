@@ -1,5 +1,7 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+
+import { Link } from '@/shared/i18n/navigation';
 
 type ActivityCardAccent = 'amber' | 'navy';
 
@@ -23,7 +25,15 @@ const ACCENT_STYLES: Record<ActivityCardAccent, { content: string; button: strin
   },
 };
 
-export function ActivityCard({ accent = 'navy', description, href, image, subtitle, title }: ActivityCardProps) {
+export function ActivityCard({
+  accent = 'navy',
+  description,
+  href,
+  image,
+  subtitle,
+  title,
+}: ActivityCardProps) {
+  const t = useTranslations('home.activities');
   const { button, content } = ACCENT_STYLES[accent];
 
   return (
@@ -45,7 +55,7 @@ export function ActivityCard({ accent = 'navy', description, href, image, subtit
           className={`mt-4 inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-[background-color,transform] duration-200 ease-out hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy ${button}`}
           href={href}
         >
-          Детальніше
+          {t('more')}
           <svg aria-hidden="true" className="size-3" fill="currentColor" viewBox="0 0 12 12">
             <path d="M2 1.5 9.5 6 2 10.5Z" />
           </svg>

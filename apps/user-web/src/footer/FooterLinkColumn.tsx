@@ -1,10 +1,8 @@
-import Link from 'next/link';
-
-import type { FooterLink } from './navigation';
+import { Link } from '@/shared/i18n/navigation';
 
 type FooterLinkColumnProps = {
   title: string;
-  links: FooterLink[];
+  links: { href: string; label: string }[];
   uppercaseLinks?: boolean;
 };
 

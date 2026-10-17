@@ -1,13 +1,15 @@
-import { HERO_TITLE } from './content';
+import { useTranslations } from 'next-intl';
 
 type HeroTitleProps = {
   className?: string;
 };
 
 export function HeroTitle({ className = '' }: HeroTitleProps) {
+  const t = useTranslations('news.hero');
+
   return (
     <h1 className={`relative w-fit font-heading font-black text-brand-navy ${className}`}>
-      {HERO_TITLE}
+      {t('title')}
 
       <svg
         aria-hidden="true"

@@ -14,7 +14,13 @@ export function CommunityLifeRow({ image, reverse = false, text }: CommunityLife
       }`}
     >
       <div className="relative h-48 w-full sm:h-64 sm:w-1/2 lg:h-72">
-        <Image alt={image.alt} className="object-cover" fill sizes="(min-width: 640px) 50vw, 100vw" src={image.src} />
+        <Image
+          alt={image.alt}
+          className="object-cover"
+          fill
+          sizes="(min-width: 640px) 50vw, 100vw"
+          src={image.src}
+        />
       </div>
       <div
         className={`flex w-full items-center p-8 sm:w-1/2 ${reverse ? 'bg-[#E3ECFA]' : 'bg-sand'}`}

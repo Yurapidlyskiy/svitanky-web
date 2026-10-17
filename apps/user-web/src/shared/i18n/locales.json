@@ -1,0 +1,5 @@
+{
+  "source": "uk",
+  "enabled": ["uk"],
+  "targets": ["en", "it"]
+}

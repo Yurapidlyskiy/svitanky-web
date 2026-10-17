@@ -1,23 +1,26 @@
-export type FooterLink = {
-  href: string;
-  label: string;
-};
+import type messages from '@/shared/i18n/messages/uk.json';
 
-export const footerNavigation: FooterLink[] = [
-  { href: '/#about', label: 'Про нас' },
-  { href: '/#activities', label: 'Напрямки діяльності' },
-  { href: '/#values', label: 'Наші цінності' },
-  { href: '/#raising-funds', label: 'На що ми збираємо кошти?' },
-  { href: '/#community-life', label: 'Ми створюємо не просто прихисток, а дім' },
-  { href: '/#join-community', label: 'Твоя підтримка важлива' },
-  { href: '/#team', label: 'Наша команда' },
-  // TODO: add `{ href: '/#sponsors', label: 'Спонсори' }` once a section with
-  // `id="sponsors"` exists on the home page.
+type FooterMessages = (typeof messages)['footer'];
+
+export type FooterNavLink = { href: string; labelKey: keyof FooterMessages['nav'] };
+export type LegalLink = { href: string; labelKey: keyof FooterMessages['legal'] };
+
+export const footerNavigation: FooterNavLink[] = [
+  { href: '/#about', labelKey: 'about' },
+  { href: '/#activities', labelKey: 'activities' },
+  { href: '/#values', labelKey: 'values' },
+  { href: '/#raising-funds', labelKey: 'raisingFunds' },
+  { href: '/#community-life', labelKey: 'communityLife' },
+  { href: '/#join-community', labelKey: 'joinCommunity' },
+  { href: '/#team', labelKey: 'team' },
+  // TODO: add `{ href: '/#sponsors', labelKey: 'sponsors' }` (and its message) once a
+  // section with `id="sponsors"` exists on the home page.
 ];
 
 // TODO: the legal pages do not exist yet, so their links are held back to avoid
-// 404s. Add each one here as its page under `app/` is published:
-//   { href: '/privacy-policy', label: 'Політика конфіденційності' },
-//   { href: '/data-consent', label: 'Згода на обробку персональних даних' },
-//   { href: '/terms', label: 'Умови використання (оферта)' },
-export const legalNavigation: FooterLink[] = [];
+// 404s. Add each one here as its page under `app/[locale]/` is published — the labels
+// are already in `footer.legal`:
+//   { href: '/privacy-policy', labelKey: 'privacyPolicy' },
+//   { href: '/data-consent', labelKey: 'dataConsent' },
+//   { href: '/terms', labelKey: 'terms' },
+export const legalNavigation: LegalLink[] = [];

@@ -1,10 +1,11 @@
-export const BECOME_PARTNER_LEDE =
-  "Залиште заявку і ми зв'яжемося з вами, щоб обговорити можливість співпраці.";
-
+// Labels live in the messages under `partners.becomePartner.cooperationTypes.<id>`.
+// The form submits the id, and the Server Action accepts only ids from this list.
 export const COOPERATION_TYPES = [
-  'Фінансова підтримка',
-  'Волонтерство',
-  'Партнерство з бізнесом',
-  'Медіа-партнерство',
-  'Інше',
-];
+  'financial',
+  'volunteering',
+  'business',
+  'media',
+  'other',
+] as const;
+
+export type CooperationType = (typeof COOPERATION_TYPES)[number];

@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useCallback, useRef, useState } from 'react';
 
@@ -17,6 +18,8 @@ const DRAG_TRIGGER_RATIO = 0.18;
 const DEFAULT_SLIDE_UNIT = 260;
 
 export function AboutImageSlider() {
+  const t = useTranslations('home.about');
+  const tCarousel = useTranslations('common.carousel');
   const [activeSlide, setActiveSlide] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -110,7 +113,7 @@ export function AboutImageSlider() {
 
   return (
     <section
-      aria-label="Фотогалерея Світанків України"
+      aria-label={t('sliderLabel')}
       aria-roledescription="carousel"
       className="relative flex w-full flex-col pt-2 pb-2"
     >
@@ -131,9 +134,9 @@ export function AboutImageSlider() {
 
             return (
               <div
-                key={index}
+                key={slide.id}
                 aria-hidden={index !== activeSlide}
-                aria-label={`Слайд ${index + 1} з ${ABOUT_SLIDES.length}`}
+                aria-label={tCarousel('slide', { index: index + 1, total: ABOUT_SLIDES.length })}
                 aria-roledescription="slide"
                 className="absolute left-1/2 top-1/2 aspect-[4/5] w-[180px] -translate-y-1/2 cursor-pointer overflow-hidden rounded-[32px] sm:w-[240px] md:w-[300px]"
                 onClick={() => setActiveSlide(index)}
@@ -145,7 +148,7 @@ export function AboutImageSlider() {
                   style={styles.inner}
                 >
                   <Image
-                    alt={slide.alt}
+                    alt={t(`slides.${slide.id}`)}
                     className="pointer-events-none object-cover"
                     fill
                     priority
@@ -160,7 +163,7 @@ export function AboutImageSlider() {
       </div>
 
       <div
-        aria-label="Перемикач слайдів"
+        aria-label={tCarousel('switcher')}
         className="mt-0 sm:-mt-2 md:-mt-4 flex justify-center gap-4 relative z-10"
         role="tablist"
       >
@@ -168,7 +171,7 @@ export function AboutImageSlider() {
           <button
             key={index}
             aria-controls={`slide-${index}`}
-            aria-label={`Перейти до фото ${index + 1}`}
+            aria-label={tCarousel('goTo', { index: index + 1 })}
             aria-selected={index === activeSlide}
 
             className={`h-3 rounded-full border-2 border-brand-navy transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-navy ${

@@ -1,15 +1,17 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
+import { HERO_IMAGE } from './content';
 import { HeroLede } from './HeroLede';
 import { HeroNote } from './HeroNote';
 import { HeroTitle } from './HeroTitle';
 
-import { HERO_IMAGE } from './content';
-
 export function DesktopHero() {
+  const t = useTranslations('partners.hero');
+
   return (
     <section
-      aria-label="Партнерам"
+      aria-label={t('label')}
       className="relative isolate hidden overflow-hidden bg-sand lg:block lg:min-h-[700px]"
     >
       <div className="absolute inset-0 -z-10">

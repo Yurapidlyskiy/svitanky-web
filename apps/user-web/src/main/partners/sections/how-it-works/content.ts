@@ -1,25 +1,7 @@
-import type { PartnerStep } from './types';
-
-export const PARTNER_STEPS: PartnerStep[] = [
-  {
-    description:
-      'Заповніть форму нижче або напишіть нам — розкажіть трохи про себе чи вашу організацію.',
-    number: '01',
-    title: 'Залиште заявку',
-  },
-  {
-    description: "Ми зв'яжемося з вами, щоб обговорити цілі та можливий формат співпраці.",
-    number: '02',
-    title: 'Обговорюємо деталі',
-  },
-  {
-    description: 'Узгоджуємо план: разова допомога чи довгострокове партнерство.',
-    number: '03',
-    title: 'Домовляємось',
-  },
-  {
-    description: 'Разом даруємо дітям нові можливості та більше світла у щоденному житті.',
-    number: '04',
-    title: 'Починаємо співпрацю',
-  },
-];
+// Step titles and descriptions live in the messages under `partners.howItWorks.steps.<id>`.
+export const PARTNER_STEPS = [
+  { id: 'apply', number: '01' },
+  { id: 'discuss', number: '02' },
+  { id: 'agree', number: '03' },
+  { id: 'start', number: '04' },
+] as const;

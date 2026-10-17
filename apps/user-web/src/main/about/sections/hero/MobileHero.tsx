@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { StatsBar } from '@/shared/ui';
@@ -5,12 +6,14 @@ import { StatsBar } from '@/shared/ui';
 import { HeroLede } from './HeroLede';
 import { HeroTitle } from './HeroTitle';
 import { SunEmblem } from './SunEmblem';
-
-import { HERO_STATS } from './content';
+import { useHeroStats } from './useHeroStats';
 
 export function MobileHero() {
+  const t = useTranslations('about.hero');
+  const stats = useHeroStats();
+
   return (
-    <section aria-label="Про нас" className="relative isolate bg-canvas lg:hidden">
+    <section aria-label={t('label')} className="relative isolate bg-canvas lg:hidden">
       <div className="flex min-h-[calc(100svh-var(--site-header-height))] flex-col">
         <div className="sticky top-[var(--site-header-height)] z-0 min-h-[28svh] w-full flex-1">
           <div className="absolute inset-0 bg-sand">
@@ -33,7 +36,7 @@ export function MobileHero() {
       </div>
 
       <div className="relative px-6 pb-10 pt-4">
-        <StatsBar stats={HERO_STATS} />
+        <StatsBar stats={stats} />
         <SunEmblem className="pointer-events-none absolute top-1 right-4 h-20 w-[62px] opacity-90" />
       </div>
     </section>

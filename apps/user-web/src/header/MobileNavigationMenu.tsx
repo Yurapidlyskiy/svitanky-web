@@ -1,11 +1,15 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { headerActions, primaryNavigation, siteLanguages } from './navigation';
+import { ROUTES } from '@/shared/config/routes';
+import { Link } from '@/shared/i18n/navigation';
+
+import { MobileLanguageSwitcher } from './MobileLanguageSwitcher';
+import { headerActions, primaryNavigation } from './navigation';
 
 const menuItemClassName =
   'block py-4 text-2xl font-black transition-colors duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700';
@@ -13,7 +17,7 @@ const menuItemClassName =
 export function MobileNavigationMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [language, setLanguage] = useState('UA');
+  const t = useTranslations('header');
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -45,20 +49,20 @@ export function MobileNavigationMenu() {
 
   const overlay = (
     <div
-      aria-label="Меню"
+      aria-label={t('mobile.dialogLabel')}
       aria-modal="true"
       className="fixed inset-0 z-[60] flex flex-col bg-canvas animate-in fade-in-0 duration-200 lg:hidden"
       role="dialog"
     >
       <div className="site-header flex shrink-0 items-center justify-between border-b border-slate-200 px-5 sm:px-8">
         <Link
-          aria-label="Світанки України — на головну"
+          aria-label={t('homeLink')}
           className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-700"
-          href="/"
+          href={ROUTES.home}
           onClick={closeMenu}
         >
           <Image
-            alt="Світанки України"
+            alt={t('logoAlt')}
             className="h-auto w-[148px] sm:w-[172px]"
             height={323}
             src="/assets/brand/logos/LogoMainYell&Blue.png"
@@ -66,7 +70,7 @@ export function MobileNavigationMenu() {
           />
         </Link>
         <button
-          aria-label="Закрити меню"
+          aria-label={t('mobile.close')}
           className="-mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full text-brand-navy transition-colors duration-200 ease-out hover:bg-sky-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700"
           onClick={closeMenu}
           ref={closeButtonRef}
@@ -87,7 +91,7 @@ export function MobileNavigationMenu() {
         </button>
       </div>
 
-      <nav aria-label="Мобільна навігація" className="flex-1 overflow-y-auto px-5 py-8 sm:px-8">
+      <nav aria-label={t('mobile.navLabel')} className="flex-1 overflow-y-auto px-5 py-8 sm:px-8">
         <ul className="flex flex-col">
           {primaryNavigation.map((item) => (
             <li key={item.href}>
@@ -96,7 +100,7 @@ export function MobileNavigationMenu() {
                 href={item.href}
                 onClick={closeMenu}
               >
-                {item.label}
+                {t(`nav.${item.labelKey}`)}
               </Link>
             </li>
           ))}
@@ -106,39 +110,19 @@ export function MobileNavigationMenu() {
 
         <ul className="flex flex-col">
           {headerActions.map((item) => (
-            <li key={item.label}>
+            <li key={item.labelKey}>
               <Link
                 className={`${menuItemClassName} text-brand-navy hover:text-amber-500`}
                 href={item.href}
                 onClick={closeMenu}
               >
-                {item.label}
+                {t(`actions.${item.labelKey}`)}
               </Link>
             </li>
           ))}
         </ul>
 
-        <hr className="my-6 border-t border-slate-200" />
-
-        <ul aria-label="Вибір мови" className="flex flex-wrap items-center gap-8">
-          {siteLanguages.map((option) => (
-            <li key={option.code}>
-              <button
-                aria-current={option.code === language ? 'true' : undefined}
-                aria-label={option.label}
-                className={`${menuItemClassName} cursor-pointer ${
-                  option.code === language
-                    ? 'text-amber-500'
-                    : 'text-brand-navy hover:text-amber-500'
-                }`}
-                onClick={() => setLanguage(option.code)}
-                type="button"
-              >
-                {option.code}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <MobileLanguageSwitcher itemClassName={menuItemClassName} />
       </nav>
     </div>
   );
@@ -147,7 +131,7 @@ export function MobileNavigationMenu() {
     <>
       <button
         aria-expanded={isOpen}
-        aria-label="Відкрити меню"
+        aria-label={t('mobile.open')}
         className="-mr-2 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-brand-navy transition-colors duration-200 ease-out hover:bg-sky-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 lg:hidden"
         onClick={() => setIsOpen(true)}
         ref={openButtonRef}

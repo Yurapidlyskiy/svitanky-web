@@ -1,12 +1,10 @@
-import type { Stat } from '@/shared/ui';
+import type { Project, ProjectStat } from './types';
 
-import type { Project } from './types';
-
-export const PROJECT_STATS: Stat[] = [
-  { icon: 'home', primary: '1 Майбутній', secondary: 'Дім Світанків', tone: 'amber' },
-  { icon: 'tent', primary: '15+', secondary: 'Реалізованих таборів', tone: 'amber' },
-  { icon: 'people', primary: '300+', secondary: 'Дітей залучено', tone: 'navy' },
-  { icon: 'heart', primary: 'Тисячі', secondary: 'Спогадів на все життя', tone: 'amber' },
+export const PROJECT_STATS: ProjectStat[] = [
+  { icon: 'home', id: 'home', tone: 'amber' },
+  { icon: 'tent', id: 'camps', tone: 'amber' },
+  { icon: 'people', id: 'children', tone: 'navy' },
+  { icon: 'heart', id: 'memories', tone: 'amber' },
 ];
 
 // Photos are temporary stand-ins until real project photography is available.
@@ -18,7 +16,8 @@ const PROJECT_IMAGES = [
 ];
 
 /**
- * Temporary content until the admin panel can manage projects. `raised` will come from the
+ * Temporary content until the admin panel can manage projects. Like the news items, the
+ * project texts are stand-ins for database rows, so they are deliberately not in the messages. `raised` will come from the
  * bank account balance once that integration exists — the displayed percentage is always
  * derived from raised/goal, so it stays correct once real numbers land.
  */
@@ -32,7 +31,6 @@ export const PROJECTS: Project[] = [
     image: PROJECT_IMAGES[0]!,
     raised: 840_000,
     status: 'active',
-    statusLabel: 'Збір триває',
     title: 'Дім світанків',
   },
   {
@@ -43,7 +41,6 @@ export const PROJECTS: Project[] = [
     image: PROJECT_IMAGES[1]!,
     raised: 95_000,
     status: 'active',
-    statusLabel: 'Збір триває',
     title: 'Світанкові вікенди',
   },
   {
@@ -54,7 +51,6 @@ export const PROJECTS: Project[] = [
     image: PROJECT_IMAGES[2]!,
     raised: 230_000,
     status: 'active',
-    statusLabel: 'Збір триває',
     title: 'Літні табори',
   },
   {
@@ -65,7 +61,6 @@ export const PROJECTS: Project[] = [
     image: PROJECT_IMAGES[3]!,
     raised: 0,
     status: 'planned',
-    statusLabel: 'Планується',
     title: 'Освітній центр',
   },
 ];

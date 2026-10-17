@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { HeroActions } from './HeroActions';
@@ -6,8 +7,13 @@ import { HeroSubtitle } from './HeroSubtitle';
 import { HeroTitle } from './HeroTitle';
 
 export function MobileHero() {
+  const t = useTranslations('support.hero');
+
   return (
-    <section aria-label="Підтримати Світанки" className="relative isolate bg-canvas flex min-h-[calc(100svh-var(--site-header-height))] flex-col lg:hidden">
+    <section
+      aria-label={t('label')}
+      className="relative isolate bg-canvas flex min-h-[calc(100svh-var(--site-header-height))] flex-col lg:hidden"
+    >
       <div className="sticky top-[var(--site-header-height)] z-0 min-h-[28svh] w-full flex-1">
         <div className="absolute inset-0 bg-sand">
           <Image

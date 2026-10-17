@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 
 import { TRUST_POINTS } from './content';
@@ -23,6 +24,8 @@ const ICON_SHAPE: Record<TrustPointIcon, ReactNode> = {
 };
 
 export function TrustBadges() {
+  const t = useTranslations('support.becomeRay.trust');
+
   return (
     <ul className="flex flex-wrap gap-x-8 gap-y-4">
       {TRUST_POINTS.map((point) => (
@@ -41,11 +44,7 @@ export function TrustBadges() {
           </svg>
 
           <p className="text-sm leading-tight text-slate-600">
-            {point.lines.map((line) => (
-              <span className="block" key={line}>
-                {line}
-              </span>
-            ))}
+            {t.rich(point.id, { line: (chunks) => <span className="block">{chunks}</span> })}
           </p>
         </li>
       ))}

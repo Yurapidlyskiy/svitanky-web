@@ -1,45 +1,25 @@
-import type { CampProgramList } from './types';
+// Texts live in the messages under `news.campProgram`. Day themes are `d1`…`d10`
+// (labelled "День {day}"); schedule rows are keyed by activity, with the time kept here.
+export const CAMP_DAYS = ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'd9', 'd10'] as const;
 
-export const CAMP_DAY_THEMES: CampProgramList = {
-  rows: [
-    { label: 'День 1', text: 'Знайомство, проговорення (з 13:00)' },
-    { label: 'День 2', text: 'Занурення в тематику табору та генерування ідей для проєкту' },
-    { label: 'День 3', text: 'Дослідження міста проведення табору' },
-    {
-      label: 'День 4',
-      text: 'Заглиблення в тематику табору та напрацювання плану реалізації проєкту',
-    },
-    { label: 'День 5', text: 'Мінікубок: змагання між командами' },
-    { label: 'День 6', text: 'Мандрівка з дослідження регіону' },
-    { label: 'День 7', text: 'Реалізація спільного проєкту' },
-    { label: 'День 8', text: 'Підбиття підсумків (до 14:00)' },
-    { label: 'День 9', text: 'Підбиття підсумків (до 14:00)' },
-    { label: 'День 10', text: 'Підбиття підсумків (до 14:00)' },
-  ],
-  title: 'Приклад тематики днів табору',
-};
-
-export const CAMP_DAY_SCHEDULE: CampProgramList = {
-  rows: [
-    { label: '7:30', text: 'Підйом, ранкова руханка' },
-    { label: '7:50', text: 'Причепурювання, підготовка до літургії' },
-    { label: '8:30', text: 'Божественна Літургія' },
-    { label: '9:30', text: 'Сніданок' },
-    { label: '10:30', text: 'Відкриття табору і дня' },
-    { label: '10:45', text: 'Прибирання кімнат' },
-    { label: '11:00', text: 'Велика гра' },
-    { label: '13:00', text: 'Кліпи' },
-    { label: '13:30', text: 'Відпочинок' },
-    { label: '14:00', text: 'Обід' },
-    { label: '14:30', text: 'Сієста' },
-    { label: '16:00', text: 'Арт-терапія' },
-    { label: '18:15', text: 'Волейбол, футбол, настільні ігри' },
-    { label: '19:00', text: 'Вечеря' },
-    { label: '20:00', text: 'Закриття дня' },
-    { label: '21:00', text: 'Вервиця' },
-    { label: '21:45', text: 'Перекус' },
-    { label: '22:00', text: 'Свічка' },
-    { label: '22:30', text: 'Відбій' },
-  ],
-  title: 'Приклад розкладу дня',
-};
+export const CAMP_SCHEDULE = [
+  { id: 'wakeUp', time: '7:30' },
+  { id: 'getReady', time: '7:50' },
+  { id: 'liturgy', time: '8:30' },
+  { id: 'breakfast', time: '9:30' },
+  { id: 'opening', time: '10:30' },
+  { id: 'tidyRooms', time: '10:45' },
+  { id: 'bigGame', time: '11:00' },
+  { id: 'clips', time: '13:00' },
+  { id: 'rest', time: '13:30' },
+  { id: 'lunch', time: '14:00' },
+  { id: 'siesta', time: '14:30' },
+  { id: 'artTherapy', time: '16:00' },
+  { id: 'sports', time: '18:15' },
+  { id: 'dinner', time: '19:00' },
+  { id: 'dayClosing', time: '20:00' },
+  { id: 'rosary', time: '21:00' },
+  { id: 'snack', time: '21:45' },
+  { id: 'candle', time: '22:00' },
+  { id: 'lightsOut', time: '22:30' },
+] as const;

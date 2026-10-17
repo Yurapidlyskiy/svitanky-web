@@ -5,7 +5,7 @@ import { submitPartnerRequest } from './actions';
 const IDLE = { status: 'idle' } as const;
 
 const VALID = {
-  cooperationType: 'Фінансова підтримка',
+  cooperationType: 'financial',
   email: 'partner@example.com',
   message: 'Хочемо підтримати літній табір.',
   name: 'Олена',
@@ -22,17 +22,20 @@ function form(fields: Record<string, string>): FormData {
 
 describe('submitPartnerRequest', () => {
   it.each([
-    ['name', 'О', "Вкажіть, будь ласка, ваше ім'я."],
-    ['name', '   ', "Вкажіть, будь ласка, ваше ім'я."],
-    ['email', 'not-an-email', 'Вкажіть коректний email.'],
-    ['email', 'a b@example.com', 'Вкажіть коректний email.'],
-    ['organization', ' ', 'Вкажіть назву організації чи компанії.'],
-    ['cooperationType', '  ', 'Оберіть тип співпраці.'],
-    ['message', 'Коротко', 'Опишіть, будь ласка, коротко вашу пропозицію.'],
-  ])('rejects %s=%j', async (field, value, message) => {
+    ['name', 'О', 'invalidName'],
+    ['name', '   ', 'invalidName'],
+    ['email', 'not-an-email', 'invalidEmail'],
+    ['email', 'a b@example.com', 'invalidEmail'],
+    ['organization', ' ', 'invalidOrganization'],
+    ['cooperationType', '  ', 'invalidCooperationType'],
+    // The form submits ids; a label or an unknown value is rejected.
+    ['cooperationType', 'Фінансова підтримка', 'invalidCooperationType'],
+    ['cooperationType', 'admin', 'invalidCooperationType'],
+    ['message', 'Коротко', 'invalidMessage'],
+  ])('rejects %s=%j', async (field, value, error) => {
     const result = await submitPartnerRequest(IDLE, form({ ...VALID, [field]: value }));
 
-    expect(result).toEqual({ message, status: 'error' });
+    expect(result).toEqual({ error, status: 'error' });
   });
 
   it('rejects a payload with a field missing entirely', async () => {
@@ -40,17 +43,23 @@ describe('submitPartnerRequest', () => {
     delete withoutEmail.email;
     const result = await submitPartnerRequest(IDLE, form(withoutEmail));
 
-    expect(result.message).toBe('Вкажіть коректний email.');
+    expect(result.error).toBe('invalidEmail');
   });
+
+  it.each(['financial', 'volunteering', 'business', 'media', 'other'])(
+    'accepts cooperation type %s',
+    async (cooperationType) => {
+      const result = await submitPartnerRequest(IDLE, form({ ...VALID, cooperationType }));
+
+      expect(result.error).not.toBe('invalidCooperationType');
+    }
+  );
 
   // Documents the current stub: valid input passes validation but is not stored yet.
   // Update this test when the partner_requests table lands.
   it('reports the form as not connected for a valid payload', async () => {
     const result = await submitPartnerRequest(IDLE, form(VALID));
 
-    expect(result).toEqual({
-      message: 'Форму ще не підключено до бази даних. Ми скоро це виправимо.',
-      status: 'error',
-    });
+    expect(result).toEqual({ error: 'notConnected', status: 'error' });
   });
 });

@@ -1,8 +1,12 @@
 'use server';
 
+/** Keys under `home.joinCommunity.errors` — the form translates them for the visitor's language. */
+export type SupportFormError =
+  'consentRequired' | 'invalidAmount' | 'invalidFrequency' | 'paymentsNotConnected';
+
 export type SupportFormState = {
   status: 'idle' | 'error' | 'success';
-  message?: string;
+  error?: SupportFormError;
 };
 
 /**
@@ -27,17 +31,17 @@ export async function submitSupportForm(
   // TODO: replace these ad-hoc checks with a real schema (e.g. zod) and return
   // per-field errors so they can be rendered under each input.
   if (!hasConsent) {
-    return { message: 'Потрібна згода на обробку персональних даних.', status: 'error' };
+    return { error: 'consentRequired', status: 'error' };
   }
 
   const amount = Number(rawAmount);
 
   if (!Number.isFinite(amount) || amount <= 0) {
-    return { message: 'Вкажіть коректну суму підтримки.', status: 'error' };
+    return { error: 'invalidAmount', status: 'error' };
   }
 
   if (frequency !== 'monthly' && frequency !== 'one-time') {
-    return { message: 'Оберіть тип платежу.', status: 'error' };
+    return { error: 'invalidFrequency', status: 'error' };
   }
 
   // TODO: create the payment with the provider (LiqPay / Fondy / Stripe):
@@ -48,8 +52,5 @@ export async function submitSupportForm(
   // TODO: send a confirmation email after a successful charge.
   // TODO: add spam protection (rate limiting / captcha) before going live.
 
-  return {
-    message: 'Оплату ще не підключено. Ми скоро це виправимо.',
-    status: 'error',
-  };
+  return { error: 'paymentsNotConnected', status: 'error' };
 }

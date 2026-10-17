@@ -8,11 +8,23 @@ type RaisingFundsCardProps = {
   answer: string;
 };
 
-export function RaisingFundsCard({ answer, icon, paragraphs, question, title }: RaisingFundsCardProps) {
+export function RaisingFundsCard({
+  answer,
+  icon,
+  paragraphs,
+  question,
+  title,
+}: RaisingFundsCardProps) {
   return (
     <article className="flex h-full flex-col gap-5 rounded-3xl bg-white p-8 shadow-sm">
       <div className="flex size-16 items-center justify-center rounded-2xl bg-amber-400">
-        <Image alt={icon.alt} className="size-9 object-contain" height={36} src={icon.src} width={36} />
+        <Image
+          alt={icon.alt}
+          className="size-9 object-contain"
+          height={36}
+          src={icon.src}
+          width={36}
+        />
       </div>
       <h3 className="text-2xl font-black text-brand-navy">{title}</h3>
       <div className="flex flex-col gap-4 text-base leading-relaxed text-slate-700">

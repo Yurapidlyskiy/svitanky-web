@@ -1,17 +1,19 @@
 'use client';
 
-import { Section } from '@/shared/ui';
-
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useCallback, useRef, useState } from 'react';
 
-import { GalleryArrowButton } from './GalleryArrowButton';
+import { Section } from '@/shared/ui';
 
 import { GALLERY_SLIDES } from './content';
+import { GalleryArrowButton } from './GalleryArrowButton';
 
 const DRAG_TRIGGER_RATIO = 0.15;
 
 export function GallerySection() {
+  const t = useTranslations('home.gallery');
+  const tCarousel = useTranslations('common.carousel');
   const [activeSlide, setActiveSlide] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -20,7 +22,9 @@ export function GallerySection() {
   const dragOffsetRef = useRef(0);
 
   const moveSlide = useCallback((direction: 1 | -1) => {
-    setActiveSlide((current) => (current + direction + GALLERY_SLIDES.length) % GALLERY_SLIDES.length);
+    setActiveSlide(
+      (current) => (current + direction + GALLERY_SLIDES.length) % GALLERY_SLIDES.length
+    );
   }, []);
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -55,7 +59,7 @@ export function GallerySection() {
 
   return (
     <Section
-      aria-label="Галерея подій Світанків України"
+      aria-label={t('label')}
       aria-roledescription="carousel"
       className="flex flex-col"
       width="wide"
@@ -81,14 +85,14 @@ export function GallerySection() {
           {GALLERY_SLIDES.map((slide, index) => (
             <div
               aria-hidden={index !== activeSlide}
-              aria-label={`Слайд ${index + 1} з ${GALLERY_SLIDES.length}`}
+              aria-label={tCarousel('slide', { index: index + 1, total: GALLERY_SLIDES.length })}
               aria-roledescription="slide"
               className="relative h-full w-full shrink-0"
-              key={index}
+              key={slide.id}
               role="group"
             >
               <Image
-                alt={slide.alt}
+                alt={t(`slides.${slide.id}`)}
                 className="pointer-events-none object-cover"
                 fill
                 priority={index === 0}
@@ -99,18 +103,32 @@ export function GallerySection() {
           ))}
         </div>
 
-        <GalleryArrowButton direction="prev" label="Попереднє фото" onClick={() => moveSlide(-1)} />
-        <GalleryArrowButton direction="next" label="Наступне фото" onClick={() => moveSlide(1)} />
+        <GalleryArrowButton
+          direction="prev"
+          label={tCarousel('prev')}
+          onClick={() => moveSlide(-1)}
+        />
+        <GalleryArrowButton
+          direction="next"
+          label={tCarousel('next')}
+          onClick={() => moveSlide(1)}
+        />
       </div>
 
-      <div aria-label="Перемикач слайдів" className="mt-6 flex justify-center gap-3" role="tablist">
+      <div
+        aria-label={tCarousel('switcher')}
+        className="mt-6 flex justify-center gap-3"
+        role="tablist"
+      >
         {GALLERY_SLIDES.map((_, index) => (
           <button
             key={index}
-            aria-label={`Перейти до фото ${index + 1}`}
+            aria-label={tCarousel('goTo', { index: index + 1 })}
             aria-selected={index === activeSlide}
             className={`rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-navy ${
-              index === activeSlide ? 'h-3.5 w-3.5 bg-amber-400' : 'h-2.5 w-2.5 bg-sky-200 hover:bg-sky-300'
+              index === activeSlide
+                ? 'h-3.5 w-3.5 bg-amber-400'
+                : 'h-2.5 w-2.5 bg-sky-200 hover:bg-sky-300'
             }`}
             onClick={() => setActiveSlide(index)}
             role="tab"

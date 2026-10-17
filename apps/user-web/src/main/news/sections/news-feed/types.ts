@@ -22,21 +22,4 @@ export const NEWS_FILTERS: NewsFilter[] = [
   'projects',
 ];
 
-/** Labels for the filter tabs (plural). */
-export const NEWS_FILTER_LABELS: Record<NewsFilter, string> = {
-  all: 'Усі',
-  news: 'Новини',
-  announcements: 'Анонси',
-  reports: 'Звіти',
-  camps: 'Табори',
-  projects: 'Проєкти',
-};
-
-/** Labels for the badge on a card (singular). */
-export const NEWS_CATEGORY_BADGES: Record<NewsCategory, string> = {
-  news: 'Новина',
-  announcements: 'Анонс',
-  reports: 'Звіт',
-  camps: 'Табір',
-  projects: 'Проєкт',
-};
+// Tab labels (plural) are in `news.feed.filters`, card badges (singular) in `news.feed.badges`.

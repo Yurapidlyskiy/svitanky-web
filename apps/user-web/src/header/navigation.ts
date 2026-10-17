@@ -2,19 +2,26 @@ import { ROUTES } from '@/shared/config/routes';
 
 export type NavigationItem = {
   href: string;
-  label: string;
+  /** Key under `header.nav` in the messages. */
+  labelKey: 'about' | 'activities' | 'news' | 'partners';
 };
 
 export const primaryNavigation: NavigationItem[] = [
-  { href: ROUTES.about, label: 'Про нас' },
-  { href: ROUTES.news, label: 'Новини' },
-  { href: ROUTES.partners, label: 'Партнерам' },
-  { href: ROUTES.activities, label: 'Напрямки діяльності' },
+  { href: ROUTES.about, labelKey: 'about' },
+  { href: ROUTES.news, labelKey: 'news' },
+  { href: ROUTES.partners, labelKey: 'partners' },
+  { href: ROUTES.activities, labelKey: 'activities' },
 ];
 
-export const headerActions: NavigationItem[] = [
-  { href: ROUTES.support, label: 'Друзі Світанків' },
-  { href: ROUTES.support, label: 'Підтримати' },
+export type HeaderAction = {
+  href: string;
+  /** Key under `header.actions` in the messages. */
+  labelKey: 'friends' | 'support';
+};
+
+export const headerActions: HeaderAction[] = [
+  { href: ROUTES.support, labelKey: 'friends' },
+  { href: ROUTES.support, labelKey: 'support' },
 ];
 
 export type SiteLanguage = {
@@ -22,11 +29,10 @@ export type SiteLanguage = {
   label: string;
 };
 
-// Shared by the desktop switcher and the mobile menu so the two can't drift.
-// TODO: selecting a language is UI-only for now — wire it to real i18n
-// (locale routing + shared state) once translations exist.
-export const siteLanguages: SiteLanguage[] = [
-  { code: 'UA', label: 'Українська' },
-  { code: 'EN', label: 'English' },
-  { code: 'IT', label: 'Italiano' },
-];
+// Each language is named in itself (an endonym), so these labels are never translated.
+// Only the locales enabled in `shared/i18n/locales.json` are shown in the switcher.
+export const SITE_LANGUAGES: Record<string, SiteLanguage> = {
+  en: { code: 'EN', label: 'English' },
+  it: { code: 'IT', label: 'Italiano' },
+  uk: { code: 'UA', label: 'Українська' },
+};

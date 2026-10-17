@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import { RAY_FREQUENCIES } from './content';
 import type { RayFrequency } from './types';
 
@@ -10,13 +12,15 @@ type FrequencyTabsProps = {
 };
 
 export function FrequencyTabs({ onChange, value }: FrequencyTabsProps) {
+  const t = useTranslations('support.becomeRay');
+
   return (
     <fieldset className="w-full rounded-full border border-brand-sky-pale/70 bg-white p-1.5 sm:w-fit">
-      <legend className="sr-only">Періодичність підтримки</legend>
+      <legend className="sr-only">{t('frequencyLegend')}</legend>
 
       <div className="flex gap-1.5">
         {RAY_FREQUENCIES.map((option) => {
-          const isSelected = option.id === value;
+          const isSelected = option === value;
 
           return (
             <label
@@ -25,15 +29,15 @@ export function FrequencyTabs({ onChange, value }: FrequencyTabsProps) {
                   ? 'bg-brand-navy text-white'
                   : 'text-slate-500 hover:bg-brand-sky-mist hover:text-brand-navy'
               }`}
-              key={option.id}
+              key={option}
             >
               <input
                 checked={isSelected}
                 className="sr-only"
                 name="frequency"
-                onChange={() => onChange(option.id)}
+                onChange={() => onChange(option)}
                 type="radio"
-                value={option.id}
+                value={option}
               />
 
               <svg
@@ -51,7 +55,7 @@ export function FrequencyTabs({ onChange, value }: FrequencyTabsProps) {
                 />
               </svg>
 
-              {option.label}
+              {t(`frequencies.${option}`)}
             </label>
           );
         })}

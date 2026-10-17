@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -8,6 +9,7 @@ export function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations('common');
 
   useEffect(() => setIsMounted(true), []);
   useEffect(() => {
@@ -45,7 +47,7 @@ export function ScrollToTopButton() {
   return createPortal(
     <button
       aria-hidden={!isVisible}
-      aria-label="Нагору"
+      aria-label={t('scrollToTop')}
       className={`fixed bottom-6 right-5 z-40 flex size-14 cursor-pointer items-center justify-center rounded-full border-2 border-amber-400 bg-canvas text-amber-400 shadow-md transition-[opacity,transform,background-color,color] duration-300 ease-out hover:bg-amber-400 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 sm:bottom-8 sm:right-8 ${
         isVisible ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}

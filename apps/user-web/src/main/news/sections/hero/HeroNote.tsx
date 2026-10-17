@@ -1,14 +1,16 @@
-import { HERO_NOTE } from './content';
+import { useTranslations } from 'next-intl';
 
 type HeroNoteProps = {
   className?: string;
 };
 
 export function HeroNote({ className = '' }: HeroNoteProps) {
+  const t = useTranslations('news.hero');
+
   return (
     <div className={`flex items-center gap-3 text-brand-navy ${className}`}>
       <div className="relative max-w-[13rem] -rotate-6">
-        <p className="font-display text-xl leading-snug font-bold sm:text-2xl">{HERO_NOTE}</p>
+        <p className="font-display text-xl leading-snug font-bold sm:text-2xl">{t('note')}</p>
 
         <svg
           aria-hidden="true"

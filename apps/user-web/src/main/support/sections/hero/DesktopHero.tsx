@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { HeroActions } from './HeroActions';
@@ -6,9 +7,11 @@ import { HeroSubtitle } from './HeroSubtitle';
 import { HeroTitle } from './HeroTitle';
 
 export function DesktopHero() {
+  const t = useTranslations('support.hero');
+
   return (
     <section
-      aria-label="Підтримати Світанки"
+      aria-label={t('label')}
       className="relative isolate hidden w-full min-h-[max(600px,var(--hero-image-height))] items-center overflow-hidden bg-canvas [--hero-image-height:calc(100vw*1585/3965)] lg:flex"
     >
       <div className="absolute inset-0 -z-10 bg-sand">

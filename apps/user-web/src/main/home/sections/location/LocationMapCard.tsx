@@ -1,13 +1,15 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-import { LOCATION_PLACE } from './content';
-
 export function LocationMapCard() {
+  const t = useTranslations('home.location');
+  const city = t('city');
+
   return (
     <div className="rounded-3xl bg-[#fefdf9] p-4 shadow-[0_12px_40px_-12px_rgba(0,69,116,0.18)] sm:p-8">
       <div className="relative">
         <Image
-          alt={`Карта України з позначеним містом ${LOCATION_PLACE.city}`}
+          alt={t('mapAlt', { city })}
           className="h-auto w-full"
           height={1664}
           sizes="(min-width: 1024px) 45vw, 100vw"
@@ -16,7 +18,7 @@ export function LocationMapCard() {
         />
 
         <div
-          aria-label={`${LOCATION_PLACE.city} на карті`}
+          aria-label={t('markerLabel', { city })}
           className="absolute left-[61%] top-[51%]"
           role="img"
         >

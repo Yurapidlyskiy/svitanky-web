@@ -1,6 +1,7 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
 
+import { Link } from '@/shared/i18n/navigation';
 import { StatIcon, type StatIconName } from '@/shared/ui';
 
 type ActivityDirectionAccent = 'amber' | 'navy' | 'green';
@@ -37,6 +38,8 @@ export function DirectionCard({
   priority = false,
   title,
 }: DirectionCardProps) {
+  const t = useTranslations('activities.directions');
+
   return (
     <article className="grid overflow-hidden rounded-[28px] bg-white shadow-sm transition-shadow duration-200 ease-out hover:shadow-lg lg:grid-cols-2">
       <div
@@ -72,11 +75,11 @@ export function DirectionCard({
           <h3 className="text-xl font-black text-brand-navy">{title}</h3>
           <p className="max-w-md text-sm leading-relaxed text-slate-600">{description}</p>
           <Link
-            aria-label={`Детальніше: ${title}`}
+            aria-label={t('moreLabel', { title })}
             className="mt-1 inline-flex w-fit items-center gap-1 text-sm font-bold text-brand-navy-muted transition-colors duration-200 ease-out hover:text-amber-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300"
             href={href}
           >
-            Детальніше &gt;
+            {t('more')} &gt;
           </Link>
         </div>
       </div>

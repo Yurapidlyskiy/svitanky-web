@@ -1,4 +1,7 @@
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+
+import { ROUTES } from '@/shared/config/routes';
+import { Link } from '@/shared/i18n/navigation';
 
 const baseButtonClassName =
   'inline-flex w-full items-center justify-center gap-2 rounded-full border-2 px-8 py-3 text-center font-bold shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:scale-105 hover:shadow-md active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 lg:w-auto';
@@ -8,20 +11,22 @@ type HeroActionsProps = {
 };
 
 export function HeroActions({ className = '' }: HeroActionsProps) {
+  const t = useTranslations('home.hero');
+
   return (
     <div className={className}>
       <Link
         className={`${baseButtonClassName} border-brand-amber-strong bg-brand-amber-strong text-brand-navy hover:bg-brand-amber hover:shadow-brand-amber-strong/40 focus-visible:outline-brand-amber-strong`}
-        href="/support"
+        href={ROUTES.support}
       >
-        <span>Підтримати</span>
+        <span>{t('support')}</span>
         <span aria-hidden="true">&gt;</span>
       </Link>
       <Link
         className={`${baseButtonClassName} border-brand-navy bg-canvas text-brand-navy hover:bg-brand-sky-mist hover:shadow-brand-navy/25 focus-visible:outline-brand-navy`}
-        href="/about"
+        href={ROUTES.about}
       >
-        <span>Дізнатися більше</span>
+        <span>{t('learnMore')}</span>
         <span aria-hidden="true">&gt;</span>
       </Link>
     </div>

@@ -1,9 +1,11 @@
-import { HERO_SUBTITLE } from './content';
+import { useTranslations } from 'next-intl';
 
 type HeroSubtitleProps = {
   className?: string;
 };
 
 export function HeroSubtitle({ className = '' }: HeroSubtitleProps) {
-  return <p className={className}>{HERO_SUBTITLE}</p>;
+  const t = useTranslations('support.hero');
+
+  return <p className={className}>{t('subtitle')}</p>;
 }

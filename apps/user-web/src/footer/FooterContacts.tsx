@@ -1,11 +1,17 @@
+import { useTranslations } from 'next-intl';
+
 import { contactDetails } from '@/shared/config/contacts';
 
 const iconClassName = 'mt-0.5 size-6 shrink-0 text-white';
 
 export function FooterContacts() {
+  const t = useTranslations('footer');
+
   return (
     <div>
-      <h2 className="text-base font-black uppercase tracking-wide text-brand-amber">Контактні дані</h2>
+      <h2 className="text-base font-black uppercase tracking-wide text-brand-amber">
+        {t('contactsTitle')}
+      </h2>
       <ul className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-white">
         <li className="flex items-start gap-3">
           <svg aria-hidden="true" className={iconClassName} fill="currentColor" viewBox="0 0 24 24">
@@ -27,7 +33,7 @@ export function FooterContacts() {
           <svg aria-hidden="true" className={iconClassName} fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
           </svg>
-          <span>{contactDetails.address}</span>
+          <span>{t('address')}</span>
         </li>
       </ul>
     </div>

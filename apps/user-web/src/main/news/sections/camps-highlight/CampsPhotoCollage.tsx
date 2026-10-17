@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { CAMPS_COLLAGE_PHOTOS } from './content';
@@ -10,6 +11,8 @@ const PHOTO_LAYOUT = [
 ] as const;
 
 export function CampsPhotoCollage() {
+  const t = useTranslations('news.campsHighlight.photos');
+
   return (
     <div className="relative h-72 w-full max-w-sm sm:h-96">
       {CAMPS_COLLAGE_PHOTOS.map((photo, index) => (
@@ -17,7 +20,7 @@ export function CampsPhotoCollage() {
           className={`absolute overflow-hidden rounded-2xl border-4 border-white bg-white shadow-lg ${PHOTO_LAYOUT[index]}`}
           key={photo.src}
         >
-          <Image alt={photo.alt} className="object-cover" fill sizes="256px" src={photo.src} />
+          <Image alt={t(photo.id)} className="object-cover" fill sizes="256px" src={photo.src} />
         </div>
       ))}
     </div>

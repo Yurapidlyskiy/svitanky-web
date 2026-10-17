@@ -6,9 +6,10 @@ import { useState } from 'react';
 type YouTubePlayerProps = {
   videoId: string;
   title: string;
+  playLabel: string;
 };
 
-export function YouTubePlayer({ title, videoId }: YouTubePlayerProps) {
+export function YouTubePlayer({ playLabel, title, videoId }: YouTubePlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   if (isPlaying) {
@@ -27,7 +28,7 @@ export function YouTubePlayer({ title, videoId }: YouTubePlayerProps) {
 
   return (
     <button
-      aria-label={`Відтворити відео: ${title}`}
+      aria-label={playLabel}
       className="group relative block w-full aspect-video focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400"
       onClick={() => setIsPlaying(true)}
       type="button"

@@ -11,7 +11,13 @@ export function TeamMemberCard({ name, photo, role }: TeamMemberCardProps) {
     <article className="flex flex-col gap-3">
       <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-slate-200">
         {photo ? (
-          <Image alt={photo.alt} className="object-cover" fill sizes="(min-width: 1024px) 25vw, 50vw" src={photo.src} />
+          <Image
+            alt={photo.alt}
+            className="object-cover"
+            fill
+            sizes="(min-width: 1024px) 25vw, 50vw"
+            src={photo.src}
+          />
         ) : null}
       </div>
       <div>

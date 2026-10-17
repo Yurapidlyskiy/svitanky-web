@@ -1,7 +1,8 @@
+// Alt texts live in the messages under `home.gallery.slides.<id>`.
 export const GALLERY_SLIDES = [
-  { alt: 'Момент зі Світанків України 1', src: '/assets/images/shared/poster-1.jpeg' },
-  { alt: 'Момент зі Світанків України 2', src: '/assets/images/shared/poster-2.jpeg' },
-  { alt: 'Момент зі Світанків України 3', src: '/assets/images/shared/poster-3.jpg' },
-  { alt: 'Момент зі Світанків України 4', src: '/assets/images/shared/poster-1.jpeg' },
-  { alt: 'Момент зі Світанків України 5', src: '/assets/images/shared/poster-3.jpg' },
-];
+  { id: 's1', src: '/assets/images/shared/poster-1.jpeg' },
+  { id: 's2', src: '/assets/images/shared/poster-2.jpeg' },
+  { id: 's3', src: '/assets/images/shared/poster-3.jpg' },
+  { id: 's4', src: '/assets/images/shared/poster-1.jpeg' },
+  { id: 's5', src: '/assets/images/shared/poster-3.jpg' },
+] as const;

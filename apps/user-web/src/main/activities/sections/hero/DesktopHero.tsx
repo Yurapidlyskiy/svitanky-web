@@ -1,15 +1,17 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
+import { HERO_IMAGE } from './content';
 import { HeroLede } from './HeroLede';
 import { HeroTitle } from './HeroTitle';
 import { HeroUnderline } from './HeroUnderline';
 
-import { HERO_IMAGE } from './content';
-
 export function DesktopHero() {
+  const t = useTranslations('activities.hero');
+
   return (
     <section
-      aria-label="Напрямки діяльності"
+      aria-label={t('label')}
       className="relative isolate hidden overflow-hidden bg-sand lg:flex lg:h-[max(600px,calc(100dvh_-_var(--site-header-height)))] lg:items-center"
     >
       <div className="absolute inset-0 -z-10">

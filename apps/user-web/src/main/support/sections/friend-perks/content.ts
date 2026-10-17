@@ -1,34 +1,11 @@
-import type { Perk } from './types';
+import type { PerkIconName } from './types';
 
-export const FRIEND_PERKS: Perk[] = [
-  {
-    description: 'Доступ до каналу Друзів Світанків',
-    icon: 'community',
-    title: 'Закрита спільнота',
-  },
-  {
-    description: 'Онлайн та офлайн зустрічі зі спільнотою',
-    icon: 'calendar',
-    title: 'Зустрічі',
-  },
-  {
-    description: 'Гайди, лекції, записи зустрічей',
-    icon: 'document',
-    title: 'Корисні матеріали',
-  },
-  {
-    description: 'Камерні зустрічі з цікавими людьми',
-    icon: 'star',
-    title: 'Спеціальні гості',
-  },
-  {
-    description: 'Щомісячний impact update',
-    icon: 'chart',
-    title: 'Результати твого променя',
-  },
-  {
-    description: 'Сніданки, запрошення, ексклюзивні події',
-    icon: 'heart',
-    title: 'Події Друзів',
-  },
-];
+// Titles and descriptions live in the messages under `support.friendPerks.items.<id>`.
+export const FRIEND_PERKS = [
+  { icon: 'community', id: 'community' },
+  { icon: 'calendar', id: 'meetings' },
+  { icon: 'document', id: 'materials' },
+  { icon: 'star', id: 'guests' },
+  { icon: 'chart', id: 'impact' },
+  { icon: 'heart', id: 'events' },
+] as const satisfies { icon: PerkIconName; id: string }[];

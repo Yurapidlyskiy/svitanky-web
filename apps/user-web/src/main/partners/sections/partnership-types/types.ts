@@ -1,8 +1,8 @@
 import type { IconFeatureCardTone, StatIconName } from '@/shared/ui';
 
+/** Untranslated part of a type — its texts are in `partners.partnershipTypes.items.<id>`. */
 export type PartnershipType = {
-  description: string;
   icon: StatIconName;
-  title: string;
+  id: 'business' | 'churches' | 'foundations' | 'volunteers';
   tone: IconFeatureCardTone;
 };

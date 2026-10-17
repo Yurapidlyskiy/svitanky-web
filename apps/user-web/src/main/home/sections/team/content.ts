@@ -1,28 +1,17 @@
-export // TODO: replace `photo: undefined` with the real headshot ({ src, alt }) as
+// Names and roles live in the messages under `home.team.members.<id>`.
+// TODO: replace `photo: undefined` with the real headshot ({ src, alt }) as
 // they become available — TeamMemberCard already renders it when present.
-const TEAM = [
-  {
-    name: 'О. Сергій Паламарчук',
-    photo: undefined,
-    role: 'Господарська / адміністративна діяльність/ духівник',
-  },
-  { name: 'Михайло Костів', photo: undefined, role: 'Координатор' },
-  { name: 'Марія Горечко', photo: undefined, role: 'Фандрайзер/ Фінанси' },
-  {
-    name: 'Ольга Підліська',
-    photo: undefined,
-    role: 'Програмний менеджер, координатор виховників',
-  },
-  {
-    name: 'Юрій Підліський',
-    photo: undefined,
-    role: 'Розробник сайту, координатор волонтерської роботи',
-  },
-  { name: 'Анастасія Пантелей', photo: undefined, role: 'SMM, дизайнер' },
-  { name: 'Ангеліна Гридковець', photo: undefined, role: 'Помічник SMM' },
-  { name: 'Остап Лалюк', photo: undefined, role: 'Виховник' },
-  { name: 'Данило Магро', photo: undefined, role: 'Виховник' },
-  { name: 'Алєся', photo: undefined, role: 'Виховник' },
-  { name: 'Софія Ганьба', photo: undefined, role: 'Виховник' },
-  { name: 'Андріана Горечко', photo: undefined, role: 'Виховник, SММ' },
-];
+export const TEAM = [
+  { id: 'palamarchuk', photo: undefined },
+  { id: 'kostiv', photo: undefined },
+  { id: 'horechkoMariia', photo: undefined },
+  { id: 'pidliska', photo: undefined },
+  { id: 'pidliskyi', photo: undefined },
+  { id: 'panteley', photo: undefined },
+  { id: 'hrydkovets', photo: undefined },
+  { id: 'laliuk', photo: undefined },
+  { id: 'mahro', photo: undefined },
+  { id: 'alesia', photo: undefined },
+  { id: 'hanba', photo: undefined },
+  { id: 'horechkoAndriana', photo: undefined },
+] as const;

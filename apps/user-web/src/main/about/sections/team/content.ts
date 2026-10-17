@@ -1,20 +1,16 @@
-import type { TeamMember } from './types';
-
-export const TEAM_LEDE =
-  'Люди, які щодня перетворюють ідею спільноти на живий дім для дітей і молоді.';
-
-export const TEAM_MEMBERS: TeamMember[] = [
-  { name: 'о. Сергій Паламарчук', role: 'Духівник, адміністративна діяльність' },
-  { name: 'Михайло Костів', role: 'Координатор' },
-  { name: 'Марія Горечко', role: 'Фандрайзер, фінанси' },
-  { name: 'Ольга Підліська', role: 'Програмний менеджер, координатор виховників' },
-  { name: 'Юрій Підліський', role: 'Розробник сайту, волонтерська робота' },
-  { name: 'Анастасія Пантелей', role: 'SMM, дизайн' },
-  { name: 'Ангеліна Гридковець', role: 'Помічник SMM' },
-  { name: 'Остап Лалюк', role: 'Виховник' },
-  { name: 'Данило Магро', role: 'IT спеціаліст, Виховник' },
-  { name: 'Алєся', role: 'Виховник' },
-  { name: 'Софія Ганьба', role: 'Виховник' },
-  { name: 'Андріана Горечко', role: 'Виховник, SММ' },
-  { name: 'Максим', role: 'Генерал' },
-];
+// Names and roles live in the messages under `about.team.members.<id>`.
+export const TEAM_MEMBERS = [
+  'palamarchuk',
+  'kostiv',
+  'horechkoMariia',
+  'pidliska',
+  'pidliskyi',
+  'panteley',
+  'hrydkovets',
+  'laliuk',
+  'mahro',
+  'alesia',
+  'hanba',
+  'horechkoAndriana',
+  'maksym',
+] as const;
