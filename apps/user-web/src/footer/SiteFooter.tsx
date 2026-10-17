@@ -28,7 +28,9 @@ export function SiteFooter() {
 
         <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-8">
           <FooterLinkColumn links={footerNavigation} title="Навігація" uppercaseLinks />
-          <FooterLinkColumn links={legalNavigation} title="Правова інформація" />
+          {legalNavigation.length > 0 ? (
+            <FooterLinkColumn links={legalNavigation} title="Правова інформація" />
+          ) : null}
           <FooterContacts />
           <FooterSocials />
         </div>

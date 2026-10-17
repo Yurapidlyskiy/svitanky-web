@@ -1,7 +1,7 @@
 import { DesktopHero } from './DesktopHero';
 import { MobileHero } from './MobileHero';
 
-export function NewsHeroSection() {
+export function HeroSection() {
   return (
     <div id="news-hero">
       <MobileHero />

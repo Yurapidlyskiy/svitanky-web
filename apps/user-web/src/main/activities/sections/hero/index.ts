@@ -1,1 +1,1 @@
-export { ActivitiesHeroSection } from './ActivitiesHeroSection';
+export { HeroSection } from './HeroSection';

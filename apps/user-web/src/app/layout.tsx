@@ -1,5 +1,6 @@
 import { SiteFooter } from '@/footer';
 import { SiteHeader } from '@/header';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/shared/config/site';
 import '@/shared/styles/globals.css';
 import { ScrollToTopButton } from '@/shared/ui';
 import type { Metadata } from 'next';
@@ -26,8 +27,10 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: 'Світанки України',
-  description: 'Офіційний сайт благодійного фонду «Світанки України»',
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
+  openGraph: { locale: 'uk_UA', siteName: SITE_NAME, type: 'website' },
+  title: { default: SITE_NAME, template: `%s — ${SITE_NAME}` },
 };
 
 export default function RootLayout({

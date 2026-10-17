@@ -6,8 +6,9 @@ export type SupportFormState = {
 };
 
 /**
- * Server Action behind every donation form on the site (the home page's "Стати другом
- * Світанків" form and the /support page's form both submit here).
+ * Server Action behind the home page's "Стати другом Світанків" form. The /support
+ * page's "Стати Променем" card does not submit here yet — once a second form needs it,
+ * promote this file to `shared/` (see user-web-architecture.md §7).
  *
  * TODO: the payment backend is not wired up yet — this currently only does the
  * baseline server-side validation and always reports "not connected".

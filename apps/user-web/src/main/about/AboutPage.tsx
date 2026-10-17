@@ -1,4 +1,4 @@
-import { AboutHeroSection } from './sections/hero';
+import { HeroSection } from './sections/hero';
 import { JourneySection } from './sections/journey';
 import { StorySection } from './sections/story';
 import { TeamSection } from './sections/team';
@@ -6,7 +6,7 @@ import { TeamSection } from './sections/team';
 export function AboutPage() {
   return (
     <>
-      <AboutHeroSection />
+      <HeroSection />
       <JourneySection />
       <StorySection />
       <TeamSection />

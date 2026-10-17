@@ -8,7 +8,10 @@ import { HERO_IMAGE } from './content';
 
 export function MobileHero() {
   return (
-    <section aria-label="Напрямки діяльності" className="relative isolate bg-canvas flex min-h-[calc(100svh-var(--site-header-height))] flex-col lg:hidden">
+    <section
+      aria-label="Напрямки діяльності"
+      className="relative isolate bg-canvas flex min-h-[calc(100svh-var(--site-header-height))] flex-col lg:hidden"
+    >
       <div className="sticky top-[var(--site-header-height)] z-0 min-h-[28svh] w-full flex-1">
         <div className="absolute inset-0 bg-sand">
           <Image
@@ -27,7 +30,7 @@ export function MobileHero() {
 
         <HeroLede className="max-w-md text-base leading-relaxed text-slate-700" />
 
-        <HeroUnderline className="w-[80%] max-w-[240px] text-brand-amber-strong" />
+        <HeroUnderline className="w-[80%] max-w-[240px]" />
       </div>
     </section>
   );

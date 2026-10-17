@@ -3,7 +3,7 @@
 import { useActionState, useState } from 'react';
 
 import { PERSONAL_DATA_LAW_URL, PRESET_AMOUNTS } from '@/shared/config/support';
-import { submitSupportForm, type SupportFormState } from '@/shared/lib/supportForm';
+import { submitSupportForm, type SupportFormState } from './actions';
 
 const CUSTOM_AMOUNT = 'custom';
 

@@ -1,18 +1,20 @@
+import { ROUTES } from '@/shared/config/routes';
+
 export type NavigationItem = {
   href: string;
   label: string;
 };
 
 export const primaryNavigation: NavigationItem[] = [
-  { href: '/about', label: 'Про нас' },
-  { href: '/news', label: 'Новини' },
-  { href: '/partners', label: 'Партнерам' },
-  { href: '/activities', label: 'Напрямки діяльності' },
+  { href: ROUTES.about, label: 'Про нас' },
+  { href: ROUTES.news, label: 'Новини' },
+  { href: ROUTES.partners, label: 'Партнерам' },
+  { href: ROUTES.activities, label: 'Напрямки діяльності' },
 ];
 
 export const headerActions: NavigationItem[] = [
-  { href: '/support', label: 'Друзі Світанків' },
-  { href: '/support', label: 'Підтримати' },
+  { href: ROUTES.support, label: 'Друзі Світанків' },
+  { href: ROUTES.support, label: 'Підтримати' },
 ];
 
 export type SiteLanguage = {

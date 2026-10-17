@@ -1,10 +1,10 @@
-import { ActivitiesHeroSection } from './sections/hero';
+import { HeroSection } from './sections/hero';
 import { DirectionsSection } from './sections/directions';
 
 export function ActivitiesPage() {
   return (
     <>
-      <ActivitiesHeroSection />
+      <HeroSection />
 
       <DirectionsSection />
     </>

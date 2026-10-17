@@ -4,7 +4,7 @@ import { CampsHighlightSection } from './sections/camps-highlight';
 import { NEWS_ITEMS } from './sections/news-feed/content';
 import { parseNewsFilter, selectNewsPage } from './sections/news-feed/newsQuery';
 import { NewsFeedSection } from './sections/news-feed';
-import { NewsHeroSection } from './sections/hero';
+import { HeroSection } from './sections/hero';
 import { ProjectsHighlightSection } from './sections/projects-highlight';
 import { ProjectsResultsSection } from './sections/projects-results';
 
@@ -36,7 +36,7 @@ export function NewsPage({ searchParams }: NewsPageProps) {
 
   return (
     <>
-      <NewsHeroSection />
+      <HeroSection />
 
       <NewsFeedSection
         activeFilter={activeFilter}
