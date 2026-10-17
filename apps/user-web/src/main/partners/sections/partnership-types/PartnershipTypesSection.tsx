@@ -1,7 +1,8 @@
 import { useTranslations } from 'next-intl';
 
-import { IconFeatureCard, Reveal, Section, SectionHeading } from '@/shared/ui';
+import { Reveal, Section, SectionHeading } from '@/shared/ui';
 
+import { IconFeatureCard } from './IconFeatureCard';
 import { PARTNERSHIP_TYPES } from './content';
 
 export function PartnershipTypesSection() {

@@ -1,6 +1,7 @@
-import type { StatIconName } from '@/shared/ui';
+export type ProjectStatus = 'active' | 'planned' | 'completed';
 
-export type ProjectStatus = 'active' | 'planned';
+/** The status tabs above the list: one per status, plus everything at once. */
+export type ProjectFilter = 'all' | ProjectStatus;
 
 export type Project = {
   description: string;
@@ -13,11 +14,4 @@ export type Project = {
   /** Its label is in `news.projectsHighlight.status.<status>`. */
   status: ProjectStatus;
   title: string;
-};
-
-/** Untranslated part of a stat — its texts are in `news.projectsHighlight.stats.<id>`. */
-export type ProjectStat = {
-  icon: StatIconName;
-  id: 'camps' | 'children' | 'home' | 'memories';
-  tone: 'amber' | 'navy';
 };

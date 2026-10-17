@@ -1,12 +1,12 @@
 import { CampFaqSection } from './sections/camp-faq';
 import { CampProgramSection } from './sections/camp-program';
 import { CampsHighlightSection } from './sections/camps-highlight';
+import { FundingSection } from './sections/funding';
 import { NEWS_ITEMS } from './sections/news-feed/content';
 import { parseNewsFilter, selectNewsPage } from './sections/news-feed/newsQuery';
 import { NewsFeedSection } from './sections/news-feed';
 import { HeroSection } from './sections/hero';
 import { ProjectsHighlightSection } from './sections/projects-highlight';
-import { ProjectsResultsSection } from './sections/projects-results';
 
 type NewsPageProps = {
   searchParams: Record<string, string | string[] | undefined>;
@@ -28,8 +28,8 @@ export function NewsPage({ searchParams }: NewsPageProps) {
   } else if (activeFilter === 'projects') {
     highlight = (
       <div className="flex flex-col gap-14 lg:gap-16">
-        <ProjectsHighlightSection />
-        <ProjectsResultsSection />
+        <ProjectsHighlightSection status={searchParams.status} />
+        <FundingSection />
       </div>
     );
   }

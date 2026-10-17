@@ -1,20 +1,24 @@
 import { useTranslations } from 'next-intl';
 
-import { Section, SectionHeading } from '@/shared/ui';
+import { SectionHeading } from '@/shared/ui';
 
 import { FUNDING_ITEMS } from './content';
 import { FundingCard } from './FundingCard';
 
+/**
+ * Rendered inside news-feed's own <Section> shell (as its `highlight` slot) rather than
+ * wrapped in its own — a second gutter/padding pass here would double up on the parent's.
+ */
 export function FundingSection() {
-  const t = useTranslations('support.funding');
+  const t = useTranslations('news.funding');
 
   return (
-    <Section aria-label={t('title')} className="pb-16 lg:pb-20" id="funding">
+    <section aria-label={t('title')} className="flex flex-col gap-10" id="funding">
       <SectionHeading size="md" tone="navy">
         {t('title')}
       </SectionHeading>
 
-      <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
         {FUNDING_ITEMS.map((item) => (
           <FundingCard
             item={{
@@ -31,6 +35,6 @@ export function FundingSection() {
           />
         ))}
       </div>
-    </Section>
+    </section>
   );
 }

@@ -1,11 +1,4 @@
-import type { Project, ProjectStat } from './types';
-
-export const PROJECT_STATS: ProjectStat[] = [
-  { icon: 'home', id: 'home', tone: 'amber' },
-  { icon: 'tent', id: 'camps', tone: 'amber' },
-  { icon: 'people', id: 'children', tone: 'navy' },
-  { icon: 'heart', id: 'memories', tone: 'amber' },
-];
+import type { Project } from './types';
 
 // Photos are temporary stand-ins until real project photography is available.
 const PROJECT_IMAGES = [
@@ -13,6 +6,10 @@ const PROJECT_IMAGES = [
   { alt: 'Ілюстрація до проєкту «Світанкові вікенди»', src: '/assets/images/shared/poster-2.jpeg' },
   { alt: 'Ілюстрація до проєкту «Літні табори»', src: '/assets/images/shared/poster-1.jpeg' },
   { alt: 'Учасники спільноти «Світанки України»', src: '/assets/images/shared/poster-3.jpg' },
+  {
+    alt: 'Учасники зимового табору «Світанків»',
+    src: '/assets/images/activities/camps-activity.JPG',
+  },
 ];
 
 /**
@@ -62,5 +59,16 @@ export const PROJECTS: Project[] = [
     raised: 0,
     status: 'planned',
     title: 'Освітній центр',
+  },
+  // Test row: shows how a finished project looks until real ones exist.
+  {
+    description: 'Тиждень у Карпатах: гори, дружба та спільні свята для дітей зі Сходу.',
+    goal: 180_000,
+    href: '/news?category=projects',
+    id: 'zymovyi-tabir-2025',
+    image: PROJECT_IMAGES[4]!,
+    raised: 180_000,
+    status: 'completed',
+    title: 'Зимовий табір 2025',
   },
 ];

@@ -17,9 +17,9 @@ export const NEWS_FILTERS: NewsFilter[] = [
   'all',
   'news',
   'announcements',
-  'reports',
   'camps',
   'projects',
+  'reports',
 ];
 
 // Tab labels (plural) are in `news.feed.filters`, card badges (singular) in `news.feed.badges`.

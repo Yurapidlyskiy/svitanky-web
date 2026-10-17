@@ -1,4 +1,4 @@
-import { StatIcon, type StatIconName } from './StatIcon';
+import { StatIcon, type StatIconName } from '@/shared/ui';
 
 export type IconFeatureCardTone = 'amber' | 'blue' | 'green' | 'purple';
 

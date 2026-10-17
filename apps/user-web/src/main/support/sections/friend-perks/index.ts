@@ -1,1 +1,0 @@
-export { FriendPerksSection } from './FriendPerksSection';

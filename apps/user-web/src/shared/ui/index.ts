@@ -1,5 +1,3 @@
-export type { IconFeatureCardTone } from './IconFeatureCard';
-export { IconFeatureCard } from './IconFeatureCard';
 export { PageHero } from './PageHero';
 export { Reveal } from './Reveal';
 export { ScrollToTopButton } from './ScrollToTopButton';

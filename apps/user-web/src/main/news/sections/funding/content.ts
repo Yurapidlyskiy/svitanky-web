@@ -1,4 +1,4 @@
-// Titles, descriptions and alt texts live in the messages under `support.funding.items.<id>`.
+// Titles, descriptions and alt texts live in the messages under `news.funding.items.<id>`.
 export const FUNDING_ITEMS = [
   {
     accent: 'amber',
