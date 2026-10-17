@@ -44,3 +44,6 @@ yarn-error.log*
 # Claude Code — local AI-assistant config, not part of the product
 .claude/
 CLAUDE.md
+
+# Local-only LiqPay planning notes
+docs/payments/
