@@ -22,7 +22,6 @@
 
 :root {
   --site-header-height: 6.25rem;
-  --home-hero-wave-height: 7rem;
 }
 
 html {
@@ -45,12 +44,6 @@ section[id] {
 
 .site-page {
   padding-top: var(--site-header-height);
-}
-
-.home-hero {
-  --home-hero-min-height: calc(100dvh - var(--site-header-height) + var(--home-hero-wave-height));
-
-  min-height: var(--home-hero-min-height);
 }
 
 .hero-title {

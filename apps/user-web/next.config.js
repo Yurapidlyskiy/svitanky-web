@@ -6,6 +6,7 @@ const withNextIntl = createNextIntlPlugin('./src/shared/i18n/request.ts');
 const nextConfig = {
   transpilePackages: ['@project/common-ui'],
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
