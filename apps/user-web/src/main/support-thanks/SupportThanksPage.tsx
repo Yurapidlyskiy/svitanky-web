@@ -35,7 +35,7 @@ type SupportThanksPageProps = {
   outcome: PaymentOutcome;
 };
 
-/** What the donor sees after the payment window closes, according to WayForPay's own status. */
+/** What the donor sees after WayForPay's payment page, according to WayForPay's own status. */
 export function SupportThanksPage({ frequency, outcome }: SupportThanksPageProps) {
   const t = useTranslations('supportThanks');
   const key =

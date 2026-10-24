@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { billingDay, formatChargeDate, nextChargeDate } from './schedule';
+import {
+  REGULAR_PAYMENT_YEARS,
+  billingDay,
+  formatChargeDate,
+  lastChargeDate,
+  nextChargeDate,
+} from './schedule';
 
 describe('nextChargeDate', () => {
   it('is the same day of the next month', () => {
@@ -36,6 +42,23 @@ describe('nextChargeDate', () => {
     });
     // In winter Kyiv is UTC+2: 22:30 UTC on January 15th is January 16th there.
     expect(billingDay(new Date('2026-01-15T22:30:00Z'))).toBe(16);
+  });
+});
+
+describe('lastChargeDate', () => {
+  it('is the day of the first charge, ten years later', () => {
+    expect(REGULAR_PAYMENT_YEARS).toBe(10);
+    expect(lastChargeDate({ day: 24, month: 11, year: 2026 })).toEqual({
+      day: 24,
+      month: 11,
+      year: 2036,
+    });
+  });
+
+  it('keeps a February billing day valid in every year', () => {
+    const first = nextChargeDate(new Date('2026-01-31T10:00:00Z'));
+
+    expect(lastChargeDate(first)).toEqual({ day: 28, month: 2, year: 2036 });
   });
 });
 

@@ -30,7 +30,7 @@ export default async function Route({
   // Opened without a payment to report on (a bookmark, a typed address): back to the form.
   if (!reference) return redirect({ href: ROUTES.support, locale });
 
-  // The widget and the redirect only say "the window closed"; WayForPay says what happened.
+  // Coming back from WayForPay only says that the donor left its page; WayForPay says what happened.
   const config = getWayForPayConfig();
   const outcome = config ? await fetchPaymentOutcome(config, reference.orderReference) : 'unknown';
 

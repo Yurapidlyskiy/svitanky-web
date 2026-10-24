@@ -17,9 +17,9 @@ function toResultPage(orderReference: unknown): NextResponse {
 }
 
 /**
- * WayForPay's `returnUrl`: where the donor's browser is sent after paying. The payment
- * window normally reports back by itself, so this is the safety net for flows that leave
- * the page. WayForPay may POST here (its cabinet can switch that off), hence both methods.
+ * WayForPay's `returnUrl`: where the donor's browser is sent when they leave its payment page,
+ * whether they paid, were declined or cancelled. WayForPay POSTs here (its cabinet can switch
+ * that to a plain redirect), hence both methods.
  */
 export async function POST(request: Request): Promise<NextResponse> {
   const form = await request.formData().catch(() => null);

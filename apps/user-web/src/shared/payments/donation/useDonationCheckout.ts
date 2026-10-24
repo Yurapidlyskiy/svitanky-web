@@ -1,27 +1,39 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 
-import { useRouter } from '@/shared/i18n/navigation';
-
-import { SUPPORT_THANKS_PATH } from '../paths';
-import { loadWayForPayWidget, openWayForPayWidget } from '../wayforpay/widget';
+import { redirectToWayForPay } from '../wayforpay/redirect';
 import { startDonation } from './actions';
 import type { DonationError, DonationFieldErrors, DonationFormState } from './types';
 
 type Problem = { error?: DonationError; fieldErrors?: DonationFieldErrors };
 
 /**
- * Drives a donation form: submits it to `startDonation`, opens WayForPay's payment window
- * with the signed result, and sends the donor to the result page once the window reports
- * back. The result page asks WayForPay for the real status, so nothing here is trusted.
+ * Drives a donation form: submits it to `startDonation`, then sends the donor to WayForPay's
+ * payment page with the signed order. WayForPay brings them back to `/support/thanks`, which
+ * asks it for the real status, so nothing the browser reports is trusted.
  */
 export function useDonationCheckout() {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  // From the moment the donor is sent away until they come back.
+  const [isLeaving, setIsLeaving] = useState(false);
   const [problem, setProblem] = useState<Problem>({});
 
+  useEffect(() => {
+    // The Back button can restore this page exactly as it was left, with the form still
+    // locked: unlock it, so the donor can try again.
+    function unlock(event: PageTransitionEvent) {
+      if (event.persisted) setIsLeaving(false);
+    }
+
+    window.addEventListener('pageshow', unlock);
+
+    return () => window.removeEventListener('pageshow', unlock);
+  }, []);
+
   function submit(formData: FormData) {
+    if (isPending || isLeaving) return;
+
     startTransition(async () => {
       setProblem({});
 
@@ -36,29 +48,10 @@ export function useDonationCheckout() {
         return;
       }
 
-      try {
-        await openWayForPayWidget(result.widget, (outcome) => {
-          if (outcome === 'declined') {
-            setProblem({ error: 'paymentDeclined' });
-
-            return;
-          }
-
-          router.push(
-            `${SUPPORT_THANKS_PATH}?order=${encodeURIComponent(result.widget.orderReference)}`
-          );
-        });
-      } catch (error) {
-        console.error('[payments] could not open the WayForPay window', error);
-        setProblem({ error: 'widgetLoadFailed' });
-      }
+      setIsLeaving(true);
+      redirectToWayForPay(result.purchase);
     });
   }
 
-  /** Warm up the widget script when the donor starts typing, so the window opens at once. */
-  function preload() {
-    loadWayForPayWidget().catch(() => undefined);
-  }
-
-  return { ...problem, isPending, preload, submit };
+  return { ...problem, isPending: isPending || isLeaving, submit };
 }

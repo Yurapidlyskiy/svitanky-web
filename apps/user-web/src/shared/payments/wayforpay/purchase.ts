@@ -4,10 +4,10 @@ import { randomBytes } from 'node:crypto';
 
 import type { DonationFrequency } from '../donation/frequency';
 import type { DonationInput } from '../donation/types';
-import { formatChargeDate, nextChargeDate } from '../schedule';
+import { formatChargeDate, lastChargeDate, nextChargeDate } from '../schedule';
 import type { WayForPayConfig } from './config';
 import { signFields } from './sign';
-import type { WidgetParams } from './types';
+import type { PurchaseParams } from './types';
 
 const CURRENCY = 'UAH';
 
@@ -56,21 +56,21 @@ type BuildOptions = {
 };
 
 /**
- * The signed options for WayForPay's payment widget.
+ * The signed order for WayForPay's payment page.
  *
  * The signature seals merchant, domain, order, date, amount, currency and the product
  * lines (names, then counts, then prices) — so the donor cannot change the amount in the
  * browser. The secret key stays here; only the signature leaves.
  * https://wiki.wayforpay.com/en/view/852102
  */
-export function buildWidgetParams(
+export function buildPurchaseParams(
   config: WayForPayConfig,
   donation: DonationInput,
   {
     now = new Date(),
     orderReference = createOrderReference(donation.frequency, now),
   }: BuildOptions = {}
-): WidgetParams {
+): PurchaseParams {
   const orderDate = Math.floor(now.getTime() / 1000);
   const productName = [PRODUCT_NAMES[donation.frequency]];
   const productCount = [1];
@@ -91,7 +91,7 @@ export function buildWidgetParams(
     config.secretKey
   );
 
-  const params: WidgetParams = {
+  const params: PurchaseParams = {
     amount: donation.amount,
     authorizationType: 'SimpleSignature',
     clientEmail: donation.email,
@@ -116,12 +116,18 @@ export function buildWidgetParams(
 
   // The first payment is taken now; WayForPay then repeats it on its own schedule, so we
   // need no scheduler and never store the card. These fields sit outside the signature.
+  // There is deliberately no `regularBehavior: 'preset'`: with it WayForPay's page shows
+  // nothing about the repeat, while without it the donor sees "Регулярне списання", the amount,
+  // "Щомісячно" and the dates, and we can see that WayForPay understood the schedule.
+  const firstCharge = nextChargeDate(now);
+
   return {
     ...params,
-    dateNext: formatChargeDate(nextChargeDate(now)),
+    // Without `dateEnd` the page ends the schedule at the first charge.
+    dateEnd: formatChargeDate(lastChargeDate(firstCharge)),
+    dateNext: formatChargeDate(firstCharge),
     paymentSystems: REGULAR_PAYMENT_SYSTEMS,
     regularAmount: donation.amount,
-    regularBehavior: 'preset',
     regularMode: 'monthly',
     regularOn: 1,
   };

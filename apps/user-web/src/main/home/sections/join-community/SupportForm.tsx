@@ -16,7 +16,7 @@ const amountClassName =
 export function SupportForm() {
   const t = useTranslations('home.joinCommunity');
   const tPayments = useTranslations('payments');
-  const { error, fieldErrors, isPending, preload, submit } = useDonationCheckout();
+  const { error, fieldErrors, isPending, submit } = useDonationCheckout();
   const [selectedAmount, setSelectedAmount] = useState<number | typeof CUSTOM_AMOUNT | null>(null);
   const amountError = fieldErrors?.amount ?? fieldErrors?.frequency;
 
@@ -26,7 +26,6 @@ export function SupportForm() {
       // Before the page hydrates a submit is a plain browser submit: POST keeps the donor's
       // name, phone and email out of the address bar, history and analytics.
       method="post"
-      onFocusCapture={preload}
       onSubmit={(event) => {
         event.preventDefault();
         // The pressed button ("monthly" or "one-time") travels along as `frequency`.

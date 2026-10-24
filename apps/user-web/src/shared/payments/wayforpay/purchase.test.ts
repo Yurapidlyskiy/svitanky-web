@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { DonationInput } from '../donation/types';
 import type { WayForPayConfig } from './config';
-import { buildWidgetParams, createOrderReference, parseOrderReference } from './purchase';
+import { buildPurchaseParams, createOrderReference, parseOrderReference } from './purchase';
 
 const CONFIG: WayForPayConfig = {
   merchantAccount: 'test_merchant',
@@ -30,9 +30,9 @@ function hmac(data: string): string {
   return createHmac('md5', CONFIG.secretKey).update(data, 'utf8').digest('hex');
 }
 
-describe('buildWidgetParams', () => {
+describe('buildPurchaseParams', () => {
   it('signs merchant, domain, order, date, amount, currency, then names, counts and prices', () => {
-    const params = buildWidgetParams(CONFIG, DONATION, { now: NOW, orderReference: ORDER });
+    const params = buildPurchaseParams(CONFIG, DONATION, { now: NOW, orderReference: ORDER });
 
     expect(params.merchantSignature).toBe(
       hmac(
@@ -52,7 +52,7 @@ describe('buildWidgetParams', () => {
   });
 
   it('describes a one-time donation without any regular-payment fields', () => {
-    const params = buildWidgetParams(CONFIG, DONATION, { now: NOW, orderReference: ORDER });
+    const params = buildPurchaseParams(CONFIG, DONATION, { now: NOW, orderReference: ORDER });
 
     expect(params).toMatchObject({
       amount: 350,
@@ -74,6 +74,7 @@ describe('buildWidgetParams', () => {
       serviceUrl: CONFIG.serviceUrl,
     });
     for (const field of [
+      'dateEnd',
       'dateNext',
       'paymentSystems',
       'regularAmount',
@@ -84,27 +85,38 @@ describe('buildWidgetParams', () => {
     }
   });
 
-  it('asks WayForPay to repeat a monthly donation on the same day next month', () => {
-    const params = buildWidgetParams(
+  it('asks WayForPay to repeat a monthly donation on the same day for ten years', () => {
+    const params = buildPurchaseParams(
       CONFIG,
       { ...DONATION, frequency: 'monthly' },
       { now: NOW, orderReference: 'SVT-M-MH3K9Z2A-9F3A1C2D' }
     );
 
     expect(params).toMatchObject({
+      dateEnd: '24.11.2036',
       dateNext: '24.11.2026',
       paymentSystems: 'card;googlePay;applePay',
       productName: ['Щомісячна благодійна підтримка'],
       regularAmount: 350,
-      regularBehavior: 'preset',
       regularMode: 'monthly',
       regularOn: 1,
     });
   });
 
+  it('lets WayForPay show the donor that a monthly donation repeats', () => {
+    const params = buildPurchaseParams(
+      CONFIG,
+      { ...DONATION, frequency: 'monthly' },
+      { now: NOW, orderReference: 'SVT-M-MH3K9Z2A-9F3A1C2D' }
+    );
+
+    // "preset" would hide the regular-payment block from WayForPay's payment page.
+    expect(params).not.toHaveProperty('regularBehavior');
+  });
+
   it('keeps the regular-payment fields out of the signature', () => {
     const monthly = { ...DONATION, frequency: 'monthly' } as const;
-    const params = buildWidgetParams(CONFIG, monthly, {
+    const params = buildPurchaseParams(CONFIG, monthly, {
       now: NOW,
       orderReference: 'SVT-M-MH3K9Z2A-9F3A1C2D',
     });
@@ -127,13 +139,13 @@ describe('buildWidgetParams', () => {
   });
 
   it('never carries the secret key', () => {
-    const params = buildWidgetParams(CONFIG, DONATION, { now: NOW, orderReference: ORDER });
+    const params = buildPurchaseParams(CONFIG, DONATION, { now: NOW, orderReference: ORDER });
 
     expect(JSON.stringify(params)).not.toContain(CONFIG.secretKey);
   });
 
   it('generates its own order reference when none is given', () => {
-    const params = buildWidgetParams(CONFIG, DONATION, { now: NOW });
+    const params = buildPurchaseParams(CONFIG, DONATION, { now: NOW });
 
     expect(parseOrderReference(params.orderReference)).toEqual({
       frequency: 'one-time',

@@ -24,8 +24,8 @@ export default defineConfig({
   },
   webServer: {
     command: `npx next start --port ${PORT}`,
-    // Fake credentials, so the donation flow can sign checkouts. The specs replace WayForPay's
-    // widget script, nothing here reaches the real payment system.
+    // Fake credentials, so the donation flow can sign orders. The specs answer WayForPay's
+    // payment page with a stub, nothing here reaches the real payment system.
     env: E2E_WAYFORPAY,
     reuseExistingServer: !process.env.CI,
     url: `http://localhost:${PORT}`,

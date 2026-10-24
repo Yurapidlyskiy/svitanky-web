@@ -47,7 +47,20 @@ export function nextChargeDate(now: Date): CalendarDate {
   };
 }
 
-/** DD.MM.YYYY, the format WayForPay expects in `dateNext`. */
+/**
+ * How long a monthly donation runs. WayForPay wants an end date for every regular payment and
+ * its payment page defaults it to the first charge, which would stop a donation after one
+ * repeat. Ten years reads as "until the donor cancels", which they can do at any time.
+ */
+export const REGULAR_PAYMENT_YEARS = 10;
+
+/** The last automatic charge of a monthly donation, ten years after the first. */
+export function lastChargeDate(first: CalendarDate): CalendarDate {
+  // The billing day is never past the 28th, so the same day exists in every month of every year.
+  return { ...first, year: first.year + REGULAR_PAYMENT_YEARS };
+}
+
+/** DD.MM.YYYY, the format WayForPay expects in `dateNext` and `dateEnd`. */
 export function formatChargeDate({ day, month, year }: CalendarDate): string {
   return `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}.${year}`;
 }

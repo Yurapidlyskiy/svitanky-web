@@ -19,11 +19,11 @@ type DetailsStepProps = {
   onChange: () => void;
 };
 
-/** Second step of the "Become a Ray" card: who is giving, then WayForPay's payment window. */
+/** Second step of the "Become a Ray" card: who is giving, then WayForPay's payment page. */
 export function DetailsStep({ amount, frequency, onChange }: DetailsStepProps) {
   const t = useTranslations('support.becomeRay');
   const tPayments = useTranslations('payments');
-  const { error, fieldErrors, isPending, preload, submit } = useDonationCheckout();
+  const { error, fieldErrors, isPending, submit } = useDonationCheckout();
   // Computed once, when the donor reaches this step, so the day cannot change under them.
   const [chargeDay] = useState(() => billingDay(new Date()));
   const amountError = fieldErrors?.amount ?? fieldErrors?.frequency;
@@ -34,7 +34,6 @@ export function DetailsStep({ amount, frequency, onChange }: DetailsStepProps) {
       // Before the page hydrates a submit is a plain browser submit: POST keeps the donor's
       // name, phone and email out of the address bar, history and analytics.
       method="post"
-      onFocusCapture={preload}
       onSubmit={(event) => {
         event.preventDefault();
         submit(new FormData(event.currentTarget));

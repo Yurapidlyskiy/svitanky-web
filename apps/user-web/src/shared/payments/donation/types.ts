@@ -1,4 +1,4 @@
-import type { WidgetParams } from '../wayforpay/types';
+import type { PurchaseParams } from '../wayforpay/types';
 import type { DonationFrequency } from './frequency';
 
 /** A donation as validated on the server, ready to become a payment. */
@@ -27,12 +27,11 @@ export type DonationFieldError =
   | 'invalidPhone';
 
 /** Keys under `payments.errors` for a problem with the attempt as a whole. */
-export type DonationError =
-  'paymentDeclined' | 'paymentsUnavailable' | 'serverError' | 'widgetLoadFailed';
+export type DonationError = 'paymentsUnavailable' | 'serverError';
 
 export type DonationFieldErrors = Partial<Record<DonationField, DonationFieldError>>;
 
 /** What the `startDonation` Server Action returns. */
 export type DonationFormState =
   | { error?: DonationError; fieldErrors?: DonationFieldErrors; status: 'error' }
-  | { status: 'ready'; widget: WidgetParams };
+  | { purchase: PurchaseParams; status: 'ready' };

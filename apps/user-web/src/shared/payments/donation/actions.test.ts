@@ -1,13 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { buildWidgetParams } from '../wayforpay/purchase';
+import { buildPurchaseParams } from '../wayforpay/purchase';
 import { startDonation } from './actions';
 
 // The real implementation by default; one test makes it fail.
 vi.mock('../wayforpay/purchase', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../wayforpay/purchase')>();
 
-  return { ...actual, buildWidgetParams: vi.fn(actual.buildWidgetParams) };
+  return { ...actual, buildPurchaseParams: vi.fn(actual.buildPurchaseParams) };
 });
 
 const SECRET = 'unit-test-secret-key';
@@ -63,7 +63,7 @@ describe('startDonation', () => {
       fieldErrors: { amount: 'invalidAmount', email: 'invalidEmail' },
       status: 'error',
     });
-    expect(buildWidgetParams).not.toHaveBeenCalled();
+    expect(buildPurchaseParams).not.toHaveBeenCalled();
   });
 
   it('says payments are unavailable while WayForPay is not configured', async () => {
@@ -83,7 +83,7 @@ describe('startDonation', () => {
     expect(result).toEqual({ fieldErrors: { phone: 'invalidPhone' }, status: 'error' });
   });
 
-  it('returns a signed widget for a valid one-time donation', async () => {
+  it('returns a signed order for a valid one-time donation', async () => {
     configure();
 
     const result = await startDonation(form());
@@ -91,7 +91,7 @@ describe('startDonation', () => {
     expect(result.status).toBe('ready');
     if (result.status !== 'ready') return;
 
-    expect(result.widget).toMatchObject({
+    expect(result.purchase).toMatchObject({
       amount: 350,
       clientEmail: 'anna@example.com',
       clientFirstName: 'Анна',
@@ -101,9 +101,9 @@ describe('startDonation', () => {
       merchantAccount: 'test_merchant',
       merchantDomainName: 'svitanky.example',
     });
-    expect(result.widget.merchantSignature).toMatch(/^[0-9a-f]{32}$/);
-    expect(result.widget.orderReference).toMatch(/^SVT-O-/);
-    expect(result.widget).not.toHaveProperty('regularMode');
+    expect(result.purchase.merchantSignature).toMatch(/^[0-9a-f]{32}$/);
+    expect(result.purchase.orderReference).toMatch(/^SVT-O-/);
+    expect(result.purchase).not.toHaveProperty('regularMode');
   });
 
   it('makes the donation regular when it is monthly', async () => {
@@ -114,8 +114,8 @@ describe('startDonation', () => {
     expect(result.status).toBe('ready');
     if (result.status !== 'ready') return;
 
-    expect(result.widget).toMatchObject({ regularAmount: 350, regularMode: 'monthly' });
-    expect(result.widget.orderReference).toMatch(/^SVT-M-/);
+    expect(result.purchase).toMatchObject({ regularAmount: 350, regularMode: 'monthly' });
+    expect(result.purchase.orderReference).toMatch(/^SVT-M-/);
   });
 
   it('gives each checkout its own order reference', async () => {
@@ -127,7 +127,7 @@ describe('startDonation', () => {
     expect(second.status).toBe('ready');
     if (first.status !== 'ready' || second.status !== 'ready') return;
 
-    expect(first.widget.orderReference).not.toBe(second.widget.orderReference);
+    expect(first.purchase.orderReference).not.toBe(second.purchase.orderReference);
   });
 
   it('never hands the secret key to the browser', async () => {
@@ -153,7 +153,7 @@ describe('startDonation', () => {
 
   it('answers with a server error, not a crash, when the checkout cannot be built', async () => {
     configure();
-    vi.mocked(buildWidgetParams).mockImplementationOnce(() => {
+    vi.mocked(buildPurchaseParams).mockImplementationOnce(() => {
       throw new Error('boom');
     });
 
