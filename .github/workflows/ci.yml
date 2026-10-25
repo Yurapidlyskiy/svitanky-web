@@ -5,6 +5,12 @@ on:
   push:
     branches: [main]
 
+env:
+  # admin-web validates these when it is built. CI only compiles the apps and never talks
+  # to Supabase, so placeholders are enough. The real values live in the hosting environment.
+  NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+
 jobs:
   build:
     runs-on: ubuntu-latest

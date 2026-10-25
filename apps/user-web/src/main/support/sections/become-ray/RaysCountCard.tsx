@@ -44,13 +44,13 @@ export function RaysCountCard() {
           <p className="mt-1">{t('invitation')}</p>
         </div>
 
-        <button
+        <a
           className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-brand-navy px-4 py-4 text-[15px] sm:px-6 sm:text-base lg:px-4 lg:text-[15px] xl:px-6 xl:text-base font-bold text-white shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-brand-navy-muted hover:shadow-md active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy"
-          type="button"
+          href="#become-ray-form"
         >
           <span>{t('cta')}</span>
           <span aria-hidden="true">&rarr;</span>
-        </button>
+        </a>
       </div>
     </div>
   );

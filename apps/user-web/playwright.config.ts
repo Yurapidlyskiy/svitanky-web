@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+import { E2E_WAYFORPAY } from './e2e/wayforpay-test-env';
+
 const PORT = 3100;
 
 /**
@@ -22,6 +24,9 @@ export default defineConfig({
   },
   webServer: {
     command: `npx next start --port ${PORT}`,
+    // Fake credentials, so the donation flow can sign orders. The specs answer WayForPay's
+    // payment page with a stub, nothing here reaches the real payment system.
+    env: E2E_WAYFORPAY,
     reuseExistingServer: !process.env.CI,
     url: `http://localhost:${PORT}`,
   },

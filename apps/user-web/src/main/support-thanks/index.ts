@@ -1,0 +1,1 @@
+export { SupportThanksPage } from './SupportThanksPage';
