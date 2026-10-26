@@ -60,10 +60,11 @@ type DonorFieldsProps = {
   errors?: DonationFieldErrors;
   /** Keeps element ids unique when a page holds more than one donation form. */
   idPrefix: string;
+  onConsentChange: (checked: boolean) => void;
 };
 
 /** The donor's details and the consent checkbox, shared by every donation form. */
-export function DonorFields({ errors = {}, idPrefix }: DonorFieldsProps) {
+export function DonorFields({ errors = {}, idPrefix, onConsentChange }: DonorFieldsProps) {
   const t = useTranslations('payments');
   const describe = (code: DonationFieldError | undefined) =>
     code ? t(`errors.${code}`, DONATION_LIMITS) : undefined;
@@ -113,7 +114,11 @@ export function DonorFields({ errors = {}, idPrefix }: DonorFieldsProps) {
         />
       </div>
 
-      <ConsentField error={describe(errors.consent)} id={`${idPrefix}-consent`} />
+      <ConsentField
+        error={describe(errors.consent)}
+        id={`${idPrefix}-consent`}
+        onCheckedChange={onConsentChange}
+      />
     </>
   );
 }

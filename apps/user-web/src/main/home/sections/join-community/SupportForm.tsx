@@ -19,6 +19,7 @@ export function SupportForm() {
   const tPayments = useTranslations('payments');
   const { error, fieldErrors, isPending, submit, verificationKey } = useDonationCheckout();
   const [selectedAmount, setSelectedAmount] = useState<number | typeof CUSTOM_AMOUNT | null>(null);
+  const [hasConsent, setHasConsent] = useState(false);
   const amountError = fieldErrors?.amount ?? fieldErrors?.frequency;
 
   return (
@@ -113,7 +114,7 @@ export function SupportForm() {
         ) : null}
       </div>
 
-      <DonorFields errors={fieldErrors} idPrefix="support" />
+      <DonorFields errors={fieldErrors} idPrefix="support" onConsentChange={setHasConsent} />
 
       <TurnstileWidget key={verificationKey} />
 
@@ -123,17 +124,18 @@ export function SupportForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <button
-          className="rounded-xl bg-amber-400 px-6 py-4 text-base font-bold text-white transition-[background-color,transform] duration-200 ease-out hover:bg-amber-500 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 disabled:cursor-not-allowed disabled:opacity-60"
-          disabled={isPending}
+          className="rounded-xl bg-amber-400 px-6 py-4 text-base font-bold text-white transition-[background-color,transform] duration-200 ease-out enabled:hover:bg-amber-500 enabled:active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 enabled:cursor-pointer disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none"
+          disabled={isPending || !hasConsent}
           name="frequency"
           type="submit"
           value="monthly"
+          style={{ cursor: 'pointer' }}
         >
           {t('form.monthly')}
         </button>
         <button
-          className="rounded-xl bg-brand-sky px-6 py-4 text-base font-bold text-brand-navy transition-[background-color,transform] duration-200 ease-out hover:bg-[#96BFE8] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy disabled:cursor-not-allowed disabled:opacity-60"
-          disabled={isPending}
+          className="rounded-xl bg-brand-sky px-6 py-4 text-base font-bold text-brand-navy transition-[background-color,transform] duration-200 ease-out enabled:hover:bg-[#96BFE8] enabled:active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy enabled:cursor-pointer disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none"
+          disabled={isPending || !hasConsent}
           name="frequency"
           type="submit"
           value="one-time"

@@ -27,6 +27,7 @@ export function DetailsStep({ amount, frequency, onChange }: DetailsStepProps) {
   const { error, fieldErrors, isPending, submit, verificationKey } = useDonationCheckout();
   // Computed once, when the donor reaches this step, so the day cannot change under them.
   const [chargeDay] = useState(() => billingDay(new Date()));
+  const [hasConsent, setHasConsent] = useState(false);
   const amountError = fieldErrors?.amount ?? fieldErrors?.frequency;
 
   return (
@@ -63,7 +64,7 @@ export function DetailsStep({ amount, frequency, onChange }: DetailsStepProps) {
         ) : null}
       </div>
 
-      <DonorFields errors={fieldErrors} idPrefix="ray" />
+      <DonorFields errors={fieldErrors} idPrefix="ray" onConsentChange={setHasConsent} />
 
       <TurnstileWidget key={verificationKey} />
 
@@ -75,8 +76,8 @@ export function DetailsStep({ amount, frequency, onChange }: DetailsStepProps) {
       </div>
 
       <button
-        className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-brand-amber-strong px-8 py-4 text-base font-bold text-brand-navy shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-brand-amber hover:shadow-md active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-amber-strong disabled:cursor-not-allowed disabled:opacity-60 lg:max-w-lg"
-        disabled={isPending}
+        className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-brand-amber-strong px-8 py-4 text-base font-bold text-brand-navy shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out enabled:hover:bg-brand-amber enabled:hover:shadow-md enabled:active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-amber-strong enabled:cursor-pointer disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none lg:max-w-lg lg:self-center"
+        disabled={isPending || !hasConsent}
         type="submit"
       >
         <span>{isPending ? tPayments('form.submitting') : t('checkout.submit')}</span>

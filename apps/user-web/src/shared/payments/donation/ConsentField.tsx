@@ -26,10 +26,12 @@ function ConsentLink({ children, href }: { children: ReactNode; href: string }) 
 type ConsentFieldProps = {
   error?: string;
   id: string;
+  /** The form keeps its submit button disabled until the box is ticked. */
+  onCheckedChange: (checked: boolean) => void;
 };
 
 /** The required checkbox: the donor accepts the public offer and the data processing consent. */
-export function ConsentField({ error, id }: ConsentFieldProps) {
+export function ConsentField({ error, id, onCheckedChange }: ConsentFieldProps) {
   const t = useTranslations('payments');
   const errorId = `${id}-error`;
 
@@ -43,6 +45,7 @@ export function ConsentField({ error, id }: ConsentFieldProps) {
             className="peer sr-only"
             id={id}
             name="consent"
+            onChange={(event) => onCheckedChange(event.target.checked)}
             required
             type="checkbox"
           />
