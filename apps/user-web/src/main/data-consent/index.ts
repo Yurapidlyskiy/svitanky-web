@@ -1,0 +1,1 @@
+export { DataConsentPage } from './DataConsentPage';

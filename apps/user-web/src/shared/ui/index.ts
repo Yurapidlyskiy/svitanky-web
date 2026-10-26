@@ -1,3 +1,6 @@
+export { FundRequisites } from './FundRequisites';
+export { LegalPage } from './LegalPage';
+export { LegalSection } from './LegalSection';
 export { PageHero } from './PageHero';
 export { Reveal } from './Reveal';
 export { ScrollToTopButton } from './ScrollToTopButton';

@@ -1,3 +1,4 @@
+import { ROUTES } from '@/shared/config/routes';
 import type messages from '@/shared/i18n/messages/uk.json';
 
 type FooterMessages = (typeof messages)['footer'];
@@ -17,10 +18,9 @@ export const footerNavigation: FooterNavLink[] = [
   // section with `id="sponsors"` exists on the home page.
 ];
 
-// TODO: the legal pages do not exist yet, so their links are held back to avoid
-// 404s. Add each one here as its page under `app/[locale]/` is published — the labels
-// are already in `footer.legal`:
-//   { href: '/privacy-policy', labelKey: 'privacyPolicy' },
-//   { href: '/data-consent', labelKey: 'dataConsent' },
-//   { href: '/terms', labelKey: 'terms' },
-export const legalNavigation: LegalLink[] = [];
+export const legalNavigation: LegalLink[] = [
+  { href: ROUTES.terms, labelKey: 'terms' },
+  { href: ROUTES.refundPolicy, labelKey: 'refundPolicy' },
+  { href: ROUTES.privacyPolicy, labelKey: 'privacyPolicy' },
+  { href: ROUTES.dataConsent, labelKey: 'dataConsent' },
+];

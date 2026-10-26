@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { DONATION_LIMITS } from '@/shared/config/support';
 
-import { DONATION_LIMITS, PERSONAL_DATA_LAW_URL } from '@/shared/config/support';
-
+import { ConsentField } from './ConsentField';
 import { errorClassName, inputClassName, labelClassName } from './styles';
 import type { DonationFieldError, DonationFieldErrors } from './types';
 
@@ -67,8 +67,6 @@ export function DonorFields({ errors = {}, idPrefix }: DonorFieldsProps) {
   const t = useTranslations('payments');
   const describe = (code: DonationFieldError | undefined) =>
     code ? t(`errors.${code}`, DONATION_LIMITS) : undefined;
-  const consentError = describe(errors.consent);
-  const consentErrorId = `${idPrefix}-consent-error`;
 
   return (
     <>
@@ -115,50 +113,7 @@ export function DonorFields({ errors = {}, idPrefix }: DonorFieldsProps) {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className="group flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-slate-700">
-          <div className="relative mt-0.5 flex size-5 shrink-0 items-center justify-center">
-            <input
-              aria-describedby={consentError ? consentErrorId : undefined}
-              aria-invalid={consentError ? true : undefined}
-              className="peer sr-only"
-              name="consent"
-              required
-              type="checkbox"
-            />
-            <div className="absolute inset-0 rounded border border-brand-sky-pale bg-white peer-checked:border-amber-400 peer-checked:bg-amber-400 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-navy"></div>
-            <svg
-              className="relative z-10 hidden size-3.5 text-white peer-checked:block"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3.5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <span>
-            {t.rich('form.consent', {
-              law: (chunks) => (
-                <a
-                  className="font-bold text-brand-navy underline decoration-brand-sky underline-offset-2 hover:decoration-brand-navy"
-                  href={PERSONAL_DATA_LAW_URL}
-                  onClick={(e) => e.stopPropagation()}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {chunks}
-                </a>
-              ),
-            })}
-          </span>
-        </label>
-        {consentError ? (
-          <p className={errorClassName} id={consentErrorId}>
-            {consentError}
-          </p>
-        ) : null}
-      </div>
+      <ConsentField error={describe(errors.consent)} id={`${idPrefix}-consent`} />
     </>
   );
 }

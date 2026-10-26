@@ -25,8 +25,9 @@ export default defineConfig({
   webServer: {
     command: `npx next start --port ${PORT}`,
     // Fake credentials, so the donation flow can sign orders. The specs answer WayForPay's
-    // payment page with a stub, nothing here reaches the real payment system.
-    env: E2E_WAYFORPAY,
+    // payment page with a stub, nothing here reaches the real payment system. An empty
+    // Turnstile secret wins over a developer's own .env, so the bot check stays off here.
+    env: { ...E2E_WAYFORPAY, TURNSTILE_SECRET_KEY: '' },
     reuseExistingServer: !process.env.CI,
     url: `http://localhost:${PORT}`,
   },

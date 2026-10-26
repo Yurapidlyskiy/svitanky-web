@@ -88,7 +88,7 @@ Without the keys the widget is not rendered and the check is skipped, so local d
 
 ## Open items
 
-1. **Legal pages and texts.** The public offer, refund policy, contacts and privacy policy are needed for WayForPay's review and need the fund's own texts.
+1. **Legal pages and texts.** `/terms` (public offer), `/refund-policy`, `/privacy-policy` and `/data-consent` exist, are linked in the footer, and the donation consent checkbox links to the offer and the consent. They are drafts: the foundation's name, legal address and revision date (`legal.*` in `uk.json`) and its ЄДРПОУ code (`shared/config/fund.ts`) are "Test" placeholders, and a lawyer or the foundation should review the wording (the 30-day request window and 10-working-day review in the refund policy are defaults) before WayForPay's review.
 2. **Persistence.** `recordNotification` (`wayforpay/notifications.ts`) only logs. When Supabase lands (ADR-5), upsert the donation by `orderReference` there and send a confirmation email on the first `Approved`.
 3. **Bot protection at launch.** Turnstile and the in-memory attempt limit are in place (see "Bot protection"). Before the forms go public: create the Turnstile widget for the production domain and set both keys, and replace the in-memory limit with a shared one.
 4. **Limits and wording.** The 20 to 100 000 UAH limits and the product names shown in WayForPay ("Щомісячна благодійна підтримка", "Благодійний внесок") are defaults to confirm with the fund.

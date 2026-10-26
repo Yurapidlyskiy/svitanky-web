@@ -4,7 +4,17 @@ import { getTranslations } from 'next-intl/server';
 import { localeAlternates } from './alternates';
 import { setRouteLocale } from './routeLocale';
 
-type Page = 'about' | 'activities' | 'home' | 'news' | 'partners' | 'support';
+type Page =
+  | 'about'
+  | 'activities'
+  | 'dataConsent'
+  | 'home'
+  | 'news'
+  | 'partners'
+  | 'privacyPolicy'
+  | 'refundPolicy'
+  | 'support'
+  | 'terms';
 
 /**
  * Builds a route's `generateMetadata` from `<page>.metadata.{title,description}` in
