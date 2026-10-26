@@ -27,7 +27,8 @@ export type DonationFieldError =
   | 'invalidPhone';
 
 /** Keys under `payments.errors` for a problem with the attempt as a whole. */
-export type DonationError = 'paymentsUnavailable' | 'serverError';
+export type DonationError =
+  'paymentsUnavailable' | 'serverError' | 'tooManyAttempts' | 'verificationFailed';
 
 export type DonationFieldErrors = Partial<Record<DonationField, DonationFieldError>>;
 

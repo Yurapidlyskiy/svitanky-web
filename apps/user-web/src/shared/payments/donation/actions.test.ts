@@ -3,6 +3,16 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildPurchaseParams } from '../wayforpay/purchase';
 import { startDonation } from './actions';
 
+// Every call comes from a new address unless a test pins one, so the attempt limit only
+// shows up where a test asks for it.
+let visitor = 0;
+let pinnedIp: string | undefined;
+
+vi.mock('next/headers', () => ({
+  headers: async () =>
+    new Headers({ 'x-forwarded-for': pinnedIp ?? `198.51.100.${(visitor += 1) % 250}` }),
+}));
+
 // The real implementation by default; one test makes it fail.
 vi.mock('../wayforpay/purchase', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../wayforpay/purchase')>();
@@ -48,7 +58,9 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  pinnedIp = undefined;
   vi.unstubAllEnvs();
+  vi.unstubAllGlobals();
   vi.clearAllMocks();
   vi.restoreAllMocks();
 });
@@ -162,5 +174,77 @@ describe('startDonation', () => {
       status: 'error',
     });
     expect(console.error).toHaveBeenCalled();
+  });
+
+  it('refuses an address after ten attempts in a row', async () => {
+    configure();
+    pinnedIp = '203.0.113.99';
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    for (let i = 0; i < 10; i += 1) {
+      await expect(startDonation(form())).resolves.toMatchObject({ status: 'ready' });
+    }
+
+    await expect(startDonation(form())).resolves.toEqual({
+      error: 'tooManyAttempts',
+      status: 'error',
+    });
+  });
+
+  describe('with Turnstile', () => {
+    function siteverify(success: boolean) {
+      const fetchMock = vi.fn(async () => Response.json({ success }));
+
+      vi.stubGlobal('fetch', fetchMock);
+
+      return fetchMock;
+    }
+
+    it('signs the order once Cloudflare confirms the token', async () => {
+      configure();
+      vi.stubEnv('TURNSTILE_SECRET_KEY', 'turnstile-secret');
+      const fetchMock = siteverify(true);
+
+      const result = await startDonation(form({ ...VALID, 'cf-turnstile-response': 'token' }));
+
+      expect(result.status).toBe('ready');
+      expect(fetchMock).toHaveBeenCalledOnce();
+    });
+
+    it('refuses a form without a token and never reaches WayForPay', async () => {
+      configure();
+      vi.stubEnv('TURNSTILE_SECRET_KEY', 'turnstile-secret');
+      const fetchMock = siteverify(true);
+
+      await expect(startDonation(form())).resolves.toEqual({
+        error: 'verificationFailed',
+        status: 'error',
+      });
+      expect(fetchMock).not.toHaveBeenCalled();
+      expect(buildPurchaseParams).not.toHaveBeenCalled();
+    });
+
+    it('refuses a token Cloudflare rejects', async () => {
+      configure();
+      vi.stubEnv('TURNSTILE_SECRET_KEY', 'turnstile-secret');
+      siteverify(false);
+
+      await expect(
+        startDonation(form({ ...VALID, 'cf-turnstile-response': 'reused-token' }))
+      ).resolves.toEqual({ error: 'verificationFailed', status: 'error' });
+      expect(buildPurchaseParams).not.toHaveBeenCalled();
+    });
+
+    it('closes payments in production while the secret key is missing', async () => {
+      configure();
+      vi.stubEnv('TURNSTILE_SECRET_KEY', '');
+      vi.stubEnv('VERCEL_ENV', 'production');
+
+      await expect(startDonation(form())).resolves.toEqual({
+        error: 'paymentsUnavailable',
+        status: 'error',
+      });
+      expect(buildPurchaseParams).not.toHaveBeenCalled();
+    });
   });
 });

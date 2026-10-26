@@ -1,20 +1,32 @@
 'use server';
 
+import { headers } from 'next/headers';
+
+import {
+  readTurnstileSetting,
+  TURNSTILE_RESPONSE_FIELD,
+  verifyTurnstileToken,
+} from '../turnstile/verify';
 import { getWayForPayConfig } from '../wayforpay/config';
 import { buildPurchaseParams } from '../wayforpay/purchase';
+import { clientIp, createRateLimiter } from './rateLimit';
 import { parseDonationForm } from './schema';
 import type { DonationFormState } from './types';
 
+/** A real donor needs one or two tries; a card-testing bot needs hundreds. */
+const allowCheckout = createRateLimiter({ limit: 10, windowMs: 10 * 60 * 1000 });
+
 /**
  * Server Action behind every donation form (home page and /support): validates the donor's
- * details, then signs a WayForPay order. The browser sends the donor to WayForPay's own
- * payment page with it, so the card number is never typed on this site.
+ * details, checks for bots, then signs a WayForPay order. The browser sends the donor to
+ * WayForPay's own payment page with it, so the card number is never typed on this site.
+ *
+ * Bots are held off by Cloudflare Turnstile and a per-address attempt limit: donation
+ * forms are where stolen cards get tested, and every attempt is a transaction in the
+ * WayForPay cabinet.
  *
  * No donor data is stored here: the payment record lives in the WayForPay cabinet and the
  * signed notification lands in `/api/payments/wayforpay/callback`.
- *
- * TODO: add spam protection (CAPTCHA such as Cloudflare Turnstile, plus rate limiting)
- * before the form goes public — card-testing bots love donation pages.
  */
 export async function startDonation(formData: FormData): Promise<DonationFormState> {
   const parsed = parseDonationForm(formData);
@@ -22,8 +34,29 @@ export async function startDonation(formData: FormData): Promise<DonationFormSta
   if (!parsed.success) return { fieldErrors: parsed.fieldErrors, status: 'error' };
 
   const config = getWayForPayConfig();
+  const turnstile = readTurnstileSetting();
 
-  if (!config) return { error: 'paymentsUnavailable', status: 'error' };
+  if (turnstile === 'missing') {
+    console.error('[payments] Turnstile is not configured: set TURNSTILE_SECRET_KEY.');
+  }
+  if (!config || turnstile === 'missing') return { error: 'paymentsUnavailable', status: 'error' };
+
+  const ip = clientIp(await headers());
+
+  if (!allowCheckout(ip ?? 'unknown')) {
+    console.warn('[payments] checkout refused: too many attempts from one address');
+
+    return { error: 'tooManyAttempts', status: 'error' };
+  }
+
+  if (
+    turnstile !== 'off' &&
+    !(await verifyTurnstileToken(formData.get(TURNSTILE_RESPONSE_FIELD), turnstile.secretKey, {
+      remoteIp: ip,
+    }))
+  ) {
+    return { error: 'verificationFailed', status: 'error' };
+  }
 
   try {
     const purchase = buildPurchaseParams(config, parsed.data);

@@ -7,6 +7,7 @@ import { DONATION_LIMITS } from '@/shared/config/support';
 import { DonorFields } from '@/shared/payments/donation/DonorFields';
 import { errorClassName } from '@/shared/payments/donation/styles';
 import { useDonationCheckout } from '@/shared/payments/donation/useDonationCheckout';
+import { TurnstileWidget } from '@/shared/payments/turnstile/TurnstileWidget';
 import { billingDay } from '@/shared/payments/schedule';
 
 import type { RayFrequency } from './types';
@@ -23,7 +24,7 @@ type DetailsStepProps = {
 export function DetailsStep({ amount, frequency, onChange }: DetailsStepProps) {
   const t = useTranslations('support.becomeRay');
   const tPayments = useTranslations('payments');
-  const { error, fieldErrors, isPending, submit } = useDonationCheckout();
+  const { error, fieldErrors, isPending, submit, verificationKey } = useDonationCheckout();
   // Computed once, when the donor reaches this step, so the day cannot change under them.
   const [chargeDay] = useState(() => billingDay(new Date()));
   const amountError = fieldErrors?.amount ?? fieldErrors?.frequency;
@@ -63,6 +64,8 @@ export function DetailsStep({ amount, frequency, onChange }: DetailsStepProps) {
       </div>
 
       <DonorFields errors={fieldErrors} idPrefix="ray" />
+
+      <TurnstileWidget key={verificationKey} />
 
       <div aria-live="polite" className="flex flex-col gap-1">
         {amountError ? (

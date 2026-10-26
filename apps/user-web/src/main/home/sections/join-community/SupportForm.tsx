@@ -7,6 +7,7 @@ import { DONATION_LIMITS, PRESET_AMOUNTS } from '@/shared/config/support';
 import { DonorFields } from '@/shared/payments/donation/DonorFields';
 import { errorClassName, inputClassName, labelClassName } from '@/shared/payments/donation/styles';
 import { useDonationCheckout } from '@/shared/payments/donation/useDonationCheckout';
+import { TurnstileWidget } from '@/shared/payments/turnstile/TurnstileWidget';
 
 const CUSTOM_AMOUNT = 'custom';
 
@@ -16,7 +17,7 @@ const amountClassName =
 export function SupportForm() {
   const t = useTranslations('home.joinCommunity');
   const tPayments = useTranslations('payments');
-  const { error, fieldErrors, isPending, submit } = useDonationCheckout();
+  const { error, fieldErrors, isPending, submit, verificationKey } = useDonationCheckout();
   const [selectedAmount, setSelectedAmount] = useState<number | typeof CUSTOM_AMOUNT | null>(null);
   const amountError = fieldErrors?.amount ?? fieldErrors?.frequency;
 
@@ -113,6 +114,8 @@ export function SupportForm() {
       </div>
 
       <DonorFields errors={fieldErrors} idPrefix="support" />
+
+      <TurnstileWidget key={verificationKey} />
 
       <div aria-live="polite">
         {error ? <p className={errorClassName}>{tPayments(`errors.${error}`)}</p> : null}

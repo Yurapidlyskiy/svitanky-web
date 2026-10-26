@@ -18,12 +18,18 @@ export function useDonationCheckout() {
   // From the moment the donor is sent away until they come back.
   const [isLeaving, setIsLeaving] = useState(false);
   const [problem, setProblem] = useState<Problem>({});
+  // A Turnstile token is single-use: after any attempt the form renders a fresh widget,
+  // keyed by this counter.
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     // The Back button can restore this page exactly as it was left, with the form still
     // locked: unlock it, so the donor can try again.
     function unlock(event: PageTransitionEvent) {
-      if (event.persisted) setIsLeaving(false);
+      if (!event.persisted) return;
+
+      setIsLeaving(false);
+      setAttempt((count) => count + 1);
     }
 
     window.addEventListener('pageshow', unlock);
@@ -44,6 +50,7 @@ export function useDonationCheckout() {
 
       if (result.status === 'error') {
         setProblem({ error: result.error, fieldErrors: result.fieldErrors });
+        setAttempt((count) => count + 1);
 
         return;
       }
@@ -53,5 +60,5 @@ export function useDonationCheckout() {
     });
   }
 
-  return { ...problem, isPending: isPending || isLeaving, submit };
+  return { ...problem, isPending: isPending || isLeaving, submit, verificationKey: attempt };
 }
