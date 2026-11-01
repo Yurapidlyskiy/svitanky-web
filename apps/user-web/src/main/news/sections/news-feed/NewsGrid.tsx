@@ -5,15 +5,16 @@ import type { NewsItem } from './types';
 
 type NewsGridProps = {
   items: NewsItem[];
+  loadFailed: boolean;
 };
 
-export function NewsGrid({ items }: NewsGridProps) {
+export function NewsGrid({ items, loadFailed }: NewsGridProps) {
   const t = useTranslations('news.feed');
 
   if (items.length === 0) {
     return (
       <p className="rounded-3xl bg-white p-10 text-center text-base text-slate-600 shadow-sm">
-        {t('empty')}
+        {t(loadFailed ? 'loadError' : 'empty')}
       </p>
     );
   }

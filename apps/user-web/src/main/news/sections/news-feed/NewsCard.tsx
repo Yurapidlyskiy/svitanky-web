@@ -38,10 +38,11 @@ export function NewsCard({ item, priority = false }: NewsCardProps) {
         <p className="text-sm leading-relaxed text-slate-600">{item.excerpt}</p>
         <Link
           aria-label={t('readLabel', { title: item.title })}
-          className="mt-auto inline-flex w-fit items-center rounded-full bg-amber-400 px-6 py-2.5 text-sm font-bold text-white transition-[background-color,transform] duration-200 ease-out hover:scale-105 hover:bg-amber-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 active:scale-95"
+          className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-amber-400 px-6 py-2.5 text-sm font-bold text-white transition-[background-color,transform] duration-200 ease-out hover:scale-105 hover:bg-amber-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 active:scale-95"
           href={item.href}
         >
           {t('read')}
+          <span aria-hidden="true">→</span>
         </Link>
       </div>
     </article>

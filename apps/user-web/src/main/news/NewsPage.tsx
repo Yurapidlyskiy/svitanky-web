@@ -1,9 +1,9 @@
+import { loadNewsPosts } from './newsPosts';
 import { CampFaqSection } from './sections/camp-faq';
 import { CampProgramSection } from './sections/camp-program';
 import { CampsHighlightSection } from './sections/camps-highlight';
 import { FundingSection } from './sections/funding';
-import { NEWS_ITEMS } from './sections/news-feed/content';
-import { parseNewsFilter, selectNewsPage } from './sections/news-feed/newsQuery';
+import { filterNewsItems, parseNewsFilter } from './sections/news-feed/newsQuery';
 import { NewsFeedSection } from './sections/news-feed';
 import { HeroSection } from './sections/hero';
 import { ProjectsHighlightSection } from './sections/projects-highlight';
@@ -12,9 +12,9 @@ type NewsPageProps = {
   searchParams: Record<string, string | string[] | undefined>;
 };
 
-export function NewsPage({ searchParams }: NewsPageProps) {
+export async function NewsPage({ searchParams }: NewsPageProps) {
   const activeFilter = parseNewsFilter(searchParams.category);
-  const { items, page, totalPages } = selectNewsPage(NEWS_ITEMS, activeFilter, searchParams.page);
+  const posts = await loadNewsPosts();
 
   let highlight = null;
 
@@ -28,7 +28,11 @@ export function NewsPage({ searchParams }: NewsPageProps) {
   } else if (activeFilter === 'projects') {
     highlight = (
       <div className="flex flex-col gap-14 lg:gap-16">
-        <ProjectsHighlightSection status={searchParams.status} />
+        <ProjectsHighlightSection
+          loadFailed={posts.failed}
+          projects={posts.projects}
+          status={searchParams.status}
+        />
         <FundingSection />
       </div>
     );
@@ -41,10 +45,9 @@ export function NewsPage({ searchParams }: NewsPageProps) {
       <NewsFeedSection
         activeFilter={activeFilter}
         highlight={highlight}
-        items={items}
-        page={page}
+        items={filterNewsItems(posts.items, activeFilter)}
+        loadFailed={posts.failed}
         showGrid={activeFilter !== 'projects'}
-        totalPages={totalPages}
       />
 
       {activeFilter === 'camps' ? <CampFaqSection /> : null}

@@ -5,7 +5,6 @@ import { Section } from '@/shared/ui';
 
 import { NewsFilterTabs } from './NewsFilterTabs';
 import { NewsGrid } from './NewsGrid';
-import { NewsPagination } from './NewsPagination';
 import { NEWS_FEED_ID } from './newsQuery';
 import type { NewsFilter, NewsItem } from './types';
 
@@ -14,26 +13,25 @@ type NewsFeedSectionProps = {
   /** Extra content rendered between the tabs and the grid — e.g. the camps highlight UI. */
   highlight?: ReactNode;
   items: NewsItem[];
-  page: number;
-  /** Hide the article grid and pagination — e.g. the projects highlight replaces it entirely. */
+  /** The posts could not be fetched: the grid says so instead of "nothing here yet". */
+  loadFailed: boolean;
+  /** Hide the article grid — e.g. the projects highlight replaces it entirely. */
   showGrid?: boolean;
-  totalPages: number;
 };
 
 export function NewsFeedSection({
   activeFilter,
   highlight,
   items,
-  page,
+  loadFailed,
   showGrid = true,
-  totalPages,
 }: NewsFeedSectionProps) {
   const t = useTranslations('news.feed');
 
   return (
     <Section
       aria-label={t('label')}
-      className="flex flex-col gap-10 pt-10 pb-20 sm:pt-14 lg:pt-20"
+      className="flex flex-col gap-10 pt-10 pb-20 sm:pt-14 lg:pt-20 [&:has([data-news-pending])_[data-news-grid]]:opacity-50"
       id={NEWS_FEED_ID}
       width="wide"
     >
@@ -42,13 +40,15 @@ export function NewsFeedSection({
       {highlight}
 
       {showGrid ? (
-        <>
-          <div className="mx-auto w-full max-w-7xl">
-            <NewsGrid items={items} />
+        // Dims while the next tab loads; the key replays the fade when it arrives.
+        <div className="mx-auto w-full max-w-7xl transition-opacity duration-200" data-news-grid>
+          <div
+            className="animate-in fade-in duration-200 motion-reduce:animate-none"
+            key={activeFilter}
+          >
+            <NewsGrid items={items} loadFailed={loadFailed} />
           </div>
-
-          <NewsPagination activeFilter={activeFilter} page={page} totalPages={totalPages} />
-        </>
+        </div>
       ) : null}
     </Section>
   );

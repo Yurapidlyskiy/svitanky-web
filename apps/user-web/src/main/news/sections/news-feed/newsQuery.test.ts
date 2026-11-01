@@ -1,13 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  buildNewsHref,
-  filterNewsItems,
-  formatNewsDate,
-  NEWS_PAGE_SIZE,
-  parseNewsFilter,
-  selectNewsPage,
-} from './newsQuery';
+import { buildNewsHref, filterNewsItems, formatNewsDate, parseNewsFilter } from './newsQuery';
 import type { NewsCategory, NewsItem } from './types';
 
 function newsItem(id: number, category: NewsCategory, publishedAt: string): NewsItem {
@@ -65,46 +58,12 @@ describe('filterNewsItems', () => {
   });
 });
 
-describe('selectNewsPage', () => {
-  it('returns the first page by default', () => {
-    const result = selectNewsPage(ITEMS, 'all', undefined);
-
-    expect(result.page).toBe(1);
-    expect(result.totalPages).toBe(Math.ceil(ITEMS.length / NEWS_PAGE_SIZE));
-    expect(result.items).toHaveLength(NEWS_PAGE_SIZE);
-  });
-
-  it('returns the remainder on the last page', () => {
-    const result = selectNewsPage(ITEMS, 'all', '3');
-
-    expect(result.page).toBe(3);
-    expect(result.items.map((item) => item.id)).toEqual(['2', '1']);
-  });
-
-  it.each([
-    ['999', 3],
-    ['0', 1],
-    ['-2', 1],
-    ['1.5', 1],
-    ['abc', 1],
-    ['', 1],
-  ])('clamps page=%j to %i', (pageParam, expected) => {
-    expect(selectNewsPage(ITEMS, 'all', pageParam).page).toBe(expected);
-  });
-
-  it('keeps one empty page when nothing matches', () => {
-    expect(selectNewsPage(ITEMS, 'reports', '5')).toEqual({ items: [], page: 1, totalPages: 1 });
-  });
-});
-
 describe('buildNewsHref', () => {
   it.each([
-    ['all', 1, '/news'],
-    ['all', 2, '/news?page=2'],
-    ['camps', 1, '/news?category=camps'],
-    ['camps', 3, '/news?category=camps&page=3'],
-  ] as const)('builds %s page %i as %s', (filter, page, expected) => {
-    expect(buildNewsHref(filter, page)).toBe(expected);
+    ['all', '/news'],
+    ['camps', '/news?category=camps'],
+  ] as const)('builds %s as %s', (filter, expected) => {
+    expect(buildNewsHref(filter)).toBe(expected);
   });
 });
 

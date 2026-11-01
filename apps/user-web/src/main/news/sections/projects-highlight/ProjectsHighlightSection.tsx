@@ -3,24 +3,31 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/shared/i18n/navigation';
 import { SectionHeading } from '@/shared/ui';
 
-import { PROJECTS } from './content';
 import { parseProjectFilter, REPORTS_HREF, selectProjects } from './lib';
 import { ProjectCard } from './ProjectCard';
 import { ProjectStatusFilter } from './ProjectStatusFilter';
+import type { Project } from './types';
 
 type ProjectsHighlightSectionProps = {
   /** The raw `?status=` param — parsed and clamped here. */
   status: string | string[] | undefined;
+  projects: Project[];
+  /** The projects could not be fetched: says so instead of "nothing here yet". */
+  loadFailed: boolean;
 };
 
 /**
  * Rendered inside news-feed's own <Section> shell (as its `highlight` slot) rather than
  * wrapped in its own — a second gutter/padding pass here would double up on the parent's.
  */
-export function ProjectsHighlightSection({ status }: ProjectsHighlightSectionProps) {
+export function ProjectsHighlightSection({
+  status,
+  projects: allProjects,
+  loadFailed,
+}: ProjectsHighlightSectionProps) {
   const t = useTranslations('news.projectsHighlight');
   const activeFilter = parseProjectFilter(status);
-  const projects = selectProjects(PROJECTS, activeFilter);
+  const projects = selectProjects(allProjects, activeFilter);
 
   return (
     <section aria-label={t('label')} className="flex flex-col gap-8">
@@ -62,7 +69,7 @@ export function ProjectsHighlightSection({ status }: ProjectsHighlightSectionPro
         </div>
       ) : (
         <p className="rounded-3xl bg-white p-10 text-center text-slate-600 shadow-sm">
-          {t('empty')}
+          {t(loadFailed ? 'loadError' : 'empty')}
         </p>
       )}
     </section>

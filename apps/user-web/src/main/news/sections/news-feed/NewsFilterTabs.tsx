@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import { Link } from '@/shared/i18n/navigation';
 
+import { NewsLinkPending } from './NewsLinkPending';
 import { buildNewsHref } from './newsQuery';
 import { NEWS_FILTERS, type NewsFilter } from './types';
 
@@ -34,6 +35,7 @@ export function NewsFilterTabs({ activeFilter }: NewsFilterTabsProps) {
                 scroll={false}
               >
                 {t(`filters.${filter}`)}
+                <NewsLinkPending />
               </Link>
             </li>
           );
