@@ -15,7 +15,8 @@ export function NewsFilterTabs({ activeFilter }: NewsFilterTabsProps) {
 
   return (
     <nav aria-label={t('tabsLabel')}>
-      {/* Always one row: on a phone the type and padding shrink with the screen so all tabs fit. */}
+      {/* Always one row: on a phone the type shrinks with the screen and the tabs share the spare
+          width, so the fixed padding stays minimal and a wider system font still fits. */}
       <ul className="mx-auto flex w-full rounded-full bg-white p-1 shadow-sm sm:w-fit sm:gap-2 sm:p-2">
         {NEWS_FILTERS.map((filter) => {
           const isActive = filter === activeFilter;
@@ -24,7 +25,7 @@ export function NewsFilterTabs({ activeFilter }: NewsFilterTabsProps) {
             <li key={filter} className="flex-auto sm:flex-none">
               <Link
                 aria-current={isActive ? 'page' : undefined}
-                className={`flex items-center justify-center rounded-full px-[clamp(0.25rem,1.2vw,0.75rem)] py-2 text-[clamp(0.6875rem,3.4vw,0.875rem)] font-bold whitespace-nowrap transition-colors duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 sm:px-5 sm:py-2.5 sm:text-sm ${
+                className={`flex items-center justify-center rounded-full px-0.5 py-2 text-[clamp(0.6875rem,3.4vw,0.875rem)] font-bold whitespace-nowrap transition-colors duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 sm:px-5 sm:py-2.5 sm:text-sm ${
                   isActive
                     ? 'bg-amber-400 text-white'
                     : 'text-brand-navy hover:bg-amber-50 hover:text-[#003559]'
