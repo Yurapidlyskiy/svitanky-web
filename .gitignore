@@ -50,3 +50,10 @@ CLAUDE.md
 
 # Local-only LiqPay planning notes
 docs/payments/
+
+# Local-only: architecture notes, database schema and Supabase CLI cache
+docs/architecture/
+supabase/
+
+# Local-only: design reference image
+svitanky-4k.png
