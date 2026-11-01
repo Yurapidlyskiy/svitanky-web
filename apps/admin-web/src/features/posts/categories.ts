@@ -21,6 +21,21 @@ export const POST_CATEGORY_LABELS: Record<PostCategory, string> = {
   reports: 'Звіт',
 };
 
+/** Plural labels — a category as a whole: its page and its button. */
+export const POST_CATEGORY_PLURAL_LABELS: Record<PostCategory, string> = {
+  news: 'Новини',
+  announcements: 'Анонси',
+  camps: 'Табори',
+  projects: 'Проєкти',
+  reports: 'Звіти',
+};
+
+/** Search params are untrusted: anything but a known category is no category. */
+export function parseCategoryParam(value: string | string[] | undefined): PostCategory | null {
+  const candidate = Array.isArray(value) ? value[0] : value;
+  return POST_CATEGORIES.find((category) => category === candidate) ?? null;
+}
+
 /** Mirrors the `posts.project_status` check constraint and user-web's ProjectStatus. */
 export const PROJECT_STATUSES = ['active', 'planned', 'completed'] as const;
 

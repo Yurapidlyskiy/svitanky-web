@@ -81,7 +81,7 @@ export async function createPost(
   }
 
   revalidatePath(ROUTES.posts);
-  redirect(ROUTES.posts);
+  redirect(ROUTES.postsInCategory(fields.data.category));
 }
 
 export async function updatePost(
@@ -135,7 +135,7 @@ export async function updatePost(
   if (newImagePath) await removeImage(supabase, current.data.image_path);
 
   revalidatePath(ROUTES.posts);
-  redirect(ROUTES.posts);
+  redirect(ROUTES.postsInCategory(fields.data.category));
 }
 
 export async function deletePost(

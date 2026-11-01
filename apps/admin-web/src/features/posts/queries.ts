@@ -3,13 +3,33 @@ import 'server-only';
 import { requireAdmin } from '@/features/auth/session';
 import { createSupabaseServerClient } from '@/shared/supabase/server';
 
+import { POST_CATEGORIES, type PostCategory } from './categories';
 import { type PageParam, parsePageParam, resolvePage } from './pagination';
 import { fromPostRow, POST_COLUMNS, type PostRow } from './row';
 import { postIdSchema } from './schema';
 import { postImageUrl } from './storage';
 import type { Post, PostsPage } from './types';
 
-export async function listPosts(pageParam: PageParam): Promise<PostsPage> {
+export async function countPostsByCategory(): Promise<Record<PostCategory, number>> {
+  await requireAdmin();
+  const supabase = await createSupabaseServerClient();
+
+  const entries = await Promise.all(
+    POST_CATEGORIES.map(async (category) => {
+      const { count, error } = await supabase
+        .from('posts')
+        .select('id', { count: 'exact', head: true })
+        .eq('category', category);
+
+      if (error) throw new Error(`countPostsByCategory failed: ${error.code ?? 'unknown'}`);
+      return [category, count ?? 0] as const;
+    })
+  );
+
+  return Object.fromEntries(entries) as Record<PostCategory, number>;
+}
+
+export async function listPosts(category: PostCategory, pageParam: PageParam): Promise<PostsPage> {
   await requireAdmin();
   const supabase = await createSupabaseServerClient();
 
@@ -17,7 +37,8 @@ export async function listPosts(pageParam: PageParam): Promise<PostsPage> {
   // the page can be past the end after its last post is deleted.
   const { count, error: countError } = await supabase
     .from('posts')
-    .select('id', { count: 'exact', head: true });
+    .select('id', { count: 'exact', head: true })
+    .eq('category', category);
 
   if (countError) throw new Error(`listPosts count failed: ${countError.code ?? 'unknown'}`);
 
@@ -26,6 +47,7 @@ export async function listPosts(pageParam: PageParam): Promise<PostsPage> {
   const { data, error } = await supabase
     .from('posts')
     .select(POST_COLUMNS)
+    .eq('category', category)
     .order('published_on', { ascending: false })
     .order('created_at', { ascending: false })
     .order('id')

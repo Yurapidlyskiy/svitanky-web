@@ -7,14 +7,15 @@ import type { Post, PostCardData } from '../types';
 type Options = {
   /** The post being edited. Absent when creating. */
   post?: Post;
+  initialCategory: PostCategory;
   initialPublishedOn: string;
 };
 
 /** Live form values, shared by the inputs and the card preview. */
-export function usePostDraft({ post, initialPublishedOn }: Options) {
+export function usePostDraft({ post, initialCategory, initialPublishedOn }: Options) {
   const project = post?.category === PROJECT_CATEGORY ? post.project : null;
 
-  const [category, setCategory] = useState<PostCategory>(post?.category ?? 'news');
+  const [category, setCategory] = useState<PostCategory>(post?.category ?? initialCategory);
   const [title, setTitle] = useState(post?.title ?? '');
   const [excerpt, setExcerpt] = useState(post?.excerpt ?? '');
   const [publishedOn, setPublishedOn] = useState(post?.publishedOn ?? initialPublishedOn);

@@ -10,5 +10,5 @@ export const metadata: Metadata = { title: 'Редагування публік�
 export default async function Route({ params }: PageProps<'/posts/[id]/edit'>) {
   const post = await getPost((await params).id);
   if (!post) notFound();
-  return <PostEditorScreen today={todayInKyiv()} post={post} />;
+  return <PostEditorScreen today={todayInKyiv()} category={post.category} post={post} />;
 }

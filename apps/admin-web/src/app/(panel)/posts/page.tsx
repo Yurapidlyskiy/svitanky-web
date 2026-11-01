@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
 
-import { PostsOverview } from '@/features/posts';
-import { listPosts } from '@/features/posts/queries';
+import { PostCategoryChooser, PostsOverview } from '@/features/posts';
+import { parseCategoryParam } from '@/features/posts/categories';
+import { countPostsByCategory, listPosts } from '@/features/posts/queries';
 
 export const metadata: Metadata = { title: 'Публікації — Дім Світанків' };
 
 export default async function Route({ searchParams }: PageProps<'/posts'>) {
-  const { page } = await searchParams;
+  const { category: categoryParam, page } = await searchParams;
+  const category = parseCategoryParam(categoryParam);
 
-  return <PostsOverview {...await listPosts(page)} />;
+  if (!category) return <PostCategoryChooser counts={await countPostsByCategory()} />;
+  return <PostsOverview category={category} {...await listPosts(category, page)} />;
 }

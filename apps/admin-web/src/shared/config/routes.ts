@@ -2,7 +2,8 @@ export const ROUTES = {
   dashboard: '/',
   login: '/login',
   posts: '/posts',
-  newPost: '/posts/new',
+  postsInCategory: (category: string) => `/posts?category=${category}`,
+  newPost: (category: string) => `/posts/new?category=${category}`,
   editPost: (id: string) => `/posts/${id}/edit`,
 } as const;
 

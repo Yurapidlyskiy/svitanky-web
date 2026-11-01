@@ -1,14 +1,17 @@
 'use client';
 
-import { Button, buttonVariants } from '@project/common-ui';
-import Link from 'next/link';
 import { type FormEvent, startTransition, useActionState } from 'react';
 
 import { ROUTES } from '@/shared/config/routes';
 import { FormField } from '@/shared/ui/FormField';
 
 import { createPost, updatePost } from '../actions';
-import { POST_CATEGORIES, POST_CATEGORY_LABELS, PROJECT_CATEGORY } from '../categories';
+import {
+  POST_CATEGORIES,
+  POST_CATEGORY_LABELS,
+  type PostCategory,
+  PROJECT_CATEGORY,
+} from '../categories';
 import { useFieldErrors } from '../hooks/useFieldErrors';
 import { usePostDraft } from '../hooks/usePostDraft';
 import { TITLE_MAX } from '../schema';
@@ -17,6 +20,7 @@ import { ExcerptField } from './ExcerptField';
 import { ImagePicker } from './ImagePicker';
 import { PillPicker } from './PillPicker';
 import { PostCard } from './PostCard';
+import { PostFormActions } from './PostFormActions';
 import { ProjectFields } from './ProjectFields';
 
 const INITIAL_STATE: PostFormState = {};
@@ -24,21 +28,18 @@ const INITIAL_STATE: PostFormState = {};
 type Props = {
   /** `YYYY-MM-DD`, computed on the server so both renders agree. */
   today: string;
+  /** The category this form was opened from, and where it returns to. */
+  category: PostCategory;
   /** The post being edited. Absent when creating. */
   post?: Post;
 };
 
-function submitLabel(isEditing: boolean, isPending: boolean) {
-  if (isEditing) return isPending ? 'Зберігаємо…' : 'Зберегти зміни';
-  return isPending ? 'Публікуємо…' : 'Опублікувати';
-}
-
-export function PostForm({ today, post }: Props) {
+export function PostForm({ today, category, post }: Props) {
   const [state, formAction, isPending] = useActionState(
     post ? updatePost : createPost,
     INITIAL_STATE
   );
-  const draft = usePostDraft({ post, initialPublishedOn: today });
+  const draft = usePostDraft({ post, initialCategory: category, initialPublishedOn: today });
   const { preview } = draft;
   const { errors, dismiss } = useFieldErrors({ state });
 
@@ -121,22 +122,11 @@ export function PostForm({ today, post }: Props) {
           />
         )}
 
-        <div className="flex flex-col-reverse gap-3 border-t pt-6 sm:flex-row sm:justify-end">
-          <Link
-            href={ROUTES.posts}
-            className={buttonVariants({ variant: 'outline', className: 'h-10 px-4' })}
-          >
-            Скасувати
-          </Link>
-          <Button
-            type="submit"
-            disabled={isPending}
-            aria-busy={isPending}
-            className="h-10 px-5 font-semibold"
-          >
-            {submitLabel(Boolean(post), isPending)}
-          </Button>
-        </div>
+        <PostFormActions
+          cancelHref={ROUTES.postsInCategory(category)}
+          isEditing={Boolean(post)}
+          isPending={isPending}
+        />
       </form>
 
       <aside aria-label="Попередній перегляд" className="grid gap-3 lg:sticky lg:top-8">
