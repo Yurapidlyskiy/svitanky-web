@@ -94,6 +94,26 @@ test('changing tab on a phone leaves the tabs in view', async ({ page, isMobile 
   await expect(tabs).toBeInViewport();
 });
 
+test('the news tabs stay on one row and fit any screen', async ({ page }) => {
+  await page.goto('/news');
+  const tabs = page.getByRole('navigation', { name: 'Категорії новин' });
+
+  for (const width of [320, 360, 390, 640, 768, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    const list = (await tabs.getByRole('list').boundingBox())!;
+    const boxes = await Promise.all(
+      (await tabs.getByRole('link').all()).map(async (link) => (await link.boundingBox())!)
+    );
+
+    expect(list.x).toBeGreaterThanOrEqual(0);
+    expect(list.x + list.width).toBeLessThanOrEqual(width);
+    for (const box of boxes) {
+      expect(box.y).toBe(boxes[0]!.y);
+      expect(box.x + box.width).toBeLessThanOrEqual(list.x + list.width);
+    }
+  }
+});
+
 test('news shows posts from the database, with a badge and a read link', async ({ page }) => {
   await page.goto('/news?category=announcements');
 
