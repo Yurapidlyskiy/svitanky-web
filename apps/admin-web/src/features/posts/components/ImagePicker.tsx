@@ -47,6 +47,7 @@ export function ImagePicker({ previewUrl, onChange, errors }: Props) {
     <FieldShell
       id={ID}
       label="Фото"
+      required
       errors={shownErrors}
       aside={<span className="text-xs text-brand-slate">JPG, PNG або WebP, до 5 МБ</span>}
     >
@@ -55,6 +56,7 @@ export function ImagePicker({ previewUrl, onChange, errors }: Props) {
           ref={inputRef}
           id={ID}
           name="image"
+          required
           type="file"
           accept={IMAGE_ACCEPT}
           className="peer sr-only"

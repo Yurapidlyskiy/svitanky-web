@@ -11,16 +11,25 @@ type Props = Omit<ComponentProps<typeof Input>, 'id' | 'name'> & {
   trailing?: ReactNode;
 };
 
-export function FormField({ name, label, errors, trailing, className, ...inputProps }: Props) {
+export function FormField({
+  name,
+  label,
+  errors,
+  required,
+  trailing,
+  className,
+  ...inputProps
+}: Props) {
   const id = fieldId(name);
   const hasError = Boolean(errors?.length);
 
   return (
-    <FieldShell id={id} label={label} errors={errors}>
+    <FieldShell id={id} label={label} errors={errors} required={required}>
       <div className="relative">
         <Input
           id={id}
           name={name}
+          required={required}
           aria-invalid={hasError || undefined}
           aria-describedby={hasError ? fieldErrorId(id) : undefined}
           className={cn('h-10 bg-white', trailing && 'pr-11', className)}

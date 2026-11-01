@@ -6,7 +6,9 @@ type ImageType =
   | { mime: 'image/png'; extension: 'png' }
   | { mime: 'image/webp'; extension: 'webp' };
 
-type ImageResult = { ok: true; file: File; type: ImageType } | { ok: false; error: string };
+export type ValidImage = { ok: true; file: File; type: ImageType };
+
+type ImageResult = ValidImage | { ok: false; error: string };
 
 const startsWith = (bytes: Uint8Array, signature: number[], offset = 0) =>
   signature.every((byte, index) => bytes[offset + index] === byte);
@@ -28,6 +30,11 @@ export function detectImageType(bytes: Uint8Array): ImageType | null {
     return { mime: 'image/webp', extension: 'webp' };
   }
   return null;
+}
+
+/** An untouched file input submits an empty File: when editing, that keeps the current photo. */
+export function hasImageFile(value: FormDataEntryValue | null): boolean {
+  return value instanceof File && value.size > 0;
 }
 
 /** Server-side check of an uploaded form value. */

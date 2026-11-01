@@ -3,6 +3,7 @@ export const ROUTES = {
   login: '/login',
   posts: '/posts',
   newPost: '/posts/new',
+  editPost: (id: string) => `/posts/${id}/edit`,
 } as const;
 
 /** Routes reachable without an admin session. Everything else is protected. */

@@ -7,27 +7,40 @@ import { type FormEvent, startTransition, useActionState } from 'react';
 import { ROUTES } from '@/shared/config/routes';
 import { FormField } from '@/shared/ui/FormField';
 
-import { createPost } from '../actions';
+import { createPost, updatePost } from '../actions';
+import { POST_CATEGORIES, POST_CATEGORY_LABELS, PROJECT_CATEGORY } from '../categories';
+import { useFieldErrors } from '../hooks/useFieldErrors';
 import { usePostDraft } from '../hooks/usePostDraft';
 import { TITLE_MAX } from '../schema';
-import type { PostFormState } from '../types';
-import { CategoryPicker } from './CategoryPicker';
+import type { Post, PostFormState } from '../types';
 import { ExcerptField } from './ExcerptField';
 import { ImagePicker } from './ImagePicker';
+import { PillPicker } from './PillPicker';
 import { PostCard } from './PostCard';
+import { ProjectFields } from './ProjectFields';
 
 const INITIAL_STATE: PostFormState = {};
 
 type Props = {
   /** `YYYY-MM-DD`, computed on the server so both renders agree. */
   today: string;
+  /** The post being edited. Absent when creating. */
+  post?: Post;
 };
 
-export function PostForm({ today }: Props) {
-  const [state, formAction, isPending] = useActionState(createPost, INITIAL_STATE);
-  const draft = usePostDraft({ initialPublishedOn: today });
+function submitLabel(isEditing: boolean, isPending: boolean) {
+  if (isEditing) return isPending ? 'Зберігаємо…' : 'Зберегти зміни';
+  return isPending ? 'Публікуємо…' : 'Опублікувати';
+}
+
+export function PostForm({ today, post }: Props) {
+  const [state, formAction, isPending] = useActionState(
+    post ? updatePost : createPost,
+    INITIAL_STATE
+  );
+  const draft = usePostDraft({ post, initialPublishedOn: today });
   const { preview } = draft;
-  const errors = state.fieldErrors ?? {};
+  const { errors, dismiss } = useFieldErrors({ state });
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,6 +54,8 @@ export function PostForm({ today }: Props) {
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
       <form
         onSubmit={handleSubmit}
+        // Changes bubble up from every input, and each input is named after its field.
+        onChange={(event) => dismiss((event.target as HTMLInputElement).name)}
         noValidate
         className="grid gap-6 rounded-2xl border bg-white p-6 shadow-sm sm:p-8"
       >
@@ -53,19 +68,30 @@ export function PostForm({ today }: Props) {
           </p>
         )}
 
-        <CategoryPicker
+        {post && <input type="hidden" name="id" value={post.id} />}
+
+        <PillPicker
+          name="category"
+          legend="Тип публікації"
+          options={POST_CATEGORIES}
+          labels={POST_CATEGORY_LABELS}
           value={preview.category}
           onChange={draft.setCategory}
           errors={errors.category}
         />
         <ImagePicker
           previewUrl={preview.imageUrl}
-          onChange={draft.setImage}
+          // A dropped file reaches the input by script, so no change event bubbles.
+          onChange={(file) => {
+            draft.setImage(file);
+            dismiss('image');
+          }}
           errors={errors.image}
         />
         <FormField
           name="title"
           label="Заголовок"
+          required
           value={preview.title}
           onChange={(event) => draft.setTitle(event.target.value)}
           maxLength={TITLE_MAX}
@@ -75,6 +101,7 @@ export function PostForm({ today }: Props) {
         <FormField
           name="publishedOn"
           label="Дата публікації"
+          required
           type="date"
           value={preview.publishedOn}
           onChange={(event) => draft.setPublishedOn(event.target.value)}
@@ -82,6 +109,17 @@ export function PostForm({ today }: Props) {
           errors={errors.publishedOn}
         />
         <ExcerptField value={preview.excerpt} onChange={draft.setExcerpt} errors={errors.excerpt} />
+        {preview.category === PROJECT_CATEGORY && (
+          <ProjectFields
+            status={draft.projectStatus}
+            goal={draft.goal}
+            raised={draft.raised}
+            onStatusChange={draft.setProjectStatus}
+            onGoalChange={draft.setGoal}
+            onRaisedChange={draft.setRaised}
+            errors={errors}
+          />
+        )}
 
         <div className="flex flex-col-reverse gap-3 border-t pt-6 sm:flex-row sm:justify-end">
           <Link
@@ -96,7 +134,7 @@ export function PostForm({ today }: Props) {
             aria-busy={isPending}
             className="h-10 px-5 font-semibold"
           >
-            {isPending ? 'Публікуємо…' : 'Опублікувати'}
+            {submitLabel(Boolean(post), isPending)}
           </Button>
         </div>
       </form>

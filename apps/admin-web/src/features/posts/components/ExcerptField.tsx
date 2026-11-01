@@ -19,6 +19,7 @@ export function ExcerptField({ value, onChange, errors }: Props) {
     <FieldShell
       id={ID}
       label="Опис"
+      required
       errors={errors}
       aside={
         <span className="text-xs text-brand-slate tabular-nums" aria-live="polite">
@@ -29,6 +30,7 @@ export function ExcerptField({ value, onChange, errors }: Props) {
       <Textarea
         id={ID}
         name="excerpt"
+        required
         value={value}
         onChange={(event) => onChange(event.target.value)}
         maxLength={EXCERPT_MAX}

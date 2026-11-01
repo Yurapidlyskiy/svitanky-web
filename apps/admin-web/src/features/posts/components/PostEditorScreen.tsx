@@ -3,13 +3,16 @@ import Link from 'next/link';
 
 import { ROUTES } from '@/shared/config/routes';
 
+import type { Post } from '../types';
 import { PostForm } from './PostForm';
 
 type Props = {
   today: string;
+  /** The post being edited. Absent when creating. */
+  post?: Post;
 };
 
-export function NewPostScreen({ today }: Props) {
+export function PostEditorScreen({ today, post }: Props) {
   return (
     <section className="mx-auto grid max-w-6xl gap-6">
       <div className="grid gap-2">
@@ -20,9 +23,11 @@ export function NewPostScreen({ today }: Props) {
           <ArrowLeft aria-hidden className="size-4" />
           Усі публікації
         </Link>
-        <h1 className="text-2xl font-semibold text-brand-navy">Нова публікація</h1>
+        <h1 className="text-2xl font-semibold text-brand-navy">
+          {post ? 'Редагування публікації' : 'Нова публікація'}
+        </h1>
       </div>
-      <PostForm today={today} />
+      <PostForm today={today} post={post} />
     </section>
   );
 }
